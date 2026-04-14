@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>数据库研究论文追踪报告 - 2026-03-17</title>
+    <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; max-width: 900px; margin: 0 auto; padding: 20px; line-height: 1.6; }
+        h1 { color: #333; border-bottom: 2px solid #4a90d9; padding-bottom: 10px; }
+        h2 { color: #555; margin-top: 30px; }
+        h3 { color: #666; }
+        code { background: #f5f5f5; padding: 2px 6px; border-radius: 3px; }
+        pre { background: #f5f5f5; padding: 15px; border-radius: 5px; overflow-x: auto; }
+        blockquote { border-left: 4px solid #4a90d9; margin: 0; padding-left: 15px; color: #666; }
+        table { border-collapse: collapse; width: 100%; margin: 20px 0; }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+        th { background: #f5f5f5; }
+        a { color: #4a90d9; }
+        .back-link { margin-top: 30px; }
+        .date { color: #888; font-size: 0.9em; }
+        hr { border: none; border-top: 1px solid #eee; margin: 30px 0; }
+    </style>
+</head>
+<body>
+    <article>
+        <p class="date">2026-03-17</p>
+        <h1>数据库研究论文追踪报告 - 2026-03-17</h1>
+        <hr>
+        <h1>数据库研究论文追踪报告 - 2026-03-17</h1>
+
+<h2>摘要</h2>
+<p>发现 <strong>4 篇高度相关论文</strong>，匹配您在数据编码/解码和 GPU 加速方面的研究兴趣。</p>
+
+<hr>
+
+<h2>📊 按分类论文</h2>
+
+<h3>🏷️ 数据编码/解码 + GPU 加速 (结合)</h3>
+
+<h4>1. 压缩数据上的 SQL 分析 GPU 加速</h4>
+<li>**来源**: arXiv (2025) - 可能出现在主要会议</li>
+<li>**作者**: Zezhou Huang, Krystian Sakowski, Hans Lehnert, Wei Cui, Carlo Curino, Matteo Interlandi, Marius Dumitru, Rathijit Sen</li>
+<li>**arXiv**: [2506.10092](https://arxiv.org/abs/2506.10092)</li>
+
+<p><strong>核心贡献</strong>:</p>
+<li>直接在轻量级压缩数据上运行 SQL 查询而无需解压的新方法</li>
+<li>支持行程编码 (RLE)、索引编码、位宽缩减和字典编码</li>
+<li>无需解压的多列 RLE 操作</li>
+<li>异构列编码处理</li>
+<li>基于 PyTorch 张量操作实现跨设备可移植性</li>
+<li>**性能**: 在生产数据集上比最先进的商业 CPU 分析系统快一个数量级</li>
+
+<p><strong>相关度</strong>: ⭐⭐⭐⭐⭐ <strong>完美匹配</strong> - 同时涵盖编码/解码和 GPU 加速</p>
+
+<hr>
+
+<h3>🏷️ GPU 加速</h3>
+
+<h4>2. GPU 时代的分析处理重构 (Sirius)</h4>
+<li>**来源**: arXiv (2025)</li>
+<li>**作者**: Bobbi Yogatama, Yifei Yang, Kevin Kristensen, Devesh Sarda, Abigale Kim, Adrian Cockcroft, Yu Teng, Joshua Patterson, Gregory Kimball, Wes McKinney, Weiwei Gong, Xiangyao Yu</li>
+<li>**arXiv**: [2508.04701](https://arxiv.org/abs/2508.04701)</li>
+
+<p><strong>核心贡献</strong>:</p>
+<li>**Sirius**: 开源 GPU 原生 SQL 查询引擎</li>
+<li>使用 libcudf 将 GPU 作为主计算引擎</li>
+<li>基于 Substrait 与现有数据库无缝集成</li>
+<li>为各种数据系统提供即插即用加速</li>
+<li>**性能**: </li>
+<p>  - 相比 DuckDB 成本效率提升 8.3 倍 (TPC-H)</p>
+<p>  - 相比 DuckDB 成本效率提升 7.4 倍 (ClickBench)</p>
+<p>  - 相比 Apache Doris 查询速度提升 12.5 倍</p>
+
+<p><strong>相关度</strong>: ⭐⭐⭐⭐⭐ 高 - GPU 原生 SQL 引擎，性能提升显著</p>
+
+<hr>
+
+<h3>🏷️ 数据编码/解码</h3>
+
+<h4>3. FastLanes 文件格式</h4>
+<li>**会议**: VLDB 2025</li>
+<li>**作者**: Azim Afroozeh, Peter Boncz (CWI Amsterdam)</li>
+<li>**链接**: [PDF](https://www.vldb.org/pvldb/vol18/p4629-afroozeh.pdf) | [GitHub](https://github.com/cwida/FastLanes)</li>
+
+<p><strong>核心贡献</strong>:</p>
+<li>面向 SIMD/GPU 数据并行执行的新型开源大数据文件格式</li>
+<li>比 Parquet 压缩率高约 40%</li>
+<li>灵活的表达式编码机制</li>
+<li>级联编码提升压缩比</li>
+<li>支持多列压缩 (MCC)</li>
+<li>**目标**: 解码吞吐量超过 100 亿整数/秒</li>
+
+<p><strong>相关度</strong>: ⭐⭐⭐⭐⭐ 高 - 直接针对编码/解码与 GPU 支持</p>
+
+<hr>
+
+<h4>4. 压缩对 GPU 加速查询的有效性</h4>
+<li>**来源**: ACM/DaMoN 2025</li>
+<li>**作者**: (GPU 加速数据库研究论文)</li>
+<li>**链接**: [PDF](https://www.nicholson.ai/assets/pdf/damon25_Nicholson.pdf)</li>
+
+<p><strong>核心贡献</strong>:</p>
+<li>分析压缩对超出 GPU 内存数据集查询执行的影响</li>
+<li>NVMe SSD 阵列与流水线数据移动集成</li>
+<li>解决 GPU 加速系统中的数据移动瓶颈</li>
+<li>**重点**: 核外 GPU 查询处理的压缩有效性</li>
+
+<p><strong>相关度</strong>: ⭐⭐⭐⭐ 高 - 压缩 + GPU 查询处理</p>
+
+<hr>
+
+<h2>📈 其他背景</h2>
+
+<h3>先前追踪的论文 (仍然相关)</h3>
+
+<table>
+<tr><td>论文</td><td>会议</td><td>重点</td></tr>
+<tr><td>Vortex</td><td>VLDB 2025</td><td>GPU 内存容量限制</td></tr>
+<tr><td>在 GPU 上高效处理连接和分组聚合</td><td>SIGMOD 2025</td><td>GPU 连接和聚合优化</td></tr>
+<tr><td>突破 GPU 内存限制的 GPU 加速数据库</td><td>VLDB 2025</td><td>核外 GPU 处理</td></tr>
+</table>
+
+<hr>
+
+<h2>🔍 搜索详情</h2>
+<li>**搜索日期**: 2026-03-17</li>
+<li>**来源**: VLDB 2025, SIGMOD 2025, arXiv cs.DB, DaMoN 2025</li>
+<li>**关键词**: 数据编码、解码、GPU 加速、压缩、SQL 分析、列式格式</li>
+<li>**新发现论文**: 4 篇高度相关</li>
+
+<hr>
+
+<h2>💡 观察到的关键趋势</h2>
+
+<p>1. <strong>直接查询压缩数据</strong>: 主要趋势是无需解压直接查询压缩数据 (压缩数据上的 SQL 分析 GPU 加速)</p>
+
+<p>2. <strong>GPU 原生引擎</strong>: 从以 CPU 为中心转向 GPU 原生设计 (Sirius, Vortex)</p>
+
+<p>3. <strong>编码格式创新</strong>: FastLanes 等针对现代硬件优化的新格式 (SIMD/GPU)</p>
+
+<p>4. <strong>内存容量解决方案</strong>: 持续专注于处理超出 GPU 内存的数据集</p>
+
+<p>5. <strong>跨设备可移植性</strong>: 基于 PyTorch 的实现提供灵活性</p>
+
+<hr>
+
+<h2>🎯 重点推荐</h2>
+
+<h3>必读 (完美匹配您的兴趣)</h3>
+<p>1. <strong>压缩数据上的 SQL 分析 GPU 加速</strong> - 完美结合您的两个兴趣点</p>
+
+<h3>强烈推荐</h3>
+<p>2. <strong>FastLanes 文件格式</strong> - 具有 GPU 支持的尖端编码格式</p>
+<p>3. <strong>GPU 时代的分析处理重构 (Sirius)</strong> - GPU 原生 SQL 引擎，结果令人印象深刻</p>
+
+<hr>
+
+<h2>📚 资源</h2>
+
+<li>[FastLanes GitHub](https://github.com/cwida/FastLanes)</li>
+<li>[arXiv 2506.10092](https://arxiv.org/abs/2506.10092)</li>
+<li>[arXiv 2508.04701](https://arxiv.org/abs/2508.04701)</li>
+<li>[VLDB 2025 论文集](https://www.vldb.org/2025/)</li>
+<li>[SIGMOD 2025 论文](https://2025.sigmod.org/sigmod_papers.shtml)</li>
+
+<hr>
+
+<p><em>报告由数据库研究论文追踪器生成</em></p>
+<p><em>下次更新: 每日 09:00</em></p>
+
+        <div class="back-link">
+            <a href="index.html">← 返回首页</a>
+        </div>
+    </article>
+</body>
+</html>

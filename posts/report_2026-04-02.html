@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VLDB/SIGMOD 论文追踪报告 - 2026年4月2日</title>
+    <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; max-width: 900px; margin: 0 auto; padding: 20px; line-height: 1.6; }
+        h1 { color: #333; border-bottom: 2px solid #4a90d9; padding-bottom: 10px; }
+        h2 { color: #555; margin-top: 30px; }
+        h3 { color: #666; }
+        code { background: #f5f5f5; padding: 2px 6px; border-radius: 3px; }
+        pre { background: #f5f5f5; padding: 15px; border-radius: 5px; overflow-x: auto; }
+        blockquote { border-left: 4px solid #4a90d9; margin: 0; padding-left: 15px; color: #666; }
+        table { border-collapse: collapse; width: 100%; margin: 20px 0; }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+        th { background: #f5f5f5; }
+        a { color: #4a90d9; }
+        .back-link { margin-top: 30px; }
+        .date { color: #888; font-size: 0.9em; }
+        hr { border: none; border-top: 1px solid #eee; margin: 30px 0; }
+    </style>
+</head>
+<body>
+    <article>
+        <p class="date">2026-04-02</p>
+        <h1>VLDB/SIGMOD 论文追踪报告 - 2026年4月2日</h1>
+        <hr>
+        <h1>VLDB/SIGMOD 论文追踪报告 - 2026年4月2日</h1>
+
+<h2>摘要统计</h2>
+
+<li>**报告日期**: 2026-04-02</li>
+<li>**追踪主题**: 数据编码/解码 + GPU 加速</li>
+<li>**今日新发现**: 0 篇新论文</li>
+<li>**知识库状态**: 已追踪 11 篇论文（稳定）</li>
+<li>**备注**: 平静期持续；目标领域无新发布</li>
+
+<hr>
+
+<h2>知识库中的代表性论文</h2>
+
+<h3>数据编码/解码领域</h3>
+
+<h4>1. FastLanes File Format (VLDB 2025)</h4>
+<li>**作者**: Azim Afroozeh, Peter Boncz (CWI Amsterdam)</li>
+<li>**核心贡献**: 面向 SIMD/GPU 原生设计的开源大数据文件格式</li>
+<li>**性能指标**: </li>
+<p>  - 比 Parquet 压缩率高 40%</p>
+<p>  - 解码速度 >100 亿整数/秒</p>
+<li>**链接**: https://www.vldb.org/pvldb/vol18/p4629-afroozeh.pdf</li>
+
+<h4>2. ZipFlow (arXiv 2026)</h4>
+<li>**作者**: Gwangoo Yeo, Zhiyang Shen, Wei Cui 等 (Microsoft)</li>
+<li>**核心贡献**: 编译器驱动的压缩数据移动优化框架</li>
+<li>**性能指标**:</li>
+<p>  - 比 nvCOMP 快 2.08 倍</p>
+<p>  - 比 DuckDB 快 3.14 倍</p>
+<li>**链接**: https://arxiv.org/abs/2602.08190</li>
+
+<h3>GPU 加速领域</h3>
+
+<h4>3. GPU Acceleration of SQL Analytics on Compressed Data (VLDB 2026)</h4>
+<li>**作者**: Jigao Huang, Sebastian Baunsgaard, Maximilian Bandle 等</li>
+<li>**核心贡献**: 在压缩数据上直接运行 SQL 查询，无需解压</li>
+<li>**性能指标**: 数量级性能提升</li>
+<li>**链接**: https://arxiv.org/abs/2506.10092</li>
+
+<h4>4. Vortex (VLDB 2025)</h4>
+<li>**作者**: Yichao Yuan, Advait Iyer, Lin Ma, Nishil Talati</li>
+<li>**核心贡献**: 超 GPU 内存数据分析框架</li>
+<li>**性能指标**:</li>
+<p>  - 比 Proteus 快 5.7 倍</p>
+<p>  - 比 DuckDB 价格性能提升 2.5 倍</p>
+<li>**链接**: https://arxiv.org/abs/2502.09541</li>
+
+<h4>5. Sirius (arXiv 2025)</h4>
+<li>**作者**: Bobbi Yogatama, Yifei Yang, Kevin Kristensen 等 (UW-Madison)</li>
+<li>**核心贡献**: GPU 原生 SQL 引擎，DuckDB 后端加速</li>
+<li>**性能指标**:</li>
+<p>  - TPC-H 成本效益提升 8.3 倍</p>
+<p>  - ClickBench 成本效益提升 7.4 倍</p>
+<li>**链接**: https://arxiv.org/abs/2508.04701</li>
+
+<hr>
+
+<h2>今日搜索概况</h2>
+
+<h3>搜索渠道</h3>
+<p>1. ✅ VLDB 官方网站 (vldb.org/2026)</p>
+<p>2. ✅ SIGMOD 官方网站 (sigmod.org/2026)</p>
+<p>3. ✅ arXiv cs.DB 预印本</p>
+<p>4. ✅ Web 搜索引擎</p>
+
+<h3>搜索关键词</h3>
+<li>"data encoding" "data decoding"</li>
+<li>"GPU acceleration" "GPU database"</li>
+<li>"GPU query processing"</li>
+<li>"columnar format" "compression"</li>
+<li>"FastLanes" "ZipFlow" "Vortex" "Sirius"</li>
+
+<h3>搜索结果</h3>
+<li>未发现 2026-04-02 当日发布的新论文</li>
+<li>知识库中 11 篇论文保持稳定</li>
+<li>相关领域进入平静期</li>
+
+<hr>
+
+<h2>趋势观察</h2>
+
+<h3>近期研究热点</h3>
+<p>1. <strong>压缩数据直接查询</strong>: GPU 上直接处理压缩数据，避免解压开销</p>
+<p>2. <strong>编译器优化</strong>: ZipFlow 等框架利用编译器技术优化数据传输</p>
+<p>3. <strong>超内存分析</strong>: Vortex 解决 GPU 内存容量限制问题</p>
+<p>4. <strong>即插即用加速</strong>: Sirius 通过 Substrait 标准与现有数据库集成</p>
+
+<h3>技术发展方向</h3>
+<li>从"GPU 加速"向"GPU 原生"转变</li>
+<li>压缩与计算的深度融合</li>
+<li>异构内存层次结构的优化利用</li>
+
+<hr>
+
+<h2>知识库位置</h2>
+
+<li>**知识库**: `/Users/adam/WorkBuddy/Claw/db_research_knowledge/`</li>
+<li>**历史报告**: `/Users/adam/WorkBuddy/Claw/db_research_reports/`</li>
+<li>**已追踪论文**: 11 篇</li>
+
+<hr>
+
+<p><em>报告由自动化任务生成 - 每日 09:00 执行</em></p>
+
+        <div class="back-link">
+            <a href="index.html">← 返回首页</a>
+        </div>
+    </article>
+</body>
+</html>

@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>数据库研究论文追踪报告 - 2026-03-31</title>
+    <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; max-width: 900px; margin: 0 auto; padding: 20px; line-height: 1.6; }
+        h1 { color: #333; border-bottom: 2px solid #4a90d9; padding-bottom: 10px; }
+        h2 { color: #555; margin-top: 30px; }
+        h3 { color: #666; }
+        code { background: #f5f5f5; padding: 2px 6px; border-radius: 3px; }
+        pre { background: #f5f5f5; padding: 15px; border-radius: 5px; overflow-x: auto; }
+        blockquote { border-left: 4px solid #4a90d9; margin: 0; padding-left: 15px; color: #666; }
+        table { border-collapse: collapse; width: 100%; margin: 20px 0; }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+        th { background: #f5f5f5; }
+        a { color: #4a90d9; }
+        .back-link { margin-top: 30px; }
+        .date { color: #888; font-size: 0.9em; }
+        hr { border: none; border-top: 1px solid #eee; margin: 30px 0; }
+    </style>
+</head>
+<body>
+    <article>
+        <p class="date">2026-03-31</p>
+        <h1>数据库研究论文追踪报告 - 2026-03-31</h1>
+        <hr>
+        <h1>数据库研究论文追踪报告 - 2026-03-31</h1>
+
+<h2>摘要</h2>
+
+<p><strong>今日未发现新论文</strong>。</p>
+
+<hr>
+
+<h2>搜索统计</h2>
+
+<table>
+<tr><td>指标</td><td>数值</td></tr>
+<tr><td><strong>搜索日期</strong></td><td>2026-03-31</td></tr>
+<tr><td><strong>追踪论文总数</strong></td><td>11</td></tr>
+<tr><td><strong>最后发现新论文</strong></td><td>2026-03-23</td></tr>
+<tr><td><strong>知识库状态</strong></td><td>✅ 最新</td></tr>
+</table>
+
+<hr>
+
+<h2>搜索来源</h2>
+
+<li>**VLDB 官网**: vldb.org</li>
+<li>**SIGMOD 官网**: sigmod.org</li>
+<li>**arXiv**: cs.DB 板块</li>
+<li>**关键词**: data encoding, data decoding, GPU acceleration, GPU database, compression, file format</li>
+
+<hr>
+
+<h2>新发现论文</h2>
+
+<p><strong>无</strong></p>
+
+<hr>
+
+<h2>已追踪论文回顾 (11篇)</h2>
+
+<h3>编码/解码领域 (7篇)</h3>
+
+<p>1. <strong>FastLanes File Format</strong> (VLDB 2025)</p>
+<p>   - 面向 SIMD/GPU 的列式文件格式</p>
+<p>   - 比 Parquet 压缩率高 40%</p>
+<p>   - 解码速度 >100亿整数/秒</p>
+
+<p>2. <strong>G-ALP</strong> (DaMoN 2025)</p>
+<p>   - GPU 轻量级编码重构</p>
+<p>   - 针对 GPU 查询处理优化</p>
+
+<p>3. <strong>GPU-Based Floating-point Adaptive Lossless Compression</strong> (arXiv 2025)</p>
+<p>   - 自适应浮点数据压缩框架</p>
+<p>   - GPU 原生实现</p>
+
+<p>4. <strong>GPU Acceleration of SQL Analytics on Compressed Data</strong> (VLDB 2026) ⭐ 双重匹配</p>
+<p>   - 压缩数据直接查询</p>
+<p>   - 支持 RLE、字典编码、位宽压缩</p>
+<p>   - 数量级性能提升</p>
+
+<p>5. <strong>ZipFlow</strong> (arXiv 2026)</p>
+<p>   - 编译器驱动的压缩数据移动</p>
+<p>   - 比 DuckDB 快 3.14x</p>
+
+<p>6. <strong>Do GPUs Really Need New Tabular File Formats?</strong> (arXiv 2026)</p>
+<p>   - Parquet GPU 配置优化</p>
+<p>   - 达到 125 GB/s 读取带宽</p>
+
+<p>7. <strong>GPU-Accelerated Ultra-Lite Encoded Database</strong> (期刊 2015)</p>
+<p>   - 行列混合存储架构</p>
+<p>   - 轻量级编码方案</p>
+
+<h3>GPU 加速领域 (8篇)</h3>
+
+<p>1. <strong>Vortex</strong> (VLDB 2025)</p>
+<p>   - 突破 GPU 内存限制的加速框架</p>
+<p>   - 比 Proteus 快 5.7x</p>
+
+<p>2. <strong>Sirius</strong> (arXiv 2025)</p>
+<p>   - GPU 原生 SQL 引擎</p>
+<p>   - DuckDB 的 GPU 后端</p>
+<p>   - TPC-H 8.3x 加速</p>
+
+<p>3. <strong>GPU Joins & Aggregations</strong> (SIGMOD 2025)</p>
+<p>   - GPU 查询处理优化</p>
+<p>   - Join 和聚合算子加速</p>
+
+<p>4. <strong>Scaling GPU Databases</strong> (VLDB 2025)</p>
+<p>   - 超内存 GPU 数据处理</p>
+<p>   - 多 GPU 扩展</p>
+
+<p>5. <strong>GPU Acceleration of SQL Analytics on Compressed Data</strong> (VLDB 2026)</p>
+<p>   - 压缩数据查询加速</p>
+<p>   - 端到端 GPU 执行</p>
+
+<hr>
+
+<h2>研究趋势洞察</h2>
+
+<h3>关键技术方向</h3>
+
+<table>
+<tr><td>方向</td><td>代表论文</td><td>核心突破</td></tr>
+<tr><td><strong>新格式设计</strong></td><td>FastLanes (VLDB 2025)</td><td>SIMD/GPU 原生支持</td></tr>
+<tr><td><strong>现有格式优化</strong></td><td>Do GPUs Really Need New Tabular File Formats?</td><td>Parquet 配置优化 (125 GB/s)</td></tr>
+<tr><td><strong>压缩数据查询</strong></td><td>GPU Acceleration of SQL Analytics on Compressed Data (VLDB 2026)</td><td>无需解压直接查询</td></tr>
+<tr><td><strong>编译器优化</strong></td><td>ZipFlow (arXiv 2026)</td><td>压缩数据移动优化</td></tr>
+</table>
+
+<h3>交叉领域热点</h3>
+
+<li>**编码 + GPU 加速**: 6 篇论文同时涉及两个领域</li>
+<li>**Parquet 优化**: 现有格式通过配置调优达到接近新格式的性能</li>
+<li>**端到端 GPU 执行**: 从存储到计算全程 GPU 加速，避免 CPU-GPU 数据搬运</li>
+
+<hr>
+
+<h2>备注</h2>
+
+<li>该领域研究发布活动目前较为平静</li>
+<li>知识库保持 11 篇论文的稳定状态</li>
+<li>已连续 8 天无新论文发布</li>
+<li>将继续每日 09:00 监控</li>
+
+<hr>
+
+<p><em>报告生成时间: 2026-03-31 09:00</em></p>
+<p><em>下次更新: 2026-04-01 09:00</em></p>
+
+        <div class="back-link">
+            <a href="index.html">← 返回首页</a>
+        </div>
+    </article>
+</body>
+</html>

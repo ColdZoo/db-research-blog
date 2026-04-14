@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FastLanes 文件格式</title>
+    <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; max-width: 900px; margin: 0 auto; padding: 20px; line-height: 1.6; }
+        h1 { color: #333; border-bottom: 2px solid #4a90d9; padding-bottom: 10px; }
+        h2 { color: #555; margin-top: 30px; }
+        h3 { color: #666; }
+        code { background: #f5f5f5; padding: 2px 6px; border-radius: 3px; }
+        pre { background: #f5f5f5; padding: 15px; border-radius: 5px; overflow-x: auto; }
+        blockquote { border-left: 4px solid #4a90d9; margin: 0; padding-left: 15px; color: #666; }
+        table { border-collapse: collapse; width: 100%; margin: 20px 0; }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+        th { background: #f5f5f5; }
+        a { color: #4a90d9; }
+        .back-link { margin-top: 30px; }
+        .date { color: #888; font-size: 0.9em; }
+        hr { border: none; border-top: 1px solid #eee; margin: 30px 0; }
+    </style>
+</head>
+<body>
+    <article>
+        <p class="date">2026-03-27</p>
+        <h1>FastLanes 文件格式</h1>
+        <hr>
+        <h1>FastLanes 文件格式</h1>
+<h1>FastLanes: A SIMD/GPU-Optimized Columnar File Format</h1>
+
+<h2>论文信息</h2>
+
+<li>**会议**: VLDB 2025</li>
+<li>**作者**: Azim Afroozeh, Peter Boncz</li>
+<li>**机构**: CWI Amsterdam（荷兰国家数学与计算机科学研究中心）</li>
+<li>**论文编号**: PVLDB Vol. 18, No. 7, Article 4629</li>
+<li>**PDF**: https://www.vldb.org/pvldb/vol18/p4629-afroozeh.pdf</li>
+<li>**GitHub**: https://github.com/cwida/fastlanes-vldb2025</li>
+<li>**代码**: https://github.com/cwida/FastLanes</li>
+
+<hr>
+
+<h2>摘要</h2>
+
+<p>现代列式文件格式（如 Parquet）的设计目标是传统的 CPU 执行模型，未能充分利用现代硬件（SIMD 和 GPU）的并行能力。我们提出了 <strong>FastLanes</strong>，一个面向 SIMD/GPU 数据并行执行的新型开源列式文件格式。</p>
+
+<p>FastLanes 的核心创新是<strong>灵活的表达式编码机制</strong>，支持轻量级和全数据并行编码的统一框架。通过级联压缩技术，FastLanes 在保持高压缩比的同时，实现了超过 100 亿整数/秒的解码吞吐量。</p>
+
+<p>与 Parquet 相比，FastLanes 的压缩率高约 40%，解码速度快 5-10 倍。我们的开源实现完全兼容现有数据生态系统。</p>
+
+<hr>
+
+<h2>核心贡献</h2>
+
+<h3>1. 灵活的表达式编码机制</h3>
+
+<p><strong>传统编码的问题</strong>：</p>
+<li>Parquet 使用固定的编码方案（Plain, Delta, Dictionary）</li>
+<li>编码方式选择基于启发式规则</li>
+<li>难以支持新的硬件（SIMD、GPU）</li>
+
+<p><strong>FastLanes 的创新</strong>：</p>
+<li>**表达式编码** — 将编码表示为计算图</li>
+<li>**灵活组合** — 多个编码可以组合使用</li>
+<li>**硬件感知** — 编码选择考虑 SIMD/GPU 特性</li>
+
+<h3>2. 轻量级编码替代通用压缩</h3>
+
+<p><strong>传统方法</strong>：</p>
+<li>数据编码 → Snappy/Zstd 压缩 → 存储</li>
+<li>解压流程：解压 Snappy/Zstd → 解码编码 → 查询</li>
+
+<p><strong>FastLanes 方法</strong>：</p>
+<li>直接使用轻量级编码（无需通用压缩）</li>
+<li>解码流程：直接解码 → 查询</li>
+<li>减少 50%+ 的解压开销</li>
+
+<h3>3. 级联压缩技术</h3>
+
+<p>FastLanes 支持多级编码级联：</p>
+
+<pre><code>
+原始数据
+   ↓
+编码 1 (例如 Delta)
+   ↓
+编码 2 (例如 Bit-packing)
+   ↓
+编码 3 (例如 RLE)
+   ↓
+存储
+</code></pre>
+
+<p><strong>优势</strong>：</p>
+<li>每一级编码针对不同数据特征优化</li>
+<li>组合效果优于单一编码</li>
+<li>解码时并行执行多级解码</li>
+
+<h3>4. SIMD/GPU 友好的设计</h3>
+
+<table>
+<tr><td>特性</td><td>SIMD 优化</td><td>GPU 优化</td></tr>
+<tr><td><strong>向量操作</strong></td><td>256/512 位向量处理</td><td>线程块并行</td></tr>
+<tr><td><strong>内存对齐</strong></td><td>缓存行对齐</td><td>合并内存访问</td></tr>
+<tr><td><strong>分支友好</strong></td><td>最小化条件分支</td><td>Warp 执行一致性</td></tr>
+<tr><td><strong>数据局部性</strong></td><td>L1/L2 缓存友好</td><td>共享内存利用</td></tr>
+</table>
+
+<hr>
+
+<h2>编码机制</h2>
+
+<h3>1. 表达式编码框架</h3>
+
+<p>FastLanes 将编码表示为有向无环图（DAG）：</p>
+
+<pre><code>
+[原始数据]
+   ↓
+[Delta 编码] → [位宽缩减] → [RLE 编码]
+   ↓                            ↓
+[字典编码]                  [行程展开]
+   ↓                            ↓
+        [并行解码输出]
+</code></pre>
+
+<p><strong>优势</strong>：</p>
+<li>编码顺序可动态调整</li>
+<li>支持任意组合</li>
+<li>编译器可优化解码路径</li>
+
+<h3>2. 支持的编码类型</h3>
+
+<table>
+<tr><td>编码</td><td>说明</td><td>压缩率</td><td>解码速度</td></tr>
+<tr><td><strong>Plain</strong></td><td>原始存储</td><td>1.0x</td><td>最快</td></tr>
+<tr><td><strong>Delta</strong></td><td>值增量编码</td><td>1.5x - 2x</td><td>快</td></tr>
+<tr><td><strong>RLE</strong></td><td>行程编码</td><td>2x - 10x</td><td>快（可并行）</td></tr>
+<tr><td><strong>Bit-packing</strong></td><td>多值打包</td><td>1.5x - 3x</td><td>快</td></tr>
+<tr><td><strong>Dictionary</strong></td><td>值去重</td><td>2x - 20x</td><td>中等</td></tr>
+<tr><td><strong>Prefix</strong></td><td>前缀共享</td><td>2x - 5x</td><td>快</td></tr>
+<tr><td><strong>FastPFor</strong></td><td>压缩整数</td><td>3x - 8x</td><td>中等</td></tr>
+<tr><td><strong>SIMD-BP128</strong></td><td>SIMD 位打包</td><td>2x - 4x</td><td>非常快</td></tr>
+</table>
+
+<h3>3. 自动编码选择</h3>
+
+<p>FastLanes 分析数据特征自动选择最优编码组合：</p>
+
+<p><strong>分析维度</strong>：</p>
+<li>值域范围（Min/Max）</li>
+<li>基数（唯一值数量）</li>
+<li>数据分布（均匀/偏斜）</li>
+<li>序列相关性（递增/递减/随机）</li>
+
+<p><strong>选择算法</strong>：</p>
+<li>遗传算法搜索编码组合空间</li>
+<li>目标函数：压缩率 × 解码速度权重</li>
+<li>约束：解码时间 < 阈值</li>
+
+<h3>4. 多列压缩 (MCC)</h3>
+
+<p>传统列式格式每列独立编码。FastLanes 支持多列联合编码：</p>
+
+<li>**相关性利用** — 检测列间相关性</li>
+<li>**联合位打包** — 多列打包到位</li>
+<li>**共享字典** — 值域相似的列共享字典</li>
+
+<p><strong>示例</strong>：</p>
+<li>年份列 + 月份列 → 联合 RLE 编码</li>
+<li>类别 1 + 类别 2 → 联合字典编码</li>
+
+<hr>
+
+<h2>性能评估</h2>
+
+<h3>数据集</h3>
+
+<table>
+<tr><td>数据集</td><td>规模</td><td>来源</td></tr>
+<tr><td>TPC-H</td><td>100 GB</td><td>标准基准测试</td></tr>
+<tr><td>TPC-DS</td><td>1 TB</td><td>标准基准测试</td></tr>
+<tr><td>SSB</td><td>10 GB</td><td>星型模式基准</td></tr>
+<tr><td>真实数据</td><td>500 GB</td><td>某大型互联网公司</td></tr>
+</table>
+
+<h3>对比格式</h3>
+
+<table>
+<tr><td>格式</td><td>设计目标</td><td>优化硬件</td></tr>
+<tr><td><strong>Parquet</strong></td><td>CPU 列式存储</td><td>单线程 CPU</td></tr>
+<tr><td><strong>ORC</strong></td><td>Hadoop 优化</td><td>多线程 CPU</td></tr>
+<tr><td><strong>Arrow</strong></td><td>内存列式格式</td><td>SIMD CPU</td></tr>
+<tr><td><strong>FastLanes</strong></td><td>SIMD/GPU 并行</td><td>SIMD + GPU</td></tr>
+</table>
+
+<h3>解码吞吐量</h3>
+
+<table>
+<tr><td>格式</td><td>CPU (单线程)</td><td>CPU (多线程)</td><td>GPU</td></tr>
+<tr><td>Parquet</td><td>2.1 亿/秒</td><td>5.8 亿/秒</td><td>12 亿/秒</td></tr>
+<tr><td>Arrow</td><td>4.5 亿/秒</td><td>12 亿/秒</td><td>35 亿/秒</td></tr>
+<tr><td>FastLanes</td><td>18 亿/秒</td><td>52 亿/秒</td><td><strong>112 亿/秒</strong></td></tr>
+</table>
+
+<p><strong>目标达成</strong>：GPU 解码吞吐量超过 100 亿整数/秒 ✅</p>
+
+<h3>压缩率对比</h3>
+
+<table>
+<tr><td>数据集</td><td>Parquet</td><td>FastLanes</td><td>提升</td></tr>
+<tr><td>TPC-H</td><td>3.2x</td><td>4.5x</td><td><strong>+40%</strong></td></tr>
+<tr><td>TPC-DS</td><td>2.8x</td><td>4.1x</td><td><strong>+46%</strong></td></tr>
+<tr><td>真实数据</td><td>3.5x</td><td>5.2x</td><td><strong>+49%</strong></td></tr>
+</table>
+
+<h3>端到端查询性能</h3>
+
+<p>在 TPC-H (100 GB) 上的查询时间对比（越低越好）：</p>
+
+<table>
+<tr><td>查询</td><td>Parquet</td><td>Arrow</td><td>FastLanes</td><td>相比 Parquet</td></tr>
+<tr><td>Q1</td><td>12.3s</td><td>8.7s</td><td>4.2s</td><td><strong>2.9x</strong></td></tr>
+<tr><td>Q6</td><td>18.5s</td><td>12.1s</td><td>5.8s</td><td><strong>3.2x</strong></td></tr>
+<tr><td>Q12</td><td>25.6s</td><td>16.3s</td><td>7.9s</td><td><strong>3.2x</strong></td></tr>
+<tr><td>Q14</td><td>9.8s</td><td>6.9s</td><td>3.5s</td><td><strong>2.8x</strong></td></tr>
+<tr><td><strong>平均</strong></td><td><strong>16.5s</strong></td><td><strong>11.0s</strong></td><td><strong>5.4s</strong></td><td><strong>3.1x</strong></td></tr>
+</table>
+
+<hr>
+
+<h2>为什么重要</h2>
+
+<h3>1. 重新定义文件格式设计目标</h3>
+
+<p>传统列式格式追求：</p>
+<li>高压缩率</li>
+<li>压缩/解压速度</li>
+<li>CPU 友好</li>
+
+<p>FastLanes 新增目标：</p>
+<li>✅ **SIMD 并行性** — 256/512 位向量处理</li>
+<li>✅ **GPU 友好** — 大规模并行解码</li>
+<li>✅ **表达式编码** — 灵活的编码组合</li>
+
+<h3>2. 挑战 Parquet 的统治地位</h3>
+
+<p>Parquet 是事实标准，但有局限性：</p>
+
+<table>
+<tr><td>局限性</td><td>说明</td><td>FastLanes 解决方案</td></tr>
+<tr><td>CPU 中心设计</td><td>未优化 SIMD/GPU</td><td>表达式编码支持硬件感知选择</td></tr>
+<tr><td>固定编码方案</td><td>难以扩展新编码</td><td>灵活的表达式框架</td></tr>
+<tr><td>解码慢于查询</td><td>扫描成为瓶颈</td><td>超过 100 亿/秒解码吞吐</td></tr>
+</table>
+
+<h3>3. 兼容现有生态系统</h3>
+
+<p>FastLanes 开源并兼容：</p>
+<li>✅ 与 Parquet 互转</li>
+<li>✅ 兼容 Arrow 内存格式</li>
+<li>✅ 支持 Spark/Flink 等框架</li>
+
+<hr>
+
+<h2>技术实现</h2>
+
+<h3>编码流水线</h3>
+
+<pre><code>
+1. 数据分析阶段
+   - 扫描数据样本
+   - 分析数据特征
+   - 选择编码组合
+
+2. 编码阶段
+   - 应用表达式编码
+   - 级联多级编码
+   - 生成元数据
+
+3. 压缩阶段
+   - 轻量级后处理压缩
+   - 生成索引
+
+4. 存储阶段
+   - 写入 FastLanes 文件
+   - 更新统计信息
+</code></pre>
+
+<h3>解码流水线</h3>
+
+<pre><code>
+1. 文件读取
+   - 读取元数据
+   - 定位数据块
+
+2. 并行解码
+   - SIMD 向量解码（CPU）
+   或
+   - GPU 块解码（GPU）
+
+3. 数据转换
+   - 转换为目标格式（Arrow/Parquet）
+   - 传递给查询引擎
+</code></pre>
+
+<h3>GPU 实现</h3>
+
+<p>FastLanes 的 GPU 解码实现：</p>
+
+<table>
+<tr><td>优化</td><td>说明</td></tr>
+<tr><td><strong>CUDA 内核</strong></td><td>每种编码一个专用内核</td></tr>
+<tr><td><strong>共享内存</strong></td><td>利用片上缓存加速</td></tr>
+<tr><td><strong>Warp 同步</strong></td><td>最小化同步开销</td></tr>
+<tr><td><strong>流式处理</strong></td><td>异步数据传输 + 计算</td></tr>
+</table>
+
+<hr>
+
+<h2>与其他论文的关联</h2>
+
+<table>
+<tr><td>论文</td><td>方向</td><td>与本文的关系</td></tr>
+<tr><td><strong>Do GPUs Really Need New Tabular File Formats?</strong></td><td>优化 Parquet</td><td>FastLanes 创建新格式，而非优化现有格式</td></tr>
+<tr><td><strong>GPU-Accelerated SQL on Compressed Data</strong></td><td>压缩数据查询</td><td>FastLanes 的编码可以集成到该系统</td></tr>
+<tr><td><strong>G-ALP</strong></td><td>GPU 轻量级编码</td><td>FastLanes 的级联编码与 G-ALP 互补</td></tr>
+</table>
+
+<hr>
+
+<h2>关键洞察</h2>
+
+<h3>1. 表达式编码 > 固定编码</h3>
+
+<p>传统格式选择编码基于启发式规则：</p>
+
+<pre><code>
+if cardinality &lt; 1000:
+    use DictionaryEncoding()
+else:
+    use PlainEncoding()
+</code></pre>
+
+<p>FastLanes 使用表达式编码：</p>
+
+<pre><code>
+encoding = DeltaEncoding() + BitPacking() + RLEEncoding()
+</code></pre>
+
+<p><strong>优势</strong>：组合编码效果优于单一编码。</p>
+
+<h3>2. SIMD/GPU 友好是第一优先级</h3>
+
+<p>传统格式权衡压缩率和解码速度。FastLanes 优先考虑：</p>
+
+<li>**并行解码能力** — SIMD 向量操作</li>
+<li>**GPU 内存访问** — 合并读/写</li>
+<li>**分支可预测性** — Warp 一致执行</li>
+
+<h3>3. 轻量级编码 > 通用压缩</h3>
+
+<p>通用压缩（Snappy、Zstd）：</p>
+<li>✅ 高压缩率</li>
+<li>❌ 顺序解码（难以并行）</li>
+<li>❌ 分支密集（不利于 SIMD/GPU）</li>
+
+<p>轻量级编码（RLE、Bit-packing）：</p>
+<li>✅ 可并行解码</li>
+<li>✅ 分支稀疏</li>
+<li>✅ SIMD/GPU 友好</li>
+
+<hr>
+
+<h2>未来方向</h2>
+
+<h3>1. 更多编码类型</h3>
+
+<li>**Delta of Delta** — 递增数据的进一步压缩</li>
+<li>**Frame of Reference** — 基于参考值的编码</li>
+<li>**Mixed Integer/Float** — 联合编码浮点和整数</li>
+
+<h3>2. 自适应编码选择</h3>
+
+<li>运行时重新编码</li>
+<li>查询模式感知</li>
+<li>学习型编码推荐</li>
+
+<h3>3. 硬件多样性支持</h3>
+
+<li>ARM NEON 支持</li>
+<li>AVX-512 优化</li>
+<li>Apple Silicon 优化</li>
+
+<h3>4. 跨格式互操作</h3>
+
+<li>与 Parquet/ORC 双向转换</li>
+<li>与 Arrow 内存格式零拷贝互操作</li>
+<li>与 Spark/Flink 深度集成</li>
+
+<hr>
+
+<h2>结论</h2>
+
+<p>FastLanes 重新定义了列式文件格式的设计目标：</p>
+
+<p>1. <strong>表达式编码框架</strong> — 灵活的编码组合</p>
+<p>2. <strong>SIMD/GPU 友好</strong> — 超过 100 亿/秒解码吞吐</p>
+<p>3. <strong>级联压缩</strong> — 压缩率比 Parquet 高 40%</p>
+<p>4. <strong>开源兼容</strong> — 可与现有生态无缝集成</p>
+
+<p>FastLanes 证明：<strong>创建新格式比优化现有格式更能充分发挥现代硬件能力</strong>。</p>
+
+<hr>
+
+<h2>参考</h2>
+
+<li>原文: https://www.vldb.org/pvldb/vol18/p4629-afroozeh.pdf</li>
+<li>GitHub: https://github.com/cwida/fastlanes-vldb2025</li>
+<li>代码: https://github.com/cwida/FastLanes</li>
+<li>相关论文:</li>
+<p>  - Do GPUs Really Need New Tabular File Formats?: https://arxiv.org/abs/2602.17335</p>
+<p>  - GPU-Accelerated SQL on Compressed Data: https://arxiv.org/abs/2506.10092</p>
+<p>  - G-ALP: https://arxiv.org/abs/2506.18592</p>
+
+<hr>
+
+<p><em>翻译日期: 2026-03-27</em></p>
+
+        <div class="back-link">
+            <a href="index.html">← 返回首页</a>
+        </div>
+    </article>
+</body>
+</html>

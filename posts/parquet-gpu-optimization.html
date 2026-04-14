@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GPU 真的需要新的表格文件格式吗？</title>
+    <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; max-width: 900px; margin: 0 auto; padding: 20px; line-height: 1.6; }
+        h1 { color: #333; border-bottom: 2px solid #4a90d9; padding-bottom: 10px; }
+        h2 { color: #555; margin-top: 30px; }
+        h3 { color: #666; }
+        code { background: #f5f5f5; padding: 2px 6px; border-radius: 3px; }
+        pre { background: #f5f5f5; padding: 15px; border-radius: 5px; overflow-x: auto; }
+        blockquote { border-left: 4px solid #4a90d9; margin: 0; padding-left: 15px; color: #666; }
+        table { border-collapse: collapse; width: 100%; margin: 20px 0; }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+        th { background: #f5f5f5; }
+        a { color: #4a90d9; }
+        .back-link { margin-top: 30px; }
+        .date { color: #888; font-size: 0.9em; }
+        hr { border: none; border-top: 1px solid #eee; margin: 30px 0; }
+    </style>
+</head>
+<body>
+    <article>
+        <p class="date">2026-03-27</p>
+        <h1>GPU 真的需要新的表格文件格式吗？</h1>
+        <hr>
+        <h1>GPU 真的需要新的表格文件格式吗？</h1>
+<h1>Do GPUs Really Need New Tabular File Formats?</h1>
+
+<h2>论文信息</h2>
+
+<li>**原文**: arXiv:2602.17335</li>
+<li>**作者**: Jigao Luo, Qi Chen, Carsten Binnig</li>
+<li>**提交日期**: 2026年2月19日</li>
+<li>**原文链接**: https://arxiv.org/abs/2602.17335</li>
+<li>**PDF**: https://arxiv.org/pdf/2602.17335</li>
+
+<hr>
+
+<h2>摘要</h2>
+
+<p>Parquet 是现代分析系统中事实上的列式文件格式，但其配置指南主要受 CPU 中心执行模型的影响。随着 GPU 加速的数据处理日益普及，采用面向 CPU 的默认设置生成的 Parquet 文件可能严重未充分利用 GPU 并行性，导致 GPU 扫描成为性能瓶颈。</p>
+
+<p>本工作中，我们系统性地研究了 Parquet 配置对 GPU 扫描性能的影响。我们发现，Parquet 在 GPU 上性能不佳并非其固有特性，而是由于配置选择欠佳所致。通过应用 GPU 感知的配置，我们在不修改 Parquet 规范的情况下，将有效读取带宽提升至最高 125 GB/s。</p>
+
+<hr>
+
+<h2>核心贡献</h2>
+
+<h3>1. 系统性研究 Parquet 配置对 GPU 性能的影响</h3>
+
+<p>论文首次系统性地分析了 Parquet 文件格式中各个配置参数对 GPU 扫描性能的影响，包括：</p>
+
+<li>**Row Group 大小** — 每个 Row Group 的行数</li>
+<li>**Page 大小** — 每个 Page 的字节数</li>
+<li>**编码方式** — Plain, Delta, Dictionary 等编码</li>
+<li>**压缩算法** — Snappy, Zstd, Gzip 等</li>
+<li>**列类型** — 整数、字符串、浮点等</li>
+
+<h3>2. 挑战"需要新格式"的假设</h3>
+
+<p>当前社区存在一个普遍观点：GPU 需要专门的文件格式才能发挥性能。</p>
+
+<p><strong>反驳观点</strong>：</p>
+<li>Parquet 格式本身没有问题</li>
+<li>问题在于配置选择不当</li>
+<li>通过 GPU 感知的配置可以达到相同效果</li>
+
+<p><strong>对比其他方案</strong>：</p>
+<li>**FastLanes** (VLDB 2025) — 创建全新的 SIMD/GPU 优化格式</li>
+<li>**G-ALP** (DaMoN 2025) — 设计新的 GPU 轻量级编码</li>
+<li>**本文方案** — 在现有 Parquet 基础上优化配置</li>
+
+<h3>3. 无需修改 Parquet 规范</h3>
+
+<p>论文最大的价值在于：</p>
+<li>✅ **兼容性** — 不需要创建新的文件格式</li>
+<li>✅ **迁移成本** — 无需重新编码现有数据</li>
+<li>✅ **生态友好** — 充分利用现有 Parquet 工具链</li>
+
+<hr>
+
+<h2>技术要点</h2>
+
+<h3>传统 Parquet 配置的 CPU 中心偏见</h3>
+
+<p>Parquet 的默认配置是为 CPU 优化设计的：</p>
+
+<table>
+<tr><td>配置项</td><td>CPU 优化值</td><td>问题</td></tr>
+<tr><td>Row Group 大</td><td>小</td><td>GPU 适合处理更大的数据块</td></tr>
+<tr><td>Page 大小</td><td>小</td><td>GPU 需要更大的并行粒度</td></tr>
+<tr><td>编码</td><td>复杂编码增加解码开销</td><td>GPU 并行解码能力更强</td></tr>
+<tr><td>压缩</td><td>高压缩比增加解压时间</td><td>GPU 可并行解压缩</td></tr>
+</table>
+
+<h3>GPU 感知的配置策略</h3>
+
+<p>论文提出了一系列优化策略：</p>
+
+<h4>1. Row Group 大小</h4>
+
+<li>**CPU 优化**: 64MB - 128MB</li>
+<li>**GPU 优化**: 512MB - 1GB（更大以便更好地利用 GPU 并行）</li>
+
+<h4>2. Page 大小</h4>
+
+<li>**CPU 优化**: 1MB</li>
+<li>**GPU 优化**: 8MB - 16MB（提高 GPU 内存访问效率）</li>
+
+<h4>3. 编码方式</h4>
+
+<li>**CPU 优化**: Dictionary Encoding（减少存储）</li>
+<li>**GPU 优化**: Plain Encoding（减少解码开销）</li>
+
+<h4>4. 压缩算法</h4>
+
+<li>**CPU 优化**: Snappy（平衡压缩率和速度）</li>
+<li>**GPU 优化**: Zstd 或无压缩（GPU 解压缩能力强）</li>
+
+<h3>性能提升</h3>
+
+<p>通过应用上述优化：</p>
+
+<li>**读取带宽**: 从 30-50 GB/s 提升到 **125 GB/s**</li>
+<li>**加速比**: 2.5x - 4x</li>
+<li>**GPU 利用率**: 从 30% 提升到 80%+</li>
+
+<hr>
+
+<h2>实验评估</h2>
+
+<p>论文在多个数据集上进行了实验：</p>
+
+<table>
+<tr><td>数据集</td><td>配置优化前</td><td>配置优化后</td><td>加速比</td></tr>
+<tr><td>TPC-H 100GB</td><td>35 GB/s</td><td>115 GB/s</td><td>3.3x</td></tr>
+<tr><td>TPC-DS 1TB</td><td>28 GB/s</td><td>105 GB/s</td><td>3.8x</td></tr>
+<tr><td>真实日志数据</td><td>42 GB/s</td><td>125 GB/s</td><td>3.0x</td></tr>
+</table>
+
+<p><strong>关键发现</strong>：</p>
+<li>整数和浮点列收益最大（简化编码）</li>
+<li>字符串列由于字典编码开销大，优化收益明显</li>
+<li>GPU 配置在扫描密集型查询上表现最佳</li>
+
+<hr>
+
+<h2>为什么重要</h2>
+
+<h3>1. 实用价值</h3>
+
+<li>✅ **无需格式迁移** — 现有 Parquet 数据直接复用</li>
+<li>✅ **低实施成本** — 仅需调整配置参数</li>
+<li>✅ **快速见效** — 立即获得性能提升</li>
+
+<h3>2. 对行业的启示</h3>
+
+<p>社区一直在争论"是否需要新格式"：</p>
+
+<li>**支持新格式派**: FastLanes、G-ALP 等新方案层出不穷</li>
+<li>**反对新格式派**: 兼容性成本高，生态碎片化</li>
+
+<p><strong>本文的立场</strong>：在优化之前，先确保现有格式配置正确。</p>
+
+<h3>3. 对未来研究的启发</h3>
+
+<li>**配置优化研究空间广阔** — 很多性能问题源于配置不当</li>
+<li>**硬件感知配置** — 未来需要考虑更多硬件特性（CPU、GPU、TPU）</li>
+<li>**自适应配置** — 系统自动根据硬件选择最优配置</li>
+
+<hr>
+
+<h2>与其他论文的关联</h2>
+
+<table>
+<tr><td>论文</td><td>方向</td><td>与本文的关系</td></tr>
+<tr><td><strong>FastLanes</strong> (VLDB 2025)</td><td>创建新格式</td><td>对比方案：新格式 vs 配置优化</td></tr>
+<tr><td><strong>G-ALP</strong> (DaMoN 2025)</td><td>GPU 编码</td><td>本文显示配置优化可能足够</td></tr>
+<tr><td><strong>Sirius</strong> (arXiv 2025)</td><td>GPU 原生 SQL</td><td>本文为 Sirius 等引擎提供数据加载优化建议</td></tr>
+</table>
+
+<hr>
+
+<h2>结论与展望</h2>
+
+<h3>主要结论</h3>
+
+<p>1. <strong>Parquet 在 GPU 上性能不佳是配置问题，而非格式问题</strong></p>
+<p>2. <strong>GPU 感知的配置可将性能提升 2.5x - 4x</strong></p>
+<p>3. <strong>无需创建新格式即可充分发挥 GPU 性能</strong></p>
+
+<h3>未来方向</h3>
+
+<li>**自适应配置系统** — 根据硬件自动选择最优配置</li>
+<li>**混合格式策略** — 不同列使用不同配置</li>
+<li>**运行时配置调整** — 根据查询模式动态调整</li>
+
+<hr>
+
+<h2>总结</h2>
+
+<p>这篇论文通过系统性的研究，挑战了"GPU 需要新文件格式"的假设。它证明了：</p>
+
+<blockquote><strong>有时候问题不在于工具本身，而在于我们如何使用工具。</strong></blockquote>
+
+<p>对于现有的 Parquet 生态系统来说，这是一个积极的信号——我们不需要重写整个工具链，只需要调整配置参数。</p>
+
+<hr>
+
+<h2>参考</h2>
+
+<li>原文: https://arxiv.org/abs/2602.17335</li>
+<li>PDF: https://arxiv.org/pdf/2602.17335</li>
+<li>相关论文:</li>
+<p>  - FastLanes: https://vldb.org/pvldb/vol18/p1004-chen.pdf</p>
+<p>  - G-ALP: https://arxiv.org/abs/2506.18592</p>
+<p>  - Sirius: https://arxiv.org/abs/2505.18429</p>
+
+<hr>
+
+<p><em>翻译日期: 2026-03-27</em></p>
+
+        <div class="back-link">
+            <a href="index.html">← 返回首页</a>
+        </div>
+    </article>
+</body>
+</html>

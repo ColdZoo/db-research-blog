@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>数据库研究论文追踪报告 - 2026-03-16</title>
+    <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; max-width: 900px; margin: 0 auto; padding: 20px; line-height: 1.6; }
+        h1 { color: #333; border-bottom: 2px solid #4a90d9; padding-bottom: 10px; }
+        h2 { color: #555; margin-top: 30px; }
+        h3 { color: #666; }
+        code { background: #f5f5f5; padding: 2px 6px; border-radius: 3px; }
+        pre { background: #f5f5f5; padding: 15px; border-radius: 5px; overflow-x: auto; }
+        blockquote { border-left: 4px solid #4a90d9; margin: 0; padding-left: 15px; color: #666; }
+        table { border-collapse: collapse; width: 100%; margin: 20px 0; }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+        th { background: #f5f5f5; }
+        a { color: #4a90d9; }
+        .back-link { margin-top: 30px; }
+        .date { color: #888; font-size: 0.9em; }
+        hr { border: none; border-top: 1px solid #eee; margin: 30px 0; }
+    </style>
+</head>
+<body>
+    <article>
+        <p class="date">2026-03-16</p>
+        <h1>数据库研究论文追踪报告 - 2026-03-16</h1>
+        <hr>
+        <h1>数据库研究论文追踪报告 - 2026-03-16</h1>
+
+<h2>摘要</h2>
+<p>发现 <strong>3 篇高度相关论文</strong>，匹配您在数据编码/解码和 GPU 加速方面的研究兴趣。</p>
+
+<hr>
+
+<h2>📊 按分类论文</h2>
+
+<h3>🏷️ 数据编码/解码</h3>
+
+<h4>1. FastLanes 文件格式</h4>
+<li>**会议**: VLDB 2025</li>
+<li>**作者**: Azim Afroozeh, Peter Boncz (CWI Amsterdam)</li>
+<li>**链接**: [PDF](https://www.vldb.org/pvldb/vol18/p4629-afroozeh.pdf) | [GitHub](https://github.com/cwida/fastlanes-vldb2025)</li>
+
+<p><strong>核心贡献</strong>:</p>
+<li>面向 SIMD/GPU 数据并行执行的新型开源大数据文件格式</li>
+<li>灵活的表达式编码机制，支持轻量级、全数据并行编码</li>
+<li>级联压缩技术提升压缩比</li>
+<li>目标: 解码吞吐量超过 100 亿整数/秒</li>
+<li>采用轻量级编码替代通用压缩(如 Snappy)</li>
+
+<p><strong>相关度</strong>: ⭐⭐⭐⭐⭐ 高 - 直接针对数据编码/解码与 GPU 加速的结合</p>
+
+<hr>
+
+<h3>🏷️ GPU 加速</h3>
+
+<h4>2. Vortex: 突破 GPU 加速大规模数据分析的内存容量限制</h4>
+<li>**会议**: VLDB 2025</li>
+<li>**作者**: Yichao Yuan, Advait Iyer, Lin Ma, Nishil Talati</li>
+<li>**arXiv**: [2502.09541](https://arxiv.org/abs/2502.09541)</li>
+
+<p><strong>核心贡献</strong>:</p>
+<li>针对超出 GPU 内存容量的数据分析工作负载的 GPU 加速框架</li>
+<li>优化的 I/O 原语，充分利用多 GPU 系统中的所有 PCIe 链路</li>
+<li>新颖的编程模型，将 GPU 内核开发与 I/O 调度分离</li>
+<li>零拷贝内存访问实现延迟物化</li>
+<li>**性能**: 相比 Proteus (GPU 基线) 提升 5.7 倍，相比 DuckDB (CPU) 价格性能提升 2.5 倍</li>
+
+<p><strong>相关度</strong>: ⭐⭐⭐⭐⭐ 高 - 核心 GPU 数据库加速研究</p>
+
+<hr>
+
+<h4>3. 在 GPU 上高效处理连接和分组聚合</h4>
+<li>**会议**: SIGMOD 2025</li>
+<li>**作者**: Bowen Wu, Dimitris Koutsoukos, Gustavo Alonso (ETH Zürich)</li>
+<li>**链接**: [arXiv](https://arxiv.org/abs/2312.00720) | [GitHub](https://github.com/BowenforGit/sigmod25-reprod)</li>
+
+<p><strong>核心贡献</strong>:</p>
+<li>重新审视基于 GPU 的连接和分组聚合实现</li>
+<li>识别四个主要改进领域</li>
+<li>解决 GPU 执行的查询优化问题</li>
+<li>使用代表性工作负载进行全面评估</li>
+
+<p><strong>相关度</strong>: ⭐⭐⭐⭐ 高 - GPU 查询处理基础</p>
+
+<hr>
+
+<h2>📈 其他值得关注的论文</h2>
+
+<h3>突破 GPU 内存限制的 GPU 加速数据库</h3>
+<li>**会议**: VLDB 2025</li>
+<li>**作者**: (来自 VLDB 论文集)</li>
+<li>**链接**: [PDF](https://www.vldb.org/pvldb/vol18/p4518-li.pdf)</li>
+
+<p><strong>重点</strong>: 单节点成本效益的 GPU 加速分析数据库技术，使单个 GPU 能够高效处理超出 GPU 内存的数据集。</p>
+
+<hr>
+
+<h2>🔍 搜索详情</h2>
+<li>**搜索日期**: 2026-03-16</li>
+<li>**来源**: VLDB 2025, SIGMOD 2025, arXiv cs.DB</li>
+<li>**关键词**: 数据编码、解码、GPU 加速、数据库、SIMD、压缩</li>
+<li>**新发现论文**: 3 篇高度相关</li>
+
+<hr>
+
+<h2>💡 观察到的关键趋势</h2>
+
+<p>1. <strong>GPU 内存容量解决方案</strong>: 多篇论文解决 GPU 内存限制问题 (Vortex, Scaling GPU DBs)</p>
+<p>2. <strong>SIMD/GPU 优化格式</strong>: FastLanes 代表面向现代硬件的列式编码新方向</p>
+<p>3. <strong>查询算子优化</strong>: 专注于 GPU 上高效的连接和聚合</p>
+
+<hr>
+
+<h2>📚 资源</h2>
+
+<li>[VLDB 2025 论文集](https://www.vldb.org/2025/)</li>
+<li>[SIGMOD 2025 论文](https://2025.sigmod.org/sigmod_papers.shtml)</li>
+<li>[FastLanes GitHub](https://github.com/cwida/fastlanes-vldb2025)</li>
+<li>[SIGMOD GPU 连接复现](https://github.com/BowenforGit/sigmod25-reprod)</li>
+
+<hr>
+
+<p><em>报告由数据库研究论文追踪器生成</em></p>
+<p><em>下次更新: 每日 09:00</em></p>
+
+        <div class="back-link">
+            <a href="index.html">← 返回首页</a>
+        </div>
+    </article>
+</body>
+</html>

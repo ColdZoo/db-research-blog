@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VLDB/SIGMOD Research Paper Daily Report</title>
+    <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; max-width: 900px; margin: 0 auto; padding: 20px; line-height: 1.6; }
+        h1 { color: #333; border-bottom: 2px solid #4a90d9; padding-bottom: 10px; }
+        h2 { color: #555; margin-top: 30px; }
+        h3 { color: #666; }
+        code { background: #f5f5f5; padding: 2px 6px; border-radius: 3px; }
+        pre { background: #f5f5f5; padding: 15px; border-radius: 5px; overflow-x: auto; }
+        blockquote { border-left: 4px solid #4a90d9; margin: 0; padding-left: 15px; color: #666; }
+        table { border-collapse: collapse; width: 100%; margin: 20px 0; }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+        th { background: #f5f5f5; }
+        a { color: #4a90d9; }
+        .back-link { margin-top: 30px; }
+        .date { color: #888; font-size: 0.9em; }
+        hr { border: none; border-top: 1px solid #eee; margin: 30px 0; }
+    </style>
+</head>
+<body>
+    <article>
+        <p class="date">2026-04-13</p>
+        <h1>VLDB/SIGMOD Research Paper Daily Report</h1>
+        <hr>
+        <h1>VLDB/SIGMOD Research Paper Daily Report</h1>
+
+<p><strong>Date:</strong> 2026-04-13  </p>
+<p><strong>Report #:</strong> 4 (since 2026-04-10)</p>
+
+<hr>
+
+<h2>Summary Statistics</h2>
+
+<table>
+<tr><td>Category</td><td>Papers Found</td><td>New Since Last Report</td></tr>
+<tr><td>Data Encoding/Decoding</td><td>3</td><td>2</td></tr>
+<tr><td>GPU Acceleration</td><td>6</td><td>4</td></tr>
+<tr><td><strong>Total</strong></td><td><strong>9</strong></td><td><strong>6</strong></td></tr>
+</table>
+
+<hr>
+
+<h2>Data Encoding & Decoding</h2>
+
+<h3>1. FineZip: Pushing the Limits of Large Language Models for Practical Lossless Text Compression</h3>
+<li>**Authors:** Fazal Mittu, Yihuan Bu, Akshat Gupta, et al. (UC Berkeley)</li>
+<li>**Venue:** arXiv 2024</li>
+<li>**Link:** https://arxiv.org/abs/2409.17141</li>
+
+<p><strong>Abstract:</strong>  </p>
+<p>FineZip presents a novel LLM-based text compression system that combines online memorization and dynamic context to reduce compression time. It achieves a <strong>54x speedup</strong> over prior LLMZip system (from 9.5 days to 4 hours for 10MB text) while maintaining ~50% better compression ratios than traditional algorithms like gzip and zstd.</p>
+
+<p><strong>Key Contributions:</strong></p>
+<li>Online memorization mechanism leveraging LLM's contextual learning</li>
+<li>Dynamic context management for improved efficiency</li>
+<li>Uses Llama3-8B as the base model</li>
+<li>**Compression improvement:** ~50% over traditional algorithms</li>
+<li>**Speed improvement:** 54x over LLMZip</li>
+
+<hr>
+
+<h3>2. GPU Acceleration of SQL Analytics on Compressed Data</h3>
+<li>**Authors:** Zezhou Huang, Krystian Sakowski, Hans Lehnert, et al.</li>
+<li>**Venue:** arXiv 2025 (PVLDB submission)</li>
+<li>**Link:** https://arxiv.org/abs/2506.10092</li>
+
+<p><strong>Abstract:</strong>  </p>
+<p>This work proposes methods for running SQL queries directly on compressed GPU data using lightweight encoding schemes (RLE, index encoding, dictionary encoding, bit-width reduction). The approach enables processing datasets larger than GPU memory without full decompression overhead.</p>
+
+<p><strong>Key Contributions:</strong></p>
+<li>Direct query processing on compressed data without decompression</li>
+<li>Support for heterogeneous column encodings</li>
+<li>PyTorch tensor operations for cross-device portability</li>
+<li>**Performance:** Order-of-magnitude speedup over CPU commercial systems</li>
+<li>**Compression schemes:** RLE, index encoding, dictionary encoding, bit-width reduction</li>
+
+<hr>
+
+<h3>3. The FastLanes File Format (VLDB 2025)</h3>
+<li>**Authors:** Azim Afroozeh, Peter Boncz (CWI)</li>
+<li>**Venue:** VLDB 2025 / PVLDB Vol 18</li>
+<li>**Link:** https://www.vldb.org/pvldb/vol18/p4629-afroozeh.pdf</li>
+
+<p><strong>Abstract:</strong>  </p>
+<p>FastLanes is a new open-source big data file format designed for modern data-parallel execution (SIMD or GPU). It improves compression ratio over Parquet while strongly accelerating decompression, providing a win-win over state-of-the-art formats.</p>
+
+<p><strong>Key Contributions:</strong></p>
+<li>Designed for SIMD/GPU data-parallel execution</li>
+<li>Better compression ratio than Parquet</li>
+<li>Faster decompression speed</li>
+<li>Open-source format for big data</li>
+
+<hr>
+
+<h2>GPU Acceleration & Computation</h2>
+
+<h3>1. Theseus: A Distributed and Scalable GPU-Accelerated Query Processing Platform</h3>
+<li>**Authors:** Felipe Aramburú, William Malpica, et al. (21 authors)</li>
+<li>**Venue:** arXiv 2025</li>
+<li>**Link:** https://arxiv.org/abs/2508.05029</li>
+
+<p><strong>Abstract:</strong>  </p>
+<p>Theseus is a production-ready enterprise distributed accelerator-native query engine that balances data movement, memory utilization, and compute tasks. It uses specialized asynchronous control mechanisms coupled with hardware resources for network communication, data preloading, and GPU compute.</p>
+
+<p><strong>Key Contributions:</strong></p>
+<li>Accelerator-native distributed query engine</li>
+<li>Asynchronous control for data movement and GPU compute</li>
+<li>Page-locked host memory allocation to reduce fragmentation</li>
+<li>**Performance:** 4x faster than Databricks Photon at same cost</li>
+<li>**Scale:** Handles 100TB (TPC-H/TPC-DS SF100k) with just 2 DGX A100 nodes</li>
+
+<hr>
+
+<h3>2. Vortex: Overcoming Memory Capacity Limitations in GPU-Accelerated Analytics</h3>
+<li>**Authors:** Yichao Yuan, Advait Iyer, Lin Ma, Nishil Talati</li>
+<li>**Venue:** VLDB 2025</li>
+<li>**Link:** https://arxiv.org/abs/2502.09541</li>
+
+<p><strong>Abstract:</strong>  </p>
+<p>Vortex addresses GPU memory limitations for large-scale analytics by optimizing IO primitives to leverage all available PCIe links in multi-GPU systems. It routes data through other GPUs to target GPUs for IO-intensive tasks, especially beneficial when other GPUs run compute-intensive AI workloads.</p>
+
+<p><strong>Key Contributions:</strong></p>
+<li>Optimized IO primitives utilizing all PCIe links</li>
+<li>Novel programming model separating GPU kernel dev from IO scheduling</li>
+<li>GPU zero-copy memory access for lazy materialization</li>
+<li>**Performance:** 5.7x faster than Proteus baseline, 2.5x better price-performance than DuckDB</li>
+
+<hr>
+
+<h3>3. Rethinking Analytical Processing in the GPU Era (Sirius)</h3>
+<li>**Authors:** Bobbi Yogatama, Yifei Yang, et al. (12 authors)</li>
+<li>**Venue:** arXiv 2025</li>
+<li>**Link:** https://arxiv.org/abs/2508.04701</li>
+
+<p><strong>Abstract:</strong>  </p>
+<p>Sirius is an open-source GPU-native SQL engine prototype providing plug-and-play acceleration for data systems. It treats GPU as the primary engine using libcudf for high-performance relational operators, integrating via standard Substrait query representation.</p>
+
+<p><strong>Key Contributions:</strong></p>
+<li>GPU-native SQL engine with Substrait integration</li>
+<li>Plug-and-play acceleration for existing databases</li>
+<li>Uses libcudf for relational operators</li>
+<li>**Performance:** 8.3x cost efficiency vs DuckDB on TPC-H</li>
+<li>**Performance:** 7.4x on ClickBench, 12.5x with Apache Doris</li>
+
+<hr>
+
+<h3>4. CIDER: Boosting Memory-Disaggregated Key-Value Stores</h3>
+<li>**Authors:** Yuxuan Du, Xuchuan Luo, Xin Wang, et al.</li>
+<li>**Venue:** VLDB 2026 (Accepted)</li>
+<li>**Link:** https://arxiv.org/abs/2604.03007</li>
+
+<p><strong>Abstract:</strong>  </p>
+<p>CIDER addresses I/O redundancy in memory-disaggregated KV stores caused by optimistic synchronization. It proposes pessimistic synchronization with global write-combining and contention-aware schemes to reduce cross-node redundant I/O.</p>
+
+<p><strong>Key Contributions:</strong></p>
+<li>Pessimistic synchronization for memory-disaggregated architectures</li>
+<li>Global write-combining to reduce cross-node I/O</li>
+<li>Contention-aware synchronization for low-contention scenarios</li>
+<li>**Performance:** Up to 6.6x throughput improvement on YCSB</li>
+
+<hr>
+
+<h3>5. SonicDB S6: A Storage-Efficient Verkle Trie for Blockchains</h3>
+<li>**Authors:** Luigi Crisci, Lorenz Schuler, Herbert Jordan, Bernhard Scholz</li>
+<li>**Venue:** arXiv 2026</li>
+<li>**Link:** https://arxiv.org/abs/2604.06579</li>
+
+<p><strong>Abstract:</strong>  </p>
+<p>SonicDB S6 introduces a storage-efficient Verkle trie design for high-throughput blockchains, achieving 78-98% live storage reduction using occupancy-aware node specializations.</p>
+
+<p><strong>Key Contributions:</strong></p>
+<li>Storage-efficient Verkle trie implementation</li>
+<li>Occupancy-aware node specializations</li>
+<li>**Performance:** 78-98% live storage reduction</li>
+
+<hr>
+
+<h3>6. Scaling GPU-Accelerated Databases Beyond GPU Memory Size</h3>
+<li>**Authors:** (PVLDB Vol 18)</li>
+<li>**Venue:** PVLDB Vol 18, 2025</li>
+<li>**Link:** https://www.vldb.org/pvldb/vol18/p4518-li.pdf</li>
+
+<p><strong>Abstract:</strong>  </p>
+<p>This paper proposes techniques for cost-effective GPU acceleration of analytical databases in single-node settings, enabling a single GPU to efficiently process datasets beyond its memory capacity.</p>
+
+<p><strong>Key Contributions:</strong></p>
+<li>Hybrid CPU-GPU query execution</li>
+<li>Cost-effective GPU acceleration techniques</li>
+<li>Single-node scaling beyond GPU memory limits</li>
+
+<hr>
+
+<h2>Key Trends & Observations</h2>
+
+<p>1. <strong>GPU-Native Database Architectures</strong>: Multiple papers (Theseus, Sirius, Vortex) focus on building GPU-native query engines rather than simply accelerating existing CPU-based systems.</p>
+
+<p>2. <strong>Compression + GPU</strong>: Strong trend toward processing compressed data directly on GPUs to overcome memory capacity limitations (GPU Acceleration of SQL Analytics on Compressed Data, FastLanes).</p>
+
+<p>3. <strong>Memory Disaggregation</strong>: CIDER addresses the growing interest in memory-disaggregated architectures for cloud-native databases.</p>
+
+<p>4. <strong>LLM for Data Compression</strong>: FineZip demonstrates practical LLM-based compression with significant speedups over prior approaches.</p>
+
+<p>5. <strong>Production Readiness</strong>: Papers like Theseus emphasize enterprise-grade, production-ready solutions with extensive benchmarks against commercial systems.</p>
+
+<hr>
+
+<h2>Most Interesting Papers</h2>
+
+<h3>🏆 Top Pick: Theseus</h3>
+<p>The most impressive paper this week is <strong>Theseus</strong> - a production-ready distributed GPU query engine that achieves 4x better price-performance than Databricks Photon and can handle 100TB workloads with just 2 DGX A100 nodes. This represents a significant milestone in GPU database practicality.</p>
+
+<h3>🥈 Runner Up: GPU Acceleration of SQL Analytics on Compressed Data</h3>
+<p>This paper addresses a critical GPU limitation (memory capacity) by enabling direct query processing on compressed data, achieving order-of-magnitude speedups over CPU systems.</p>
+
+<h3>🥉 Notable: CIDER</h3>
+<p>Accepted to VLDB'26, CIDER's approach to memory-disaggregated KV stores with pessimistic synchronization offers a 6.6x throughput improvement - significant for cloud-native database architectures.</p>
+
+<hr>
+
+<h2>Links & Resources</h2>
+
+<li>**VLDB Website:** https://vldb.org</li>
+<li>**SIGMOD Website:** https://sigmod.org</li>
+<li>**PVLDB Current Volume:** https://vldb.org/pvldb/vol19-volume-info</li>
+<li>**arXiv cs.DB:** https://arxiv.org/list/cs.DB/recent</li>
+
+<hr>
+
+<p><em>Report generated automatically by Database Research Paper Tracker</em>  </p>
+<p><em>Next report: 2026-04-14 09:00</em></p>
+
+        <div class="back-link">
+            <a href="index.html">← 返回首页</a>
+        </div>
+    </article>
+</body>
+</html>

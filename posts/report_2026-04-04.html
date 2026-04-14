@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VLDB/SIGMOD 论文追踪报告 - 2026年4月4日</title>
+    <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; max-width: 900px; margin: 0 auto; padding: 20px; line-height: 1.6; }
+        h1 { color: #333; border-bottom: 2px solid #4a90d9; padding-bottom: 10px; }
+        h2 { color: #555; margin-top: 30px; }
+        h3 { color: #666; }
+        code { background: #f5f5f5; padding: 2px 6px; border-radius: 3px; }
+        pre { background: #f5f5f5; padding: 15px; border-radius: 5px; overflow-x: auto; }
+        blockquote { border-left: 4px solid #4a90d9; margin: 0; padding-left: 15px; color: #666; }
+        table { border-collapse: collapse; width: 100%; margin: 20px 0; }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+        th { background: #f5f5f5; }
+        a { color: #4a90d9; }
+        .back-link { margin-top: 30px; }
+        .date { color: #888; font-size: 0.9em; }
+        hr { border: none; border-top: 1px solid #eee; margin: 30px 0; }
+    </style>
+</head>
+<body>
+    <article>
+        <p class="date">2026-04-04</p>
+        <h1>VLDB/SIGMOD 论文追踪报告 - 2026年4月4日</h1>
+        <hr>
+        <h1>VLDB/SIGMOD 论文追踪报告 - 2026年4月4日</h1>
+
+<h2>摘要统计</h2>
+
+<li>**报告日期**: 2026-04-04</li>
+<li>**追踪主题**: 数据编码/解码 + GPU 加速</li>
+<li>**今日新发现**: 0 篇新论文</li>
+<li>**知识库状态**: 已追踪 21 篇论文（稳定）</li>
+<li>**备注**: 平静期持续，目标领域无新发布</li>
+
+<hr>
+
+<h2>今日搜索概况</h2>
+
+<h3>搜索渠道</h3>
+<p>1. ✅ VLDB 官方网站 (vldb.org/2026)</p>
+<p>2. ✅ SIGMOD 2026 官方网站 (2026.sigmod.org)</p>
+<p>3. ✅ CIDR 2026 官方网站 (cidrdb.org)</p>
+<p>4. ✅ arXiv cs.DB 预印本</p>
+<p>5. ✅ Web 搜索引擎</p>
+
+<h3>搜索关键词</h3>
+<li>"data encoding" "data decoding" "compression"</li>
+<li>"GPU acceleration" "GPU database" "GPU query processing"</li>
+<li>"vector search" "similarity search"</li>
+<li>"SIGMOD 2026" "CIDR 2026" "VLDB 2026"</li>
+
+<h3>搜索结果</h3>
+<li>**VLDB 2026**: 无新论文（会议官网未更新论文列表）</li>
+<li>**SIGMOD 2026**: 无新论文（论文列表已于昨日收录）</li>
+<li>**CIDR 2026**: 无新论文（论文列表已于昨日收录）</li>
+<li>**arXiv**: 无新预印本</li>
+<li>**总计**: 0 篇新论文</li>
+
+<hr>
+
+<h2>知识库中的代表性论文（回顾）</h2>
+
+<h3>数据编码/解码领域</h3>
+
+<h4>FastLanes File Format (VLDB 2025)</h4>
+<li>**作者**: Azim Afroozeh, Peter Boncz (CWI Amsterdam)</li>
+<li>**核心贡献**: 面向 SIMD/GPU 原生设计的开源大数据文件格式</li>
+<li>**性能指标**: </li>
+<p>  - 比 Parquet 压缩率高 40%</p>
+<p>  - 解码速度 >100 亿整数/秒</p>
+<li>**链接**: https://www.vldb.org/pvldb/vol18/p4629-afroozeh.pdf</li>
+
+<h4>ZipFlow (arXiv 2026)</h4>
+<li>**作者**: Gwangoo Yeo, Zhiyang Shen, Wei Cui 等 (Microsoft)</li>
+<li>**核心贡献**: 编译器驱动的压缩数据移动优化框架</li>
+<li>**性能指标**:</li>
+<p>  - 比 nvCOMP 快 2.08 倍</p>
+<p>  - 比 DuckDB 快 3.14 倍</p>
+<li>**链接**: https://arxiv.org/abs/2602.08190</li>
+
+<h4>Improving LZ4 for Effective Compression and Efficient Query (SIGMOD 2026)</h4>
+<li>**作者**: Zhiheng Liu, Shaoxu Song (清华大学)</li>
+<li>**会议**: SIGMOD 2026 (Round 3)</li>
+<li>**核心贡献**: 改进 LZ4 压缩算法，提升压缩效率和查询性能</li>
+<li>**关联主题**: 数据编码/解码</li>
+<li>**链接**: ACM Digital Library (待发布)</li>
+
+<h4>Waiting to Decompress: The Economics of LLM-Based Compression (CIDR 2026)</h4>
+<li>**作者**: Andreas Kipf, Tobias Schmidt 等 (德国纽伦堡工业大学, 慕尼黑工业大学)</li>
+<li>**会议**: CIDR 2026</li>
+<li>**核心贡献**: 基于大型语言模型的数据压缩技术及其经济学考量</li>
+<li>**关联主题**: 数据编码/解码（前沿方向）</li>
+<li>**链接**: https://www.cidrdb.org/cidr2026/papers.html</li>
+
+<h3>GPU 加速领域</h3>
+
+<h4>GPU Acceleration of SQL Analytics on Compressed Data (VLDB 2026)</h4>
+<li>**作者**: Jigao Huang, Sebastian Baunsgaard, Maximilian Bandle 等</li>
+<li>**核心贡献**: 在压缩数据上直接运行 SQL 查询，无需解压</li>
+<li>**性能指标**: 数量级性能提升</li>
+<li>**链接**: https://arxiv.org/abs/2506.10092</li>
+
+<h4>Vortex (VLDB 2025)</h4>
+<li>**作者**: Yichao Yuan, Advait Iyer, Lin Ma, Nishil Talati</li>
+<li>**核心贡献**: 超 GPU 内存数据分析框架</li>
+<li>**性能指标**:</li>
+<p>  - 比 Proteus 快 5.7 倍</p>
+<p>  - 比 DuckDB 价格性能提升 2.5 倍</p>
+<li>**链接**: https://arxiv.org/abs/2502.09541</li>
+
+<h4>Sirius (arXiv 2025)</h4>
+<li>**作者**: Bobbi Yogatama, Yifei Yang, Kevin Kristensen 等 (UW-Madison)</li>
+<li>**核心贡献**: GPU 原生 SQL 引擎，DuckDB 后端加速</li>
+<li>**性能指标**:</li>
+<p>  - TPC-H 成本效益提升 8.3 倍</p>
+<p>  - ClickBench 成本效益提升 7.4 倍</p>
+<li>**链接**: https://arxiv.org/abs/2508.04701</li>
+
+<h4>Theseus (CIDR 2026)</h4>
+<li>**作者**: Felipe Aramburu, William Malpica, Kaouther Abrougui 等 (Voltron Data)</li>
+<li>**会议**: CIDR 2026</li>
+<li>**核心贡献**: 分布式可扩展 GPU 加速查询处理平台，优化数据移动效率</li>
+<li>**关联主题**: GPU 加速 + 数据传输优化</li>
+<li>**链接**: https://www.cidrdb.org/cidr2026/papers.html</li>
+
+<h4>FlashANNS (SIGMOD 2026)</h4>
+<li>**作者**: Yang Xiao 等 (浙江大学)</li>
+<li>**会议**: SIGMOD 2026 (Round 3)</li>
+<li>**核心贡献**: GPU 驱动异步 I/O 流水线，消除十亿规模相似性搜索的存储-计算瓶颈</li>
+<li>**关联主题**: GPU 加速</li>
+<li>**链接**: ACM Digital Library (待发布)</li>
+
+<h4>VecFlow-Chamfer (SIGMOD 2026)</h4>
+<li>**作者**: Chenghao Mo 等 (UIUC)</li>
+<li>**会议**: SIGMOD 2026 (Round 3)</li>
+<li>**核心贡献**: 基于 GPU 的数据管理系统，多芯片超级计算平台高性能多向量搜索</li>
+<li>**关联主题**: GPU 加速</li>
+<li>**链接**: ACM Digital Library (待发布)</li>
+
+<hr>
+
+<h2>趋势观察</h2>
+
+<h3>近期研究热点</h3>
+<p>1. <strong>向量搜索 GPU 加速</strong>: SIGMOD 2026 多篇论文聚焦十亿规模向量搜索（FlashANNS, VecFlow, High-Throughput Vector Search）</p>
+<p>2. <strong>GPU 资源共享</strong>: Data Movement-Aware GPU Sharing 关注多任务 GPU 调度</p>
+<p>3. <strong>LLM 驱动的压缩</strong>: CIDR 2026 论文探索大语言模型在数据压缩中的应用</p>
+<p>4. <strong>查询处理平台化</strong>: Theseus 构建分布式 GPU 查询处理平台</p>
+
+<h3>技术发展方向</h3>
+<li>**从单机 GPU 向分布式 GPU 集群扩展**（Theseus）</li>
+<li>**向量数据库成为 GPU 加速新战场**（多篇 SIGMOD 论文）</li>
+<li>**压缩技术向智能化演进**（LLM-Based Compression）</li>
+<li>**GPU 资源细粒度共享**（Data Movement-Aware Sharing）</li>
+
+<hr>
+
+<h2>知识库位置</h2>
+
+<li>**知识库**: `/Users/adam/WorkBuddy/Claw/db_research_knowledge/`</li>
+<li>**历史报告**: `/Users/adam/WorkBuddy/Claw/db_research_reports/`</li>
+<li>**已追踪论文**: 21 篇</li>
+
+<hr>
+
+<p><em>报告由自动化任务生成 - 每日 09:00 执行</em></p>
+
+        <div class="back-link">
+            <a href="index.html">← 返回首页</a>
+        </div>
+    </article>
+</body>
+</html>

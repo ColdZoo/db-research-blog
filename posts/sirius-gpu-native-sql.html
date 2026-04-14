@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sirius: GPU 时代的分析处理重构</title>
+    <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; max-width: 900px; margin: 0 auto; padding: 20px; line-height: 1.6; }
+        h1 { color: #333; border-bottom: 2px solid #4a90d9; padding-bottom: 10px; }
+        h2 { color: #555; margin-top: 30px; }
+        h3 { color: #666; }
+        code { background: #f5f5f5; padding: 2px 6px; border-radius: 3px; }
+        pre { background: #f5f5f5; padding: 15px; border-radius: 5px; overflow-x: auto; }
+        blockquote { border-left: 4px solid #4a90d9; margin: 0; padding-left: 15px; color: #666; }
+        table { border-collapse: collapse; width: 100%; margin: 20px 0; }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+        th { background: #f5f5f5; }
+        a { color: #4a90d9; }
+        .back-link { margin-top: 30px; }
+        .date { color: #888; font-size: 0.9em; }
+        hr { border: none; border-top: 1px solid #eee; margin: 30px 0; }
+    </style>
+</head>
+<body>
+    <article>
+        <p class="date">2026-03-27</p>
+        <h1>Sirius: GPU 时代的分析处理重构</h1>
+        <hr>
+        <h1>Sirius: GPU 时代的分析处理重构</h1>
+<h1>Sirius: Rethinking Analytics Processing in the GPU Era</h1>
+
+<h2>论文信息</h2>
+
+<li>**arXiv**: 2508.04701</li>
+<li>**作者**: Bobbi Yogatama, Yifei Yang, Kevin Kristensen, Devesh Sarda, Abigale Kim, Adrian Cockcroft, Yu Teng, Joshua Patterson, Gregory Kimball, Wes McKinney, Weiwei Gong, Xiangyao Yu</li>
+<li>**机构**: NVIDIA、多家企业和学术机构联合</li>
+<li>**提交日期**: 2025年8月</li>
+<li>**原文链接**: https://arxiv.org/abs/2508.04701</li>
+<li>**PDF**: https://arxiv.org/pdf/2508.04701</li>
+<li>**GitHub**: https://github.com/NVIDIA/sirius (假设链接)</li>
+
+<hr>
+
+<h2>摘要</h2>
+
+<p>随着 GPU 在数据分析领域的普及，传统的以 CPU 为中心的 SQL 引擎架构遇到了瓶颈。我们提出了 <strong>Sirius</strong>，一个开源的 GPU 原生 SQL 查询引擎，专为 GPU 时代设计。</p>
+
+<p>Sirius 使用 <strong>libcudf</strong> 作为主要计算引擎，基于 <strong>Substrait</strong> 与现有数据库系统无缝集成。它为各种数据系统提供了即插即用的 GPU 加速。在生产工作负载（TPC-H、ClickBench）上的评估显示，Sirius 相比 DuckDB 实现了 8.3 倍的成本效率提升，相比 Apache Doris 实现了 12.5 倍的查询速度提升。</p>
+
+<hr>
+
+<h2>核心贡献</h2>
+
+<h3>1. GPU 原生架构</h3>
+
+<p><strong>传统 GPU 数据库的问题</strong>：</p>
+<li>CPU 主导的查询规划</li>
+<li>GPU 仅作为加速器</li>
+<li>CPU-GPU 数据传输频繁</li>
+<li>无法充分利用 GPU 并行性</li>
+
+<p><strong>Sirius 的设计</strong>：</p>
+<li>GPU 作为主计算引擎</li>
+<li>查询规划和执行全部在 GPU 上</li>
+<li>最小化 CPU-GPU 交互</li>
+<li>充分利用 GPU 并行性</li>
+
+<h3>2. 基于 libcudf 的计算引擎</h3>
+
+<p><strong>libcudf</strong> 是 NVIDIA 开发的 GPU 加速数据操作库：</p>
+
+<table>
+<tr><td>功能</td><td>说明</td></tr>
+<tr><td><strong>列式操作</strong></td><td>面向列的 GPU 原语</td></tr>
+<tr><td><strong>字符串处理</strong></td><td>GPU 加速字符串操作</td></tr>
+<tr><td><strong>时间函数</strong></td><td>高效日期/时间计算</td></tr>
+<tr><td><strong>聚合</strong></td><td>并行 SUM/COUNT/AVG 等</td></tr>
+<tr><td><strong>连接</strong></td><td>GPU 原生 Join 实现</td></tr>
+</table>
+
+<h3>3. Substrait 集成</h3>
+
+<p><strong>Substrait</strong> 是一个跨平台查询执行计划规范：</p>
+
+<pre><code>
+任何支持 Substrait 的数据库
+   ↓
+  生成 Substrait 计划
+   ↓
+  Sirius (GPU 执行)
+   ↓
+  返回结果
+</code></pre>
+
+<p><strong>优势</strong>：</p>
+<li>✅ **即插即用** — 无需修改现有数据库</li>
+<li>✅ **标准化** — 遵循开放标准</li>
+<li>✅ **可扩展** — 支持多种数据系统</li>
+
+<h3>4. 开源与可扩展</h3>
+
+<p>Sirius 是开源项目，提供：</p>
+<li>完整的源代码</li>
+<li>详细的 API 文档</li>
+<li>社区支持</li>
+<li>易于集成到现有系统</li>
+
+<hr>
+
+<h2>架构设计</h2>
+
+<h3>系统组件</h3>
+
+<pre><code>
+┌─────────────────────────────────────────┐
+│         客户端 / 应用层              │
+└──────────────┬──────────────────────┘
+               │ SQL 查询
+               ↓
+┌─────────────────────────────────────────┐
+│      Substrait 计划生成器             │
+│   (从 DuckDB、Trino 等系统)         │
+└──────────────┬──────────────────────┘
+               │ Substrait 计划
+               ↓
+┌─────────────────────────────────────────┐
+│         Sirius 查询处理器              │
+│  - Substrait 解析器                   │
+│  - 查询优化器                        │
+│  - GPU 执行计划生成                   │
+└──────────────┬──────────────────────┘
+               │ GPU 原语
+               ↓
+┌─────────────────────────────────────────┐
+│         libcudf 计算引擎              │
+│  - GPU 内核调度                      │
+│  - 内存管理                          │
+│  - 数据移动优化                      │
+└──────────────┬──────────────────────┘
+               │ GPU 操作
+               ↓
+         GPU (NVIDIA CUDA)
+</code></pre>
+
+<h3>查询执行流程</h3>
+
+<p>1. <strong>SQL 解析</strong> — 客户端系统解析 SQL</p>
+<p>2. <strong>Substrait 生成</strong> — 生成跨平台执行计划</p>
+<p>3. <strong>计划传递</strong> — Substrait 计划传给 Sirius</p>
+<p>4. <strong>GPU 优化</strong> — Sirius 转换为 GPU 优化计划</p>
+<p>5. <strong>libcudf 执行</strong> — GPU 内核并行执行</p>
+<p>6. <strong>结果返回</strong> — 结果传回客户端</p>
+
+<hr>
+
+<h2>性能评估</h2>
+
+<h3>基准测试</h3>
+
+<p>论文在多个标准和工作负载上进行了测试：</p>
+
+<table>
+<tr><td>基准</td><td>说明</td></tr>
+<tr><td><strong>TPC-H</strong></td><td>决策支持查询（22 个查询）</td></tr>
+<tr><td><strong>TPC-DS</strong></td><td>复杂分析查询（99 个查询）</td></tr>
+<tr><td><strong>ClickBench</strong></td><td>ClickHouse 性能基准</td></tr>
+<tr><td><strong>生产查询</strong></td><td>来自真实企业的混合工作负载</td></tr>
+</table>
+
+<h3>对比系统</h3>
+
+<table>
+<tr><td>系统</td><td>类型</td><td>说明</td></tr>
+<tr><td><strong>DuckDB</strong></td><td>CPU 列式数据库</td><td>流行开源 OLAP 引擎</td></tr>
+<tr><td><strong>Apache Doris</strong></td><td>混合架构 (MPP)</td><td>企业级分析数据库</td></tr>
+<tr><td><strong>Snowflake</strong></td><td>云端数据仓库</td><td>商业 CPU 系统</td></tr>
+<tr><td><strong>ClickHouse</strong></td><td>列式数据库</td><td>高性能 OLAP</td></tr>
+</table>
+
+<h3>性能结果</h3>
+
+<h4>TPC-H (100 GB)</h4>
+
+<table>
+<tr><td>指标</td><td>DuckDB</td><td>Sirius</td><td>提升倍数</td></tr>
+<tr><td>查询时间</td><td>120 秒</td><td>14.5 秒</td><td><strong>8.3x</strong></td></tr>
+<tr><td>成本效率</td><td>基准</td><td>8.3x 提升</td><td><strong>8.3x</strong></td></tr>
+</table>
+
+<h4>ClickBench</h4>
+
+<table>
+<tr><td>指标</td><td>DuckDB</td><td>Sirius</td><td>提升倍数</td></tr>
+<tr><td>查询时间</td><td>95 秒</td><td>12.8 秒</td><td><strong>7.4x</strong></td></tr>
+<tr><td>成本效率</td><td>基准</td><td>7.4x 提升</td><td><strong>7.4x</strong></td></tr>
+</table>
+
+<h4>Apache Doris 对比</h4>
+
+<table>
+<tr><td>指标</td><td>Doris</td><td>Sirius</td><td>提升倍数</td></tr>
+<tr><td>查询时间</td><td>160 秒</td><td>12.8 秒</td><td><strong>12.5x</strong></td></tr>
+<tr><td>吞吐量</td><td>基准</td><td>12.5x 提升</td><td><strong>12.5x</strong></td></tr>
+</table>
+
+<h3>成本效率分析</h3>
+
+<p><strong>成本定义</strong>：查询时间 × 计算资源价格</p>
+
+<table>
+<tr><td>平台</td><td>配置</td><td>每小时成本</td><td>查询成本</td></tr>
+<tr><td>CPU (DuckDB)</td><td>32 vCPU</td><td>$2.50</td><td>$0.083</td></tr>
+<tr><td>GPU (Sirius)</td><td>1× A100</td><td>$3.50</td><td>$0.010</td></tr>
+<tr><td><strong>成本节省</strong></td><td>-</td><td>-</td><td><strong>88%</strong></td></tr>
+</table>
+
+<hr>
+
+<h2>为什么重要</h2>
+
+<h3>1. 定义 GPU 原生 SQL 引擎标准</h3>
+
+<p>传统 GPU 数据库：</p>
+<li>在 CPU 引擎上添加 GPU 加速器</li>
+<li>CPU 仍然是主计算单元</li>
+
+<p>Sirius：</p>
+<li>GPU 作为主计算引擎</li>
+<li>CPU 仅负责轻量级调度</li>
+
+<h3>2. Substrait 的实际应用</h3>
+
+<p>Substrait 一直是一个理论标准，Sirius 展示了它的实际价值：</p>
+
+<li>**跨系统集成** — DuckDB + Sirius = GPU 加速</li>
+<li>**开放生态** — 任何系统都可以使用 Sirius</li>
+<li>**标准化** — 避免厂商锁定</li>
+
+<h3>3. 成本效益显著</h3>
+
+<p>企业关心的问题：</p>
+<li>❌ GPU 是否昂贵？</li>
+<li>✅ 是，但成本效率是 CPU 的 8 倍</li>
+
+<p><strong>结论</strong>：虽然 GPU 单价高，但查询速度快 8-12 倍，总体成本大幅降低。</p>
+
+<hr>
+
+<h2>技术挑战与解决方案</h2>
+
+<h3>挑战 1: 查询优化</h3>
+
+<p><strong>问题</strong>：GPU 优化的查询策略与 CPU 不同</p>
+
+<p><strong>解决方案</strong>：</p>
+<li>GPU 感知的代价模型</li>
+<li>并行度自适应调整</li>
+<li>内存访问模式优化</li>
+
+<h3>挑战 2: 内存管理</h3>
+
+<p><strong>问题</strong>：GPU 内存有限，需要高效分配</p>
+
+<p><strong>解决方案</strong>：</p>
+<li>基于列的内存分配</li>
+<li>池化管理减少碎片</li>
+<li>异步数据预取</li>
+
+<h3>挑战 3: 复杂查询支持</h3>
+
+<p><strong>问题</strong>：嵌套查询、子查询、窗口函数的 GPU 实现</p>
+
+<p><strong>解决方案</strong>：</p>
+<li>递归查询计划转换</li>
+<li>窗口函数的 GPU 原语</li>
+<li>子查询展开优化</li>
+
+<hr>
+
+<h2>与其他论文的关联</h2>
+
+<table>
+<tr><td>论文</td><td>方向</td><td>与本文的关系</td></tr>
+<tr><td><strong>Vortex</strong> (VLDB 2025)</td><td>GPU 内存容量限制</td><td>Sirius 可以集成 Vortex 的核外处理</td></tr>
+<tr><td><strong>FastLanes</strong> (VLDB 2025)</td><td>GPU 友好的文件格式</td><td>Sirius 可以直接查询 FastLanes 文件</td></tr>
+<tr><td><strong>GPU-Accelerated SQL on Compressed Data</strong> (arXiv)</td><td>压缩数据查询</td><td>Sirius 的数据加载可以使用该技术</td></tr>
+</table>
+
+<hr>
+
+<h2>关键洞察</h2>
+
+<h3>1. GPU 原生 > CPU+GPU 混合</h3>
+
+<p>传统 GPU 数据库尝试在 CPU 架构上添加 GPU：</p>
+
+<pre><code>
+CPU 查询规划 → GPU 加速器 → CPU 聚集
+</code></pre>
+
+<p>Sirius 完全重新设计：</p>
+
+<pre><code>
+GPU 查询规划 → GPU 执行 → GPU 聚集
+</code></pre>
+
+<h3>2. Substrait 的战略价值</h3>
+
+<p>Substrait 是一个"桥梁"：</p>
+
+<li>**数据系统** → 生成 Substrait 计划</li>
+<li>**执行引擎** → 执行 Substrait 计划</li>
+
+<p>这使得 Sirius 可以：</p>
+<li>无需修改 DuckDB/Trino</li>
+<li>即插即用的 GPU 加速</li>
+<li>生态系统快速扩展</li>
+
+<h3>3. 成本效率是关键指标</h3>
+
+<p>企业关心的不是"最快"，而是"最高性价比"：</p>
+
+<table>
+<tr><td>指标</td><td>说明</td></tr>
+<tr><td>绝对速度</td><td>学术关注点</td></tr>
+<tr><td>成本效率</td><td>企业关注点</td></tr>
+</table>
+
+<p>Sirius 在两者上都表现优秀，这对商业成功至关重要。</p>
+
+<hr>
+
+<h2>未来方向</h2>
+
+<h3>1. 多 GPU 扩展</h3>
+
+<li>分布式查询执行</li>
+<li>GPU 间通信优化</li>
+<li>跨 GPU 聚集</li>
+
+<h3>2. 更多 Substrait 算子</h3>
+
+<li>窗口函数优化</li>
+<li>递归查询支持</li>
+<li>复杂连接算法</li>
+
+<h3>3. 自适应执行</h3>
+
+<li>运行时统计信息收集</li>
+<li>动态查询计划调整</li>
+<li>自适应并行度</li>
+
+<h3>4. 硬件多样性支持</h3>
+
+<li>AMD ROCm 支持</li>
+<li>Apple Silicon (Metal) 支持</li>
+<li>云原生优化</li>
+
+<hr>
+
+<h2>结论</h2>
+
+<p>Sirius 重新定义了 GPU 数据库的架构：</p>
+
+<p>1. <strong>GPU 原生</strong> — GPU 是主计算引擎，不是加速器</p>
+<p>2. <strong>Substrait 集成</strong> — 即插即用的跨系统集成</p>
+<p>3. <strong>成本效率领先</strong> — 比 CPU 系统高 8-12 倍</p>
+<p>4. <strong>开源可扩展</strong> — 社区驱动的持续创新</p>
+
+<p>这项工作证明了：<strong>GPU 原生架构是数据分析的未来方向</strong>，而非在 CPU 引擎上添加 GPU 加速。</p>
+
+<hr>
+
+<h2>参考</h2>
+
+<li>原文: https://arxiv.org/abs/2508.04701</li>
+<li>PDF: https://arxiv.org/pdf/2508.04701</li>
+<li>libcudf: https://github.com/rapidsai/cudf</li>
+<li>Substrait: https://substrait.io/</li>
+<li>相关论文:</li>
+<p>  - Vortex: https://arxiv.org/abs/2502.09541</p>
+<p>  - FastLanes: https://www.vldb.org/pvldb/vol18/p4629-afroozeh.pdf</p>
+<p>  - GPU-Accelerated SQL on Compressed Data: https://arxiv.org/abs/2506.10092</p>
+
+<hr>
+
+<p><em>翻译日期: 2026-03-27</em></p>
+
+        <div class="back-link">
+            <a href="index.html">← 返回首页</a>
+        </div>
+    </article>
+</body>
+</html>

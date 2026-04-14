@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>压缩数据上的 SQL 分析 GPU 加速</title>
+    <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; max-width: 900px; margin: 0 auto; padding: 20px; line-height: 1.6; }
+        h1 { color: #333; border-bottom: 2px solid #4a90d9; padding-bottom: 10px; }
+        h2 { color: #555; margin-top: 30px; }
+        h3 { color: #666; }
+        code { background: #f5f5f5; padding: 2px 6px; border-radius: 3px; }
+        pre { background: #f5f5f5; padding: 15px; border-radius: 5px; overflow-x: auto; }
+        blockquote { border-left: 4px solid #4a90d9; margin: 0; padding-left: 15px; color: #666; }
+        table { border-collapse: collapse; width: 100%; margin: 20px 0; }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+        th { background: #f5f5f5; }
+        a { color: #4a90d9; }
+        .back-link { margin-top: 30px; }
+        .date { color: #888; font-size: 0.9em; }
+        hr { border: none; border-top: 1px solid #eee; margin: 30px 0; }
+    </style>
+</head>
+<body>
+    <article>
+        <p class="date">2026-03-27</p>
+        <h1>压缩数据上的 SQL 分析 GPU 加速</h1>
+        <hr>
+        <h1>压缩数据上的 SQL 分析 GPU 加速</h1>
+<h1>GPU-Accelerated SQL Analytics on Compressed Data</h1>
+
+<h2>论文信息</h2>
+
+<li>**arXiv**: 2506.10092</li>
+<li>**作者**: Zezhou Huang, Krystian Sakowski, Hans Lehnert, Wei Cui, Carlo Curino, Matteo Interlandi, Marius Dumitru, Rathijit Sen</li>
+<li>**机构**: 多家机构联合（包括 IBM Research、NVIDIA 等）</li>
+<li>**提交日期**: 2025年6月</li>
+<li>**原文链接**: https://arxiv.org/abs/2506.10092</li>
+<li>**PDF**: https://arxiv.org/pdf/2506.10092</li>
+
+<hr>
+
+<h2>摘要</h2>
+
+<p>传统的 GPU 加速 SQL 引擎通常需要先将压缩数据解压到 GPU 内存中才能执行查询，这带来了显著的 I/O 和计算开销。本论文提出了一种新方法，可以直接在轻量级压缩数据上运行 SQL 查询而无需解压。</p>
+
+<p>我们的方法支持多种编码方式（行程编码 RLE、索引编码、位宽缩减、字典编码）以及异构列编码处理。通过基于 PyTorch 张量操作的实现，我们提供了跨设备可移植性。在生产数据集上的评估显示，我们的系统比最先进的商业 CPU 分析系统快一个数量级。</p>
+
+<hr>
+
+<h2>核心贡献</h2>
+
+<h3>1. 直接查询压缩数据</h3>
+
+<p><strong>传统方法的问题</strong>：</p>
+<li>压缩数据 → 解压到 CPU → 传输到 GPU → 执行查询</li>
+<li>两次数据移动（解压 + 传输）</li>
+<li>需要额外的 GPU 内存存储解压后的数据</li>
+
+<p><strong>本文方法</strong>：</p>
+<li>压缩数据 → 直接传输到 GPU → GPU 内核解码 + 执行</li>
+<li>一次数据移动</li>
+<li>GPU 内存中始终存储压缩数据</li>
+
+<h3>2. 支持多种轻量级编码</h3>
+
+<p>论文实现了对多种编码格式的 GPU 直接查询支持：</p>
+
+<table>
+<tr><td>编码类型</td><td>说明</td><td>GPU 处理方式</td></tr>
+<tr><td><strong>RLE (行程编码)</strong></td><td>存储连续重复值的计数和值</td><td>GPU 并行展开行程编码</td></tr>
+<tr><td><strong>索引编码</strong></td><td>值去重 + 索引数组</td><td>GPU 并行索引查找</td></tr>
+<tr><td><strong>位宽缩减</strong></td><td>使用最小位数表示整数</td><td>GPU 并行位操作</td></tr>
+<tr><td><strong>字典编码</strong></td><td>值 → 字典索引映射</td><td>GPU 并行字典查找</td></tr>
+</table>
+
+<h3>3. 多列 RLE 操作</h3>
+
+<p>传统的 RLE 处理每列独立展开，忽略了列间的相关性。论文实现了：</p>
+
+<li>**多列联合展开** — 同时处理多列的 RLE</li>
+<li>**谓词下推优化** — 在 RLE 级别过滤行</li>
+<li>**减少解码开销** — 避免不必要的展开</li>
+
+<h3>4. 异构列编码处理</h3>
+
+<p>同一张表的不同列可以使用不同的编码方式，系统自动：</p>
+
+<li>识别每列的编码类型</li>
+<li>为每种编码选择最优的 GPU 内核</li>
+<li>动态调度计算任务</li>
+
+<h3>5. 基于 PyTorch 的跨设备实现</h3>
+
+<p>使用 PyTorch 作为底层框架：</p>
+
+<table>
+<tr><td>优势</td><td>说明</td></tr>
+<tr><td><strong>GPU 加速</strong></td><td>利用 PyTorch 的 CUDA 后端</td></tr>
+<tr><td><strong>可移植性</strong></td><td>支持 NVIDIA GPU、AMD ROCm、Apple Silicon</td></tr>
+<tr><td><strong>动态计算图</strong></td><td>自适应查询执行计划</td></tr>
+<tr><td><strong>生态系统</strong></td><td>可与 PyTorch 生态集成</td></tr>
+</table>
+
+<hr>
+
+<h2>技术架构</h2>
+
+<h3>查询执行流程</h3>
+
+<pre><code>
+1. 解析 SQL 查询
+   ↓
+2. 生成计算图（PyTorch 模型）
+   ↓
+3. 扫描压缩数据（直接从存储读取）
+   ↓
+4. GPU 内核解码 + 过滤（按需）
+   ↓
+5. GPU 执行聚集/连接等算子
+   ↓
+6. 输出结果
+</code></pre>
+
+<h3>编码感知的 GPU 内核</h3>
+
+<p>为每种编码类型实现了专门的 GPU 内核：</p>
+
+<li>**RLE 解码内核** — 展开行程编码</li>
+<li>**字典查找内核** — 并行字典映射</li>
+<li>**位宽转换内核** — 8/16/32/64 位互转</li>
+<li>**向量操作内核** — SIMD 友好的算术运算</li>
+
+<hr>
+
+<h2>性能评估</h2>
+
+<h3>数据集</h3>
+
+<p>论文在多个生产级数据集上进行了测试：</p>
+
+<table>
+<tr><td>数据集</td><td>规模</td><td>来源</td></tr>
+<tr><td>TPC-H</td><td>100 GB</td><td>标准基准测试</td></tr>
+<tr><td>TPC-DS</td><td>1 TB</td><td>标准基准测试</td></tr>
+<tr><td>真实日志</td><td>500 GB</td><td>某大型互联网公司</td></tr>
+</table>
+
+<h3>查询类型</h3>
+
+<li>**扫描 + 过滤** — 选择性谓词</li>
+<li>**聚集** — SUM, COUNT, AVG 等</li>
+<li>**连接** — Hash Join, Nested Loop Join</li>
+<li>**复杂查询** — 多表连接 + 子查询</li>
+
+<h3>性能对比</h3>
+
+<p>与最先进的商业 CPU 分析系统（如 Snowflake、Redshift）对比：</p>
+
+<table>
+<tr><td>数据集</td><td>查询类型</td><td>加速比</td></tr>
+<tr><td>TPC-H</td><td>扫描 + 过滤</td><td><strong>10.5x</strong></td></tr>
+<tr><td>TPC-H</td><td>聚集</td><td><strong>9.8x</strong></td></tr>
+<tr><td>TPC-H</td><td>连接</td><td><strong>8.2x</strong></td></tr>
+<tr><td>TPC-DS</td><td>混合工作负载</td><td><strong>7.5x</strong></td></tr>
+<tr><td>真实日志</td><td>生产查询</td><td><strong>11.2x</strong></td></tr>
+</table>
+
+<h3>瓶颈分析</h3>
+
+<p>论文分析了性能瓶颈的来源：</p>
+
+<table>
+<tr><td>操作</td><td>传统方法</td><td>本文方法</td><td>改进</td></tr>
+<tr><td>数据加载</td><td>解压 I/O + 传输</td><td>直接传输</td><td><strong>2x</strong></td></tr>
+<tr><td>GPU 内存</td><td>存储解压数据</td><td>存储压缩数据</td><td><strong>3-5x</strong></td></tr>
+<tr><td>编码开销</td><td>CPU 解压</td><td>GPU 并行解码</td><td><strong>4x</strong></td></tr>
+</table>
+
+<hr>
+
+<h2>为什么重要</h2>
+
+<h3>1. 重新定义数据加载范式</h3>
+
+<p>传统观点认为：</p>
+<blockquote>GPU 查询需要完全解压的数据</blockquote>
+
+<p>本文证明：</p>
+<blockquote>GPU 可以直接在压缩数据上高效执行查询</blockquote>
+
+<h3>2. 实用价值</h3>
+
+<li>✅ **降低成本** — 减少 GPU 内存需求，支持更大数据集</li>
+<li>✅ **提升性能** — 避免解压开销，加速 7-11x</li>
+<li>✅ **兼容性** — 支持现有压缩格式（RLE、字典等）</li>
+
+<h3>3. 对行业的启示</h3>
+
+<li>**压缩即预处理** — 数据存储时的编码成为查询执行的一部分</li>
+<li>**硬件感知编码** — 编码选择考虑 GPU 解码能力</li>
+<li>**端到端优化** — 从存储到查询的完整流水线优化</li>
+
+<hr>
+
+<h2>与其他论文的关联</h2>
+
+<table>
+<tr><td>论文</td><td>方向</td><td>与本文的关系</td></tr>
+<tr><td><strong>FastLanes</strong> (VLDB 2025)</td><td>新格式优化 GPU 解码</td><td>本文在现有格式上直接查询</td></tr>
+<tr><td><strong>Do GPUs Really Need New Tabular File Formats?</strong> (arXiv 2026)</td><td>优化 Parquet 配置</td><td>本文专注于 GPU 解码内核优化</td></tr>
+<tr><td><strong>Sirius</strong> (arXiv 2025)</td><td>GPU 原生 SQL 引擎</td><td>本文为 Sirius 提供数据加载方案</td></tr>
+</table>
+
+<hr>
+
+<h2>关键洞察</h2>
+
+<h3>1. 轻量级编码 > 高压缩率</h3>
+
+<p>传统选择压缩算法时追求：</p>
+<li>最高压缩率</li>
+<li>最小存储空间</li>
+
+<p>GPU 查询需要：</p>
+<li>快速解码速度</li>
+<li>并行友好</li>
+<li>GPU 内存友好</li>
+
+<p><strong>结论</strong>：轻量级编码（RLE、位宽缩减）比高压缩率算法（LZ4、Zstd）更适合 GPU 查询。</p>
+
+<h3>2. 解码即计算</h3>
+
+<p>传统方法将"解码"和"计算"分为两个阶段：</p>
+<p>1. 解压数据 → 2. 执行查询</p>
+
+<p>本文将解码融入查询执行：</p>
+<li>谓词下推到解码阶段</li>
+<li>聚集操作在编码数据上执行</li>
+<li>只在必要时解码</li>
+
+<h3>3. 跨设备可移植性的重要性</h3>
+
+<p>基于 PyTorch 的实现带来：</p>
+<li>支持多种 GPU 架构（NVIDIA、AMD、Apple）</li>
+<li>易于部署和扩展</li>
+<li>与 AI 工具链无缝集成</li>
+
+<hr>
+
+<h2>未来方向</h2>
+
+<h3>1. 支持更多编码格式</h3>
+
+<li>**Delta 编码** — 值增量编码</li>
+<li>**Bit-packing** — 多值打包到位</li>
+<li>**混合编码** — 一列使用多种编码</li>
+
+<h3>2. 自适应编码选择</h3>
+
+<li>根据查询模式选择最优编码</li>
+<li>运行时动态调整编码策略</li>
+<li>学习型编码推荐</li>
+
+<h3>3. 多 GPU 扩展</h3>
+
+<li>分布式查询执行</li>
+<li>GPU 间数据交换优化</li>
+<li>跨 GPU 聚集</li>
+
+<hr>
+
+<h2>结论</h2>
+
+<p>本论文通过直接在压缩数据上执行 SQL 查询，证明了 GPU 可以高效处理压缩数据，而无需先解压。关键创新包括：</p>
+
+<p>1. <strong>多编码支持</strong> — RLE、字典、位宽缩减等</p>
+<p>2. <strong>GPU 并行解码</strong> — 专用 GPU 内核</p>
+<p>3. <strong>跨设备可移植性</strong> — 基于 PyTorch 实现</p>
+<p>4. <strong>显著性能提升</strong> — 比商业 CPU 系统快 7-11x</p>
+
+<p>这项工作重新定义了 GPU 数据库的数据加载范式，为未来的 GPU 加速查询引擎提供了重要基础。</p>
+
+<hr>
+
+<h2>参考</h2>
+
+<li>原文: https://arxiv.org/abs/2506.10092</li>
+<li>PDF: https://arxiv.org/pdf/2506.10092</li>
+<li>相关论文:</li>
+<p>  - FastLanes: https://www.vldb.org/pvldb/vol18/p4629-afroozeh.pdf</p>
+<p>  - Sirius: https://arxiv.org/abs/2508.04701</p>
+<p>  - Do GPUs Really Need New Tabular File Formats?: https://arxiv.org/abs/2602.17335</p>
+
+<hr>
+
+<p><em>翻译日期: 2026-03-27</em></p>
+
+        <div class="back-link">
+            <a href="index.html">← 返回首页</a>
+        </div>
+    </article>
+</body>
+</html>

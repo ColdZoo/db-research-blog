@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Database Research Paper Tracker - Supplementary Report (2026-03-16)</title>
+    <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; max-width: 900px; margin: 0 auto; padding: 20px; line-height: 1.6; }
+        h1 { color: #333; border-bottom: 2px solid #4a90d9; padding-bottom: 10px; }
+        h2 { color: #555; margin-top: 30px; }
+        h3 { color: #666; }
+        code { background: #f5f5f5; padding: 2px 6px; border-radius: 3px; }
+        pre { background: #f5f5f5; padding: 15px; border-radius: 5px; overflow-x: auto; }
+        blockquote { border-left: 4px solid #4a90d9; margin: 0; padding-left: 15px; color: #666; }
+        table { border-collapse: collapse; width: 100%; margin: 20px 0; }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+        th { background: #f5f5f5; }
+        a { color: #4a90d9; }
+        .back-link { margin-top: 30px; }
+        .date { color: #888; font-size: 0.9em; }
+        hr { border: none; border-top: 1px solid #eee; margin: 30px 0; }
+    </style>
+</head>
+<body>
+    <article>
+        <p class="date">2026-03-16</p>
+        <h1>Database Research Paper Tracker - Supplementary Report (2026-03-16)</h1>
+        <hr>
+        <h1>Database Research Paper Tracker - Supplementary Report (2026-03-16)</h1>
+
+<h2>🆕 New Research Found Today</h2>
+
+<h3>Summary</h3>
+<p>发现 <strong>3 篇全新论文</strong>，进一步丰富了编码/解码和 GPU 加速领域的研究图谱。</p>
+
+<hr>
+
+<h2>📊 New Papers</h2>
+
+<h3>🏷️ Data Encoding / Decoding + GPU Acceleration</h3>
+
+<h4>1. ZipFlow: a Compiler-based Framework to Unleash Compressed Data Movement for Modern GPUs</h4>
+<li>**arXiv**: 2602.08190 (2026年2月)</li>
+<li>**Authors**: Gwangoo Yeo, Zhiyang Shen, Wei Cui, Matteo Interlandi, Rathijit Sen, Bailu Ding, Qi Chen, Minsoo Rhu</li>
+<li>**PDF**: [arXiv PDF](https://arxiv.org/pdf/2602.08190)</li>
+
+<p><strong>Key Contributions</strong>:</p>
+<li>编译器驱动的端到端优化框架，平衡 I/O 延迟和计算开销</li>
+<li>将压缩算法按并行性分为三种模式，为每种模式设计通用调度策略</li>
+<li>解决 CPU-GPU 数据传输瓶颈问题</li>
+<li>**Performance**: </li>
+<p>  - 比 nvCOMP 提升 <strong>2.08x</strong></p>
+<p>  - 比 DuckDB 快 <strong>3.14x</strong> (TPC-H)</p>
+
+<p><strong>Relevance</strong>: ⭐⭐⭐⭐⭐ High - 编译器优化 + 压缩数据移动 + GPU</p>
+
+<hr>
+
+<h4>2. G-ALP: Rethinking Light-weight Encodings for GPUs</h4>
+<li>**Conference**: DaMoN 2025 (Workshop)</li>
+<li>**Authors**: Sven Hepkema, Azim Afroozeh, Peter Boncz, Thomas Neumann</li>
+<li>**Link**: [ACM DL](https://dl.acm.org/doi/10.1145/3736227.3736242) | [GitHub](https://github.com/cwida/FastLanesGpu-Damon2025)</li>
+
+<p><strong>Key Contributions</strong>:</p>
+<li>面向 GPU 的轻量级浮点数据编码方案</li>
+<li>为 OLAP 工作负载设计</li>
+<li>在压缩比和解压吞吐量之间取得最佳平衡</li>
+<li>**Achievement**: Highest compression ratio AND highest decompression throughput among all encoding schemes</li>
+
+<p><strong>Relevance</strong>: ⭐⭐⭐⭐⭐ High - 轻量级编码 + GPU 优化</p>
+
+<hr>
+
+<h4>3. A High-Throughput GPU Framework for Adaptive Lossless Compression of Floating-Point Data</h4>
+<li>**arXiv**: 2511.04140 (2025年11月)</li>
+<li>**Authors**: Zheng Li (重庆大学) 等，包括 OceanBase, Ant Group 合作者</li>
+<li>**PDF**: [arXiv PDF](https://arxiv.org/pdf/2511.04140)</li>
+
+<p><strong>Key Contributions</strong>:</p>
+<li>面向 IoT 和 HPC 浮点数据的 GPU 自适应无损压缩框架</li>
+<li>三项关键创新：</li>
+<p>  1. 轻量级异步流水线，隐藏 CPU-GPU 传输延迟</p>
+<p>  2. 快速且理论保证的无误差浮点-整数转换</p>
+<p>  3. 自适应稀疏位平面编码，处理异常值稀疏性</p>
+<li>**Performance** (12个数据集平均):</li>
+<p>  - 压缩比: <strong>0.299</strong> (提升 9.1%)</p>
+<p>  - 压缩吞吐量: <strong>10.82 GB/s</strong> (提升 2.4x)</p>
+<p>  - 解压吞吐量: <strong>12.32 GB/s</strong> (提升 2.4x)</p>
+
+<p><strong>Relevance</strong>: ⭐⭐⭐⭐⭐ High - 浮点压缩 + GPU 加速</p>
+
+<hr>
+
+<h2>📈 Research Trend Analysis</h2>
+
+<h3>Emerging Hot Topics</h3>
+
+<table>
+<tr><td>趋势</td><td>说明</td></tr>
+<tr><td><strong>编译器驱动优化</strong></td><td>ZipFlow 代表新方向 - 编译器级压缩数据优化</td></tr>
+<tr><td><strong>轻量级编码创新</strong></td><td>G-ALP 针对 GPU 重新设计传统编码</td></tr>
+<tr><td><strong>浮点数据专项</strong></td><td>针对 IoT/HPC 浮点数据的专用压缩框架</td></tr>
+<tr><td><strong>端到端优化</strong></td><td>从数据传输到查询执行的全链路优化</td></tr>
+</table>
+
+<h3>Key Performance Improvements</h3>
+
+<table>
+<tr><td>论文</td><td>关键指标</td><td>提升幅度</td></tr>
+<tr><td>ZipFlow</td><td>vs nvCOMP</td><td><strong>2.08x</strong></td></tr>
+<tr><td>ZipFlow</td><td>vs DuckDB</td><td><strong>3.14x</strong></td></tr>
+<tr><td>G-ALP</td><td>压缩比 + 解压吞吐量</td><td>双最优</td></tr>
+<tr><td>GPU Float Compression</td><td>压缩吞吐量</td><td><strong>10.82 GB/s</strong></td></tr>
+<tr><td>GPU Float Compression</td><td>解压吞吐量</td><td><strong>12.32 GB/s</strong></td></tr>
+</table>
+
+<hr>
+
+<h2>🔗 Related to Previously Tracked Papers</h2>
+
+<table>
+<tr><td>新论文</td><td>关联论文</td><td>关联点</td></tr>
+<tr><td>ZipFlow</td><td>FastLanes</td><td>都关注 GPU 压缩数据移动</td></tr>
+<tr><td>G-ALP</td><td>FastLanes</td><td>同一研究团队 (CWI)，G-ALP 是 FastLanes 的 GPU 编码扩展</td></tr>
+<tr><td>GPU Float Compression</td><td>GPU Acceleration of SQL Analytics on Compressed Data</td><td>都关注 GPU 上的压缩数据处理</td></tr>
+</table>
+
+<hr>
+
+<h2>📚 Total Papers Tracked (Updated)</h2>
+
+<h3>Data Encoding / Decoding</h3>
+<p>1. The FastLanes File Format (VLDB 2025)</p>
+<p>2. G-ALP: Rethinking Light-weight Encodings for GPUs (DaMoN 2025) 🆕</p>
+<p>3. A High-Throughput GPU Framework for Adaptive Lossless Compression (arXiv 2025) 🆕</p>
+
+<h3>GPU Acceleration</h3>
+<p>1. Vortex: Overcoming Memory Capacity Limitations (VLDB 2025)</p>
+<p>2. Sirius: Rethinking Analytical Processing in the GPU Era (arXiv 2025)</p>
+<p>3. Efficiently Processing Joins and Grouped Aggregations on GPUs (SIGMOD 2025)</p>
+<p>4. GPU Acceleration of SQL Analytics on Compressed Data (arXiv 2025)</p>
+<p>5. ZipFlow: Compiler-based Framework (arXiv 2026) 🆕</p>
+
+<h3>Combined (Encoding + GPU)</h3>
+<li>GPU Acceleration of SQL Analytics on Compressed Data</li>
+<li>ZipFlow</li>
+<li>G-ALP</li>
+<li>GPU Float Compression Framework</li>
+
+<hr>
+
+<h2>🎯 Updated Reading Recommendations</h2>
+
+<h3>Priority 1 (Must Read)</h3>
+<p>1. <strong>GPU Acceleration of SQL Analytics on Compressed Data</strong> - 完美结合两个方向</p>
+<p>2. <strong>ZipFlow</strong> - 编译器优化新趋势</p>
+
+<h3>Priority 2 (Highly Recommended)</h3>
+<p>3. <strong>G-ALP</strong> - 轻量级 GPU 编码创新</p>
+<p>4. <strong>The FastLanes File Format</strong> - 文件格式革新</p>
+
+<h3>Priority 3 (Specialized)</h3>
+<p>5. <strong>GPU Float Compression Framework</strong> - 浮点数据专项</p>
+<p>6. <strong>Sirius</strong> - GPU 原生引擎</p>
+
+<hr>
+
+<p><em>Supplementary report generated on 2026-03-16</em></p>
+<p><em>Main daily report: report_2026-03-17.md</em></p>
+
+        <div class="back-link">
+            <a href="index.html">← 返回首页</a>
+        </div>
+    </article>
+</body>
+</html>

@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Database Research Paper Report - April 9, 2026</title>
+    <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; max-width: 900px; margin: 0 auto; padding: 20px; line-height: 1.6; }
+        h1 { color: #333; border-bottom: 2px solid #4a90d9; padding-bottom: 10px; }
+        h2 { color: #555; margin-top: 30px; }
+        h3 { color: #666; }
+        code { background: #f5f5f5; padding: 2px 6px; border-radius: 3px; }
+        pre { background: #f5f5f5; padding: 15px; border-radius: 5px; overflow-x: auto; }
+        blockquote { border-left: 4px solid #4a90d9; margin: 0; padding-left: 15px; color: #666; }
+        table { border-collapse: collapse; width: 100%; margin: 20px 0; }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+        th { background: #f5f5f5; }
+        a { color: #4a90d9; }
+        .back-link { margin-top: 30px; }
+        .date { color: #888; font-size: 0.9em; }
+        hr { border: none; border-top: 1px solid #eee; margin: 30px 0; }
+    </style>
+</head>
+<body>
+    <article>
+        <p class="date">2026-04-09</p>
+        <h1>Database Research Paper Report - April 9, 2026</h1>
+        <hr>
+        <h1>Database Research Paper Report - April 9, 2026</h1>
+
+<p><strong>Report Date</strong>: 2026-04-09  </p>
+<p><strong>Total Papers Found</strong>: 10  </p>
+<p><strong>New Papers Since Last Report</strong>: 8  </p>
+
+<hr>
+
+<h2>Summary Statistics</h2>
+
+<table>
+<tr><td>Category</td><td>Count</td></tr>
+<tr><td>GPU Acceleration</td><td>5</td></tr>
+<tr><td>Data Encoding/Decoding & Compression</td><td>3</td></tr>
+<tr><td>Query Optimization</td><td>2</td></tr>
+</table>
+
+<hr>
+
+<h2>🔥 Highlighted Papers</h2>
+
+<h3>1. GPU-RMQ: Accelerating Range Minimum Queries on Modern GPUs</h3>
+<li>**Authors**: Lara Kreis, Justus Henneberg, Valentin Henkys, Felix Schuhknecht, Bertil Schmidt</li>
+<li>**Source**: arXiv:2604.01811, April 2, 2026</li>
+<li>**Category**: GPU Acceleration</li>
+
+<p><strong>Key Contributions</strong>:</p>
+<li>Proposes GPU-RMQ using a hierarchical approach with parallel index construction</li>
+<li>Hybrid design combining ray tracing cores with CUDA cores for query processing</li>
+<li>Optimized parallel scan operations processing only relevant parts of the hierarchy</li>
+
+<p><strong>Performance Improvements</strong>:</p>
+<li>**8x** faster than LCA (GPU)</li>
+<li>**17x** faster than RTXRMQ (GPU)</li>
+<li>**4800x** faster than optimized CPU methods</li>
+<li>Index construction up to **2 orders of magnitude** faster</li>
+<li>Handles arrays ≥2^29 elements without exceeding RTX 4090 memory</li>
+
+<p><strong>Link</strong>: https://arxiv.org/abs/2604.01811</p>
+
+<hr>
+
+<h3>2. ZipServ: Fast and Memory-Efficient LLM Inference with Hardware-Aware Lossless Compression</h3>
+<li>**Authors**: Ruibo Fan, Xiangrui Yu, Xinglin Pan, Zeyu Li, Weile Luo, Qiang Wang, Wei Wang, Xiaowen Chu</li>
+<li>**Source**: arXiv:2603.17435, March 18, 2026 (ASPLOS'26 Accepted)</li>
+<li>**Category**: Data Encoding/Decoding, GPU Acceleration</li>
+
+<p><strong>Key Contributions</strong>:</p>
+<li>Tensor-Core-Aware Triple Bitmap Encoding (TCA-TBE) - fixed-length format for parallel decoding</li>
+<li>ZipGEMM kernel fusing decompression with GEMM operations</li>
+<li>"Load compressed, compute decompressed" design eliminating intermediate buffers</li>
+
+<p><strong>Performance Improvements</strong>:</p>
+<li>Model size reduction up to **30%**</li>
+<li>Kernel-level speedup up to **2.21x** vs NVIDIA cuBLAS</li>
+<li>End-to-end inference speedup **1.22x** vs vLLM</li>
+<li>First lossless compression system for LLM inference on GPU providing both storage savings and speedup</li>
+
+<p><strong>Link</strong>: https://arxiv.org/abs/2603.17435</p>
+
+<hr>
+
+<h3>3. GPU Acceleration of SQL Analytics on Compressed Data</h3>
+<li>**Authors**: Zezhou Huang, Krystian Sakowski, Hans Lehnert, Wei Cui, Carlo Curino, Matteo Interlandi, Marius Dumitru, Rathijit Sen</li>
+<li>**Source**: arXiv:2506.10092, June 2025 (revised September 2025)</li>
+<li>**Category**: GPU Acceleration, Data Encoding/Decoding</li>
+
+<p><strong>Key Contributions</strong>:</p>
+<li>Direct SQL query execution on lightweight compressed data (RLE, index encoding, bit-width reductions, dictionary encoding)</li>
+<li>Multi-RLE column processing without decompression</li>
+<li>Heterogeneous column encoding support</li>
+<li>Cross-device portability using PyTorch tensor operations</li>
+
+<p><strong>Performance Improvements</strong>:</p>
+<li>**Order of magnitude (10x+)** speedup over commercial CPU analytics systems</li>
+<li>Works on production datasets exceeding GPU HBM capacity</li>
+<li>Complements existing partitioning and multi-GPU approaches</li>
+
+<p><strong>Link</strong>: https://arxiv.org/abs/2506.10092</p>
+
+<hr>
+
+<h2>📊 GPU Acceleration Papers</h2>
+
+<h3>4. Efficient Path Query Processing in Relational Database Systems</h3>
+<li>**Authors**: Diego Rivera Correa, Mirek Riedewald</li>
+<li>**Source**: arXiv:2604.02553, April 2, 2026</li>
+<li>**Category**: Query Optimization</li>
+
+<p><strong>Key Contributions</strong>:</p>
+<li>ReCAP abstraction for early filtering in path queries</li>
+<li>Simplifies implementation for any derivable early filtering constraint</li>
+<li>Works with standard relational DBMS (demonstrated on DuckDB)</li>
+
+<p><strong>Performance Improvements</strong>:</p>
+<li>Up to **400,000x** faster than state-of-the-art graph DBMS and relational DBMS</li>
+<li>Effective for queries combining label regular expressions with vertex/edge property constraints</li>
+
+<p><strong>Link</strong>: https://arxiv.org/abs/2604.02553</p>
+
+<hr>
+
+<h3>5. Unified and Efficient Approach for Multi-Vector Similarity Search</h3>
+<li>**Authors**: Binhan Yang, Yuxiang Zeng, Hengxin Zhang, Zhuanglin Zheng, Yunzhen Chi, Yongxin Tong, Ke Xu</li>
+<li>**Source**: arXiv:2604.02815, April 3, 2026</li>
+<li>**Category**: GPU Acceleration (applicable)</li>
+
+<p><strong>Key Contributions</strong>:</p>
+<li>MV-HNSW: First native hierarchical graph index for multi-vector data</li>
+<li>Novel edge weight function satisfying symmetry, cardinality robustness, and query consistency</li>
+<li>Accelerated multi-vector similarity computation algorithm</li>
+<li>Enhanced search strategy discovering topologically disconnected but relevant candidates</li>
+
+<p><strong>Performance Improvements</strong>:</p>
+<li>Search latency reduced up to **14.0x** vs existing methods</li>
+<li>Maintains **>90% recall** on 7 real-world datasets</li>
+
+<p><strong>Link</strong>: https://arxiv.org/abs/2604.02815</p>
+
+<hr>
+
+<h3>6. Distance Comparison Operations Are Not Silver Bullets in Vector Similarity Search</h3>
+<li>**Authors**: Zhuanglin Zheng, Yuxiang Zeng, Chenchen Liu, Yunzhen Chi, Binhan Yang, Yongxin Tong</li>
+<li>**Source**: arXiv:2604.02801, April 3, 2026 (ICDE 2026)</li>
+<li>**Category**: GPU Acceleration (benchmark study)</li>
+
+<p><strong>Key Contributions</strong>:</p>
+<li>Comprehensive benchmark of 8 DCO algorithms on 10 datasets (up to 100M vectors, 12,288 dimensions)</li>
+<li>Tested on CPU (with/without SIMD) and GPU</li>
+<li>Reveals limitations: high dimensionality sensitivity, out-of-distribution query degradation, hardware instability</li>
+
+<p><strong>Key Findings</strong>:</p>
+<li>DCO methods can accelerate index construction and data updates (often overlooked benefit)</li>
+<li>Current DCO algorithms **not ready for production deployment** due to unstable performance</li>
+<li>Sometimes slower than full-dimension scan</li>
+
+<p><strong>Link</strong>: https://arxiv.org/abs/2604.02801</p>
+
+<hr>
+
+<h2>🗜️ Data Encoding/Decoding & Compression Papers</h2>
+
+<h3>7. Making Array-Based Translation Practical for Modern, High-Performance Buffer Management</h3>
+<li>**Authors**: Xinjing Zhou, Jinming Hu, Andrew Pavlo, Michael Stonebraker</li>
+<li>**Source**: arXiv:2604.00423, April 1, 2026</li>
+<li>**Category**: Buffer Management (applicable to GPU workloads)</li>
+
+<p><strong>Key Contributions</strong>:</p>
+<li>Calico: Practical DBMS-controlled buffer pool using array-based translation</li>
+<li>Decouples logical translation from OS page tables</li>
+<li>Multi-level translation with path caching, hole punching for cold memory reclamation, group prefetching</li>
+<li>Drop-in replacement for PostgreSQL buffer manager with pgvector integration</li>
+
+<p><strong>Performance Improvements</strong>:</p>
+<li>Vector search: **3.9x** in-memory speedup, **6.5x** out-of-memory speedup for PostgreSQL</li>
+<li>Scan-intensive queries: up to **3x** speedup</li>
+<li>Compatible with huge pages and fine-grained page management</li>
+
+<p><strong>Link</strong>: https://arxiv.org/abs/2604.00423</p>
+
+<hr>
+
+<h3>8. Optimizing Relational Queries over Array-Valued Data in Columnar Systems</h3>
+<li>**Authors**: Maroua Zeblah, Etienne Couritas, Sarah Chlyah, Pierre Genevès, Nils Gesbert, Nabil Layaïda</li>
+<li>**Source**: arXiv:2604.01967, April 2, 2026</li>
+<li>**Category**: Data Encoding, Query Optimization</li>
+
+<p><strong>Key Contributions</strong>:</p>
+<li>A3D-RA: Extended relational algebra supporting array-valued attributes</li>
+<li>Comprehensive framework for algebraic reasoning and optimization</li>
+<li>Equivalence-preserving transformation rules capturing pairwise interactions between relational and array operators</li>
+<li>Polynomial-time plan enumeration strategy with optimality guarantees for non-join operations</li>
+
+<p><strong>Performance Improvements</strong>:</p>
+<li>Consistent performance improvements across three high-performance engines on real workloads</li>
+<li>Modular, backend-agnostic design deployable as optimization layer on existing systems</li>
+
+<p><strong>Link</strong>: https://arxiv.org/abs/2604.01967</p>
+
+<hr>
+
+<h2>📈 Query Optimization Papers</h2>
+
+<h3>9. Cardinality Estimation for High Dimensional Similarity Queries with Adaptive Bucket Probing</h3>
+<li>**Authors**: Zhonghan Chen, Qintian Guo, Ruiyuan Zhang, Xiaofang Zhou</li>
+<li>**Source**: arXiv:2604.04603, April 6, 2026</li>
+<li>**Category**: Query Optimization, GPU Acceleration (applicable)</li>
+
+<p><strong>Key Contributions</strong>:</p>
+<li>Lightweight LSH-based framework for cardinality estimation in high-dimensional similarity search</li>
+<li>Adaptive multi-probe LSH exploring neighboring buckets based on distance thresholds</li>
+<li>Progressive sampling to reduce distance computations</li>
+<li>Asymmetric distance computation using product quantization for acceleration</li>
+<li>Update algorithms for large-scale dynamic data</li>
+
+<p><strong>Performance Improvements</strong>:</p>
+<li>Accurate cardinality estimation with satisfactory online efficiency</li>
+<li>Applicable to high-dimensional similarity search in production environments</li>
+
+<p><strong>Link</strong>: https://arxiv.org/abs/2604.04603</p>
+
+<hr>
+
+<h2>📚 Full Paper List</h2>
+
+<table>
+<tr><td>#</td><td>Title</td><td>Authors</td><td>Category</td><td>arXiv ID</td><td>Date</td></tr>
+<tr><td>1</td><td>GPU-RMQ: Accelerating Range Minimum Queries on Modern GPUs</td><td>Kreis et al.</td><td>GPU Acceleration</td><td>2604.01811</td><td>2026-04-02</td></tr>
+<tr><td>2</td><td>ZipServ: Fast and Memory-Efficient LLM Inference with Hardware-Aware Lossless Compression</td><td>Fan et al.</td><td>Encoding + GPU</td><td>2603.17435</td><td>2026-03-18</td></tr>
+<tr><td>3</td><td>GPU Acceleration of SQL Analytics on Compressed Data</td><td>Huang et al.</td><td>GPU + Encoding</td><td>2506.10092</td><td>2025-06-11</td></tr>
+<tr><td>4</td><td>Efficient Path Query Processing in Relational Database Systems</td><td>Rivera Correa, Riedewald</td><td>Query Optimization</td><td>2604.02553</td><td>2026-04-02</td></tr>
+<tr><td>5</td><td>Unified and Efficient Approach for Multi-Vector Similarity Search</td><td>Yang et al.</td><td>GPU Acceleration</td><td>2604.02815</td><td>2026-04-03</td></tr>
+<tr><td>6</td><td>Distance Comparison Operations Are Not Silver Bullets in Vector Similarity Search</td><td>Zheng et al.</td><td>Benchmark Study</td><td>2604.02801</td><td>2026-04-03</td></tr>
+<tr><td>7</td><td>Making Array-Based Translation Practical for Buffer Management</td><td>Zhou et al.</td><td>Buffer Management</td><td>2604.00423</td><td>2026-04-01</td></tr>
+<tr><td>8</td><td>Optimizing Relational Queries over Array-Valued Data</td><td>Zeblah et al.</td><td>Data Encoding</td><td>2604.01967</td><td>2026-04-02</td></tr>
+<tr><td>9</td><td>Cardinality Estimation for High Dimensional Similarity Queries</td><td>Chen et al.</td><td>Query Optimization</td><td>2604.04603</td><td>2026-04-06</td></tr>
+</table>
+
+<hr>
+
+<h2>🔍 Trends Observed</h2>
+
+<p>1. <strong>Hybrid CPU-GPU Architectures</strong>: Increasing focus on combining ray tracing cores with CUDA cores for database operations</p>
+<p>2. <strong>Direct Query on Compressed Data</strong>: Growing trend of executing queries directly on compressed data without decompression</p>
+<p>3. <strong>Multi-Vector Search</strong>: Native support for multi-vector similarity search becoming a hot topic</p>
+<p>4. <strong>Hardware-Aware Compression</strong>: Co-designing compression schemes with GPU hardware (Tensor Cores, SIMT architecture)</p>
+<p>5. <strong>Production-Ready Challenges</strong>: Gap between research prototypes and production deployment remains significant</p>
+
+<hr>
+
+<h2>📌 Notes</h2>
+
+<li>VLDB 2026 and SIGMOD 2026 websites have no new paper listings yet</li>
+<li>arXiv cs.DB remains the primary source for recent preprints</li>
+<li>CIDR 2026 papers are becoming available</li>
+<li>ICDE 2026 accepted papers are appearing on arXiv</li>
+
+<hr>
+
+<p><em>Report generated automatically by Database Research Paper Tracker</em></p>
+
+        <div class="back-link">
+            <a href="index.html">← 返回首页</a>
+        </div>
+    </article>
+</body>
+</html>

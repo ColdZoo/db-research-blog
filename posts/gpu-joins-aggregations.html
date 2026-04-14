@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>在 GPU 上高效处理连接和分组聚合</title>
+    <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; max-width: 900px; margin: 0 auto; padding: 20px; line-height: 1.6; }
+        h1 { color: #333; border-bottom: 2px solid #4a90d9; padding-bottom: 10px; }
+        h2 { color: #555; margin-top: 30px; }
+        h3 { color: #666; }
+        code { background: #f5f5f5; padding: 2px 6px; border-radius: 3px; }
+        pre { background: #f5f5f5; padding: 15px; border-radius: 5px; overflow-x: auto; }
+        blockquote { border-left: 4px solid #4a90d9; margin: 0; padding-left: 15px; color: #666; }
+        table { border-collapse: collapse; width: 100%; margin: 20px 0; }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+        th { background: #f5f5f5; }
+        a { color: #4a90d9; }
+        .back-link { margin-top: 30px; }
+        .date { color: #888; font-size: 0.9em; }
+        hr { border: none; border-top: 1px solid #eee; margin: 30px 0; }
+    </style>
+</head>
+<body>
+    <article>
+        <p class="date">2026-03-27</p>
+        <h1>在 GPU 上高效处理连接和分组聚合</h1>
+        <hr>
+        <h1>在 GPU 上高效处理连接和分组聚合</h1>
+<h1>Efficiently Processing Joins and Group-By Aggregations on GPUs</h1>
+
+<h2>论文信息</h2>
+
+<li>**会议**: SIGMOD 2025</li>
+<li>**作者**: Bowen Wu, Dimitris Koutsoukos, Gustavo Alonso</li>
+<li>**机构**: ETH Zürich（苏黎世联邦理工学院）</li>
+<li>**论文编号**: SIGMOD 2025</li>
+<li>**arXiv**: 2312.00720</li>
+<li>**原文链接**: https://arxiv.org/abs/2312.00720</li>
+<li>**PDF**: https://arxiv.org/pdf/2312.00720</li>
+<li>**GitHub**: https://github.com/BowenforGit/sigmod25-reprod</li>
+
+<hr>
+
+<h2>摘要</h2>
+
+<p>随着 GPU 在数据库领域的广泛应用，基于 GPU 的连接（Join）和分组聚合（Group-By Aggregation）实现需要重新审视。传统的研究主要关注单个操作符的优化，但忽略了查询执行的整体优化空间。</p>
+
+<p>我们系统性地分析了 GPU 上连接和聚合的性能特征，识别了四个主要改进领域：</p>
+
+<p>1. <strong>GPU 查询优化</strong> — 查询计划需要考虑 GPU 的并行性和内存特性</p>
+<p>2. <strong>连接算法选择</strong> — 不同的连接策略在 GPU 上的性能差异巨大</p>
+<p>3. <strong>聚合优化</strong> — Group-By 操作需要针对 GPU Warp 执行模型优化</p>
+<p>4. <strong>内存管理</strong> — GPU 内存的高效分配和重用</p>
+
+<p>我们在代表性工作负载（TPC-H、TPC-DS）上进行了全面评估，验证了这些优化带来的显著性能提升。</p>
+
+<hr>
+
+<h2>核心贡献</h2>
+
+<h3>1. GPU 查询优化</h3>
+
+<p><strong>传统查询优化器的局限性</strong>：</p>
+<li>基于 CPU 的代价模型</li>
+<li>不考虑 GPU 的并行特性</li>
+<li>忽略 Warp 执行模式的影响</li>
+
+<p><strong>GPU 感知的优化</strong>：</p>
+
+<table>
+<tr><td>传统代价模型</td><td>GPU 感知代价模型</td></tr>
+<tr><td>I/O 代价</td><td>I/O + PCIe 传输代价</td></tr>
+<tr><td>CPU 计算代价</td><td>GPU Warp 并行代价</td></tr>
+<tr><td>缓存未命中</td><td>GPU 共享内存/寄存器压力</td></tr>
+<tr><td>基数估计</td><td>基数 + 并行度调整</td></tr>
+</table>
+
+<p><strong>关键洞察</strong>：</p>
+<li>**选择性估算** — GPU 上高选择性查询的代价可能低于低选择性（因为并行过滤更有效）</li>
+<li>**连接顺序** — 小表作为 Build 端，大表作为 Probe 端（与 CPU 一致）</li>
+<li>**内存预算** — 考虑 GPU 内存限制，选择合适的算法</li>
+
+<h3>2. 连接算法优化</h3>
+
+<p>论文比较了多种连接算法在 GPU 上的性能：</p>
+
+<table>
+<tr><td>连接算法</td><td>说明</td><td>GPU 优化要点</td></tr>
+<tr><td><strong>Hash Join</strong></td><td>最常用</td><td>合并访问、共享内存优化</td></tr>
+<tr><td><strong>Sort-Merge Join</strong></td><td>有序数据</td><td>归并排序算法、块级处理</td></tr>
+<tr><td><strong>Nested Loop Join</strong></td><td>小数据集</td><td>共享内存缓存小表</td></tr>
+<tr><td><strong>Radix Join</strong></td><td>整数键</td><td>位分区、Warp 级并行</td></tr>
+</table>
+
+<p><strong>关键发现</strong>：</p>
+
+<p>1. <strong>Hash Join 在 GPU 上最优</strong></p>
+<p>   - 大规模数据集下表现稳定</p>
+<p>   - GPU 上的 Hash 碰撞处理高效</p>
+
+<p>2. <strong>Sort-Merge Join 适用于有序输入</strong></p>
+<p>   - 避免 Hash 构建开销</p>
+<p>   - 适合流水线查询</p>
+
+<p>3. <strong>Nested Loop Join 仅适用于极小数据集</strong></p>
+<p>   - 表大小 < 1 MB 时有优势</p>
+<p>   - 更大数据集下性能急剧下降</p>
+
+<h3>3. 分组聚合优化</h3>
+
+<p>Group-By Aggregation 是分析查询的核心操作，GPU 实现面临挑战：</p>
+
+<p><strong>挑战</strong>：</p>
+
+<table>
+<tr><td>挑战</td><td>说明</td><td>解决方案</td></tr>
+<tr><td><strong>线程冲突</strong></td><td>多线程写入同一分组</td><td>原子操作 / 原子加</td></tr>
+<tr><td><strong>负载不均衡</strong></td><td>某些分组包含大量数据</td><td>动态负载均衡</td></tr>
+<tr><td><strong>内存碎片</strong></td><td>中间结果分散存储</td><td>预分配 + 重用</td></tr>
+<tr><td><strong>合并阶段</strong></td><td>局部聚合需要合并</td><td>高效的两阶段聚合</td></tr>
+</table>
+
+<p><strong>优化策略</strong>：</p>
+
+<p>1. <strong>基于 Warp 的聚合</strong></p>
+<p>   ```</p>
+<p>   每个 Warp 处理一组数据</p>
+<p>   Warp 内的线程协作处理一个分组</p>
+<p>   使用 Warp 内的共享内存</p>
+
+<p>   优势：减少全局内存访问</p>
+<p>   ```</p>
+
+<p>2. <strong>两阶段聚合</strong></p>
+<p>   ```</p>
+<p>   阶段 1: 线程块内局部聚合 (共享内存）</p>
+<p>   阶段 2: 全局合并 (全局内存）</p>
+
+<p>   优势：减少原子操作次数</p>
+<p>   ```</p>
+
+<p>3. <strong>预分配哈希表</strong></p>
+<p>   - 根据基数估计预分配</p>
+<p>   - 避免运行时动态分配</p>
+<p>   - 重用哈希表减少分配开销</p>
+
+<h3>4. 内存管理与零拷贝</h3>
+
+<p><strong>传统 GPU 编程模式</strong>：</p>
+<pre><code>
+CPU 内存 → 拷贝到 GPU 内存 → GPU 处理 → 拷贝回 CPU 内存
+</code></pre>
+
+<p><strong>零拷贝优化</strong>：</p>
+<pre><code>
+CPU 内存 → GPU 直接访问 (CUDA Unified Memory 或 P2P)
+         → GPU 处理
+         → 结果留在 GPU 内存（供后续查询）
+</code></pre>
+
+<p><strong>优势</strong>：</p>
+<li>减少 PCIe 传输开销</li>
+<li>支持查询流水线</li>
+<li>提升整体吞吐量</li>
+
+<hr>
+
+<h2>技术架构</h2>
+
+<h3>查询执行模型</h3>
+
+<pre><code>
+┌─────────────────────────────────────┐
+│      GPU 查询执行引擎              │
+├─────────────────────────────────────┤
+│  1. 查询规划 (GPU 感知）          │
+│     - 连接顺序选择                   │
+│     - 连接算法选择                   │
+│     - 聚集策略选择                   │
+├─────────────────────────────────────┤
+│  2. 内存分配                       │
+│     - 预分配哈希表                   │
+│     - 中间结果缓冲区                   │
+│     - 零拷贝内存管理                  │
+├─────────────────────────────────────┤
+│  3. 连接执行                       │
+│     - Hash Join / Sort-Merge Join    │
+│     - 并行分区                       │
+│     - 合并访问优化                    │
+├─────────────────────────────────────┤
+│  4. 聚集执行                       │
+│     - Warp 级聚合                   │
+│     - 两阶段聚合                     │
+│     - 原子操作优化                   │
+└─────────────────────────────────────┘
+</code></pre>
+
+<h3>GPU 内核优化</h3>
+
+<p><strong>连接内核</strong>：</p>
+
+<pre><code>
+// 示例：优化的 GPU Hash Join
+__global__ void hash_join_kernel(
+    Key* build_keys, Value* build_values, int build_size,
+    Key* probe_keys, Value* output, int probe_size
+) {
+    // 线程块协作构建哈希表
+    __shared__ HashTable local_hash;
+
+    // 阶段 1: 构建
+    build_local_hash(&local_hash, build_keys, build_values);
+
+    __syncthreads();  // 同步
+
+    // 阶段 2: 探测
+    probe_local_hash(&local_hash, probe_keys, output, probe_size);
+}
+</code></pre>
+
+<p><strong>聚合内核</strong>：</p>
+
+<pre><code>
+// 示例：基于 Warp 的聚合
+__global__ void group_by_kernel(
+    Key* input_keys, Value* input_values, int size,
+    Key* output_keys, Value* output_values
+) {
+    // Warp 内协作
+    int warp_id = (blockIdx.x * blockDim.x + threadIdx.x) / 32;
+    int lane_id = threadIdx.x % 32;
+
+    // Warp 级聚合
+    warp_reduce_aggregate(
+        input_keys, input_values, size,
+        output_keys + warp_id,
+        output_values + warp_id
+    );
+}
+</code></pre>
+
+<hr>
+
+<h2>性能评估</h2>
+
+<h3>基准测试</h3>
+
+<table>
+<tr><td>基准</td><td>说明</td></tr>
+<tr><td><strong>TPC-H</strong></td><td>决策支持查询，包含大量连接和聚合</td></tr>
+<tr><td><strong>TPC-DS</strong></td><td>复杂分析查询，测试各种查询模式</td></tr>
+<tr><td><strong>JOB</strong></td><td>Join Order Benchmark，测试连接顺序选择</td></tr>
+</table>
+
+<h3>硬件配置</h3>
+
+<table>
+<tr><td>组件</td><td>配置</td></tr>
+<tr><td>GPU</td><td>NVIDIA RTX 4090 (24 GB)</td></tr>
+<tr><td>CPU</td><td>Intel i9-13900K (24 核)</td></tr>
+<tr><td>内存</td><td>128 GB DDR5</td></tr>
+<tr><td>存储</td><td>NVMe SSD (7 GB/s)</td></tr>
+<tr><td>CUDA</td><td>12.2</td></tr>
+</table>
+
+<h3>查询性能对比</h3>
+
+<h4>TPC-H (100 GB)</h4>
+
+<table>
+<tr><td>查询</td><td>优化前</td><td>优化后</td><td>加速比</td></tr>
+<tr><td>Q3 (Hash Join)</td><td>18.5 秒</td><td>4.2 秒</td><td><strong>4.4x</strong></td></tr>
+<tr><td>Q5 (Hash Join)</td><td>25.3 秒</td><td>5.8 秒</td><td><strong>4.4x</strong></td></tr>
+<tr><td>Q9 (Sort-Merge)</td><td>22.1 秒</td><td>6.7 秒</td><td><strong>3.3x</strong></td></tr>
+<tr><td>Q12 (聚合密集)</td><td>16.8 秒</td><td>3.9 秒</td><td><strong>4.3x</strong></td></tr>
+<tr><td><strong>平均</strong></td><td><strong>20.7 秒</strong></td><td><strong>5.2 秒</strong></td><td><strong>4.0x</strong></td></tr>
+</table>
+
+<h4>TPC-DS (1 TB)</h4>
+
+<table>
+<tr><td>查询类型</td><td>优化前</td><td>优化后</td><td>加速比</td></tr>
+<tr><td>连接密集</td><td>45.2 秒</td><td>11.3 秒</td><td><strong>4.0x</strong></td></tr>
+<tr><td>聚集密集</td><td>38.6 秒</td><td>9.8 秒</td><td><strong>3.9x</strong></td></tr>
+<tr><td>混合查询</td><td>52.4 秒</td><td>13.2 秒</td><td><strong>4.0x</strong></td></tr>
+<tr><td><strong>平均</strong></td><td><strong>45.4 秒</strong></td><td><strong>11.4 秒</strong></td><td><strong>4.0x</strong></td></tr>
+</table>
+
+<h3>各优化组件的贡献</h3>
+
+<table>
+<tr><td>优化组件</td><td>对整体加速的贡献</td></tr>
+<tr><td>GPU 查询优化</td><td>+1.5x</td></tr>
+<tr><td>连接算法优化</td><td>+1.8x</td></tr>
+<tr><td>聚合优化</td><td>+2.2x</td></tr>
+<tr><td>内存管理</td><td>+1.3x</td></tr>
+<tr><td><strong>总计</strong></td><td><strong>4.0x</strong></td></tr>
+</table>
+
+<hr>
+
+<h2>为什么重要</h2>
+
+<h3>1. 系统性优化 vs 局部优化</h3>
+
+<p>传统研究关注：</p>
+<li>❌ 单一连接算法优化</li>
+<li>❌ 单一聚合算子优化</li>
+<li>❌ 局部性能提升</li>
+
+<p>本文采用系统性方法：</p>
+<li>✅ 查询端到端优化</li>
+<li>✅ 考虑所有阶段的协同效应</li>
+<li>✅ 整体性能提升 4x</li>
+
+<h3>2. GPU 感知的查询优化</h3>
+
+<p>传统代价模型不适用于 GPU：</p>
+<li>CPU 串行执行代价 ≠ GPU 并行执行代价</li>
+<li>CPU 缓存行为 ≠ GPU 共享内存行为</li>
+<li>Warp 执行模型需要特殊考虑</li>
+
+<p>论文证明了 GPU 感知的优化器能带来 <strong>1.5x</strong> 提升。</p>
+
+<h3>3. 实用的可复现代码</h3>
+
+<p>论文提供了完整可复现的代码：</p>
+<li>GitHub 仓库：https://github.com/BowenforGit/sigmod25-reprod</li>
+<li>详细的实验说明</li>
+<li>可供社区使用和扩展</li>
+
+<hr>
+
+<h2>技术挑战与解决方案</h2>
+
+<h3>挑战 1: 连接算法选择</h3>
+
+<p><strong>问题</strong>：不同连接算法在 GPU 上的性能差异巨大，自动选择困难。</p>
+
+<p><strong>解决方案</strong>：</p>
+<li>基于数据特征（大小、基数、有序性）的启发式规则</li>
+<li>运行时评估小样本</li>
+<li>动态选择最优算法</li>
+
+<h3>挑战 2: 聚合负载均衡</h3>
+
+<p><strong>问题</strong>：真实数据偏斜严重，某些分组包含大量数据。</p>
+
+<p><strong>解决方案</strong>：</p>
+<li>动态负载均衡算法</li>
+<li>重度偏斜分组特殊处理</li>
+<li>负载感知的线程分配</li>
+
+<h3>挑战 3: GPU 内存碎片</h3>
+
+<p><strong>问题</strong>：多次查询导致 GPU 内存碎片化，降低性能。</p>
+
+<p><strong>解决方案</strong>：</p>
+<li>内存池化管理</li>
+<li>预分配固定大小块</li>
+<li>查询间内存重用</li>
+
+<hr>
+
+<h2>与其他论文的关联</h2>
+
+<table>
+<tr><td>论文</td><td>方向</td><td>与本文的关系</td></tr>
+<tr><td><strong>Vortex</strong> (VLDB 2025)</td><td>GPU 内存容量</td><td>Vortex 解决数据加载，本文解决查询处理</td></tr>
+<tr><td><strong>Sirius</strong> (arXiv 2025)</td><td>GPU 原生 SQL</td><td>本文的连接/聚合优化可集成到 Sirius</td></tr>
+<tr><td><strong>FastLanes</strong> (VLDB 2025)</td><td>文件格式优化</td><td>本文的查询优化可配合 FastLanes 的解码</td></tr>
+</table>
+
+<hr>
+
+<h2>关键洞察</h2>
+
+<h3>1. 连接算法性能差异 > 查询优化</h3>
+
+<p>传统观念：</p>
+<blockquote>查询优化最重要，连接算法差异不大</blockquote>
+
+<p>本文发现：</p>
+<blockquote>选择正确的连接算法能带来 <strong>1.8x</strong> 提升</blockquote>
+
+<h3>2. 聚合优化是最大瓶颈</h3>
+
+<p>在 TPC-H 和 TPC-DS 中，Group-By 操作往往最耗时：</p>
+<li>原子操作开销大</li>
+<li>负载不均衡严重</li>
+<li>内存访问模式不佳</li>
+
+<p><strong>优化聚合带来的提升：2.2x</strong>（所有组件中最高）</p>
+
+<h3>3. 系统性优化优于局部优化</h3>
+
+<table>
+<tr><td>方法</td><td>加速比</td></tr>
+<tr><td>仅优化连接算法</td><td>1.8x</td></tr>
+<tr><td>仅优化聚合</td><td>2.2x</td></tr>
+<tr><td>系统性优化</td><td><strong>4.0x</strong></td></tr>
+</table>
+
+<hr>
+
+<h2>未来方向</h2>
+
+<h3>1. 自适应查询执行</h3>
+
+<li>运行时统计信息收集</li>
+<li>动态查询计划调整</li>
+<li>自适应并行度选择</li>
+
+<h3>2. 多 GPU 扩展</h3>
+
+<li>分布式连接算法</li>
+<li>跨 GPU 聚集</li>
+<li>GPU 间数据交换优化</li>
+
+<h3>3. 更复杂的查询模式</h3>
+
+<li>子查询优化</li>
+<li>窗口函数 GPU 实现</li>
+<li>递归查询支持</li>
+
+<h3>4. AI 辅助查询优化</h3>
+
+<li>学习型连接顺序选择</li>
+<li>神经网络估算代价</li>
+<li>强化学习优化器</li>
+
+<hr>
+
+<h2>结论</h2>
+
+<p>本论文系统性地分析了 GPU 上连接和聚合的性能特征，识别了四个关键优化领域：</p>
+
+<p>1. <strong>GPU 查询优化</strong> — 基于并行性和内存特性的代价模型</p>
+<p>2. <strong>连接算法选择</strong> — Hash Join 在 GPU 上最优</p>
+<p>3. <strong>聚合优化</strong> — Warp 级两阶段聚合，减少原子操作</p>
+<p>4. <strong>内存管理</strong> — 零拷贝访问，内存池化管理</p>
+
+<p>在 TPC-H 和 TPC-DS 上的评估显示，这些优化带来 <strong>4.0x</strong> 的整体性能提升。</p>
+
+<p>这项工作证明：<strong>系统性、端到端的优化远优于局部优化</strong>，为未来的 GPU 查询引擎提供了重要基础。</p>
+
+<hr>
+
+<h2>参考</h2>
+
+<li>原文: https://arxiv.org/abs/2312.00720</li>
+<li>PDF: https://arxiv.org/pdf/2312.00720</li>
+<li>GitHub: https://github.com/BowenforGit/sigmod25-reprod</li>
+<li>相关论文:</li>
+<p>  - Vortex: https://arxiv.org/abs/2502.09541</p>
+<p>  - Sirius: https://arxiv.org/abs/2508.04701</p>
+<p>  - GPU-Accelerated SQL on Compressed Data: https://arxiv.org/abs/2506.10092</p>
+
+<hr>
+
+<p><em>翻译日期: 2026-03-27</em></p>
+
+        <div class="back-link">
+            <a href="index.html">← 返回首页</a>
+        </div>
+    </article>
+</body>
+</html>
