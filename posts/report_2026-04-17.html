@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Database Research Paper Report - 2026-04-17</title>
+    <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; max-width: 900px; margin: 0 auto; padding: 20px; line-height: 1.6; }
+        h1 { color: #333; border-bottom: 2px solid #4a90d9; padding-bottom: 10px; }
+        h2 { color: #555; margin-top: 30px; }
+        h3 { color: #666; }
+        code { background: #f5f5f5; padding: 2px 6px; border-radius: 3px; }
+        pre { background: #f5f5f5; padding: 15px; border-radius: 5px; overflow-x: auto; }
+        blockquote { border-left: 4px solid #4a90d9; margin: 0; padding-left: 15px; color: #666; }
+        table { border-collapse: collapse; width: 100%; margin: 20px 0; }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+        th { background: #f5f5f5; }
+        a { color: #4a90d9; }
+        .back-link { margin-top: 30px; }
+        .date { color: #888; font-size: 0.9em; }
+        hr { border: none; border-top: 1px solid #eee; margin: 30px 0; }
+    </style>
+</head>
+<body>
+    <article>
+        <p class="date">2026-04-17</p>
+        <h1>Database Research Paper Report - 2026-04-17</h1>
+        <hr>
+        <h1>Database Research Paper Report - 2026-04-17</h1>
+
+<p><strong>Report Date:</strong> April 17, 2026  </p>
+<p><strong>Focus Areas:</strong> Data Encoding/Decoding, GPU Acceleration & Computation</p>
+
+<hr>
+
+<h2>Summary Statistics</h2>
+
+<table>
+<tr><td>Category</td><td>New Papers</td><td>Total Papers Tracked</td></tr>
+<tr><td>GPU Acceleration</td><td>3</td><td>18</td></tr>
+<tr><td>Data Encoding/Decoding</td><td>2</td><td>8</td></tr>
+<tr><td>Compression</td><td>2</td><td>12</td></tr>
+<tr><td>Vector Search / ANNS</td><td>4</td><td>42</td></tr>
+<tr><td><strong>Total</strong></td><td><strong>11</strong></td><td><strong>80</strong></td></tr>
+</table>
+
+<hr>
+
+<h2>GPU Acceleration Papers</h2>
+
+<h3>1. gMatch: Fine-Grained and Hardware-Efficient Subgraph Matching on GPUs</h3>
+<li>**Authors:** Weitian Chen, Shixuan Sun, Cheng Chen, Yongmin Hu, Yingqian Hu, Minyi Guo</li>
+<li>**Venue:** arXiv (submitted to SIGMOD/VLDB)</li>
+<li>**Link:** https://arxiv.org/abs/2604.10601</li>
+
+<p><strong>Abstract:</strong> Subgraph matching is a core operation in graph analytics supporting applications from social network analysis to bioinformatics. Recent GPU-based methods leverage parallelism but suffer from coarse-grained execution models with high memory overhead and poor thread utilization. This paper proposes gMatch, a hardware-efficient subgraph matching method on GPUs.</p>
+
+<p><strong>Key Contributions:</strong></p>
+<li>Introduces **fine-grained execution model** reducing memory consumption and enabling flexible task scheduling among threads</li>
+<li>Designs **warp-level batch exploration** and **lightweight load balancing** for improved execution efficiency and scalability</li>
+<li>Outperforms state-of-the-art methods (STMatch, T-DFS, EGSM) in both performance and scalability</li>
+<li>Scales to larger queries and datasets where existing methods degrade or fail</li>
+
+<p><strong>Performance Improvements:</strong></p>
+<li>Superior performance vs. STMatch, T-DFS, and EGSM</li>
+<li>Better scalability compared to BEEP and G²Miner on large datasets</li>
+<li>17 pages, 17 figures, 2,336 KB</li>
+
+<hr>
+
+<h3>2. FlashANNS: GPU-Driven Asynchronous I/O Pipelining for Billion-Scale Similarity Search</h3>
+<li>**Authors:** Yang Xiao, Mo Sun, Ziyu Song, Bing Tian, Jie Sun, Jie Zhang, Zeke Wang, Zonghui Wang, Wenzhi Chen, Fei Wu (Zhejiang University)</li>
+<li>**Venue:** SIGMOD 2026</li>
+
+<p><strong>Key Contributions:</strong></p>
+<li>GPU-driven asynchronous I/O pipelining to eliminate storage-compute bottlenecks</li>
+<li>Designed for billion-scale similarity search workloads</li>
+<li>Addresses memory capacity limitations through innovative I/O optimization</li>
+
+<hr>
+
+<h3>3. L3: A GPU-Native Co-Designed Data Format for Learned Lossless Lightweight Compression</h3>
+<li>**Authors:** Youyang Xia, Feng Zhang, Junda Pan, Jiawei Guan, Xiaoyong Du (RUC), Yihao Liu, Huanchen Zhang (Tsinghua)</li>
+<li>**Venue:** SIGMOD 2026</li>
+
+<p><strong>Key Contributions:</strong></p>
+<li>GPU-native learned lossless compression format</li>
+<li>Co-designed for GPU architectures</li>
+<li>Combines compression with GPU acceleration</li>
+
+<hr>
+
+<h2>Data Encoding/Decoding Papers</h2>
+
+<h3>4. CoDec: Prefix-Shared Decoding Kernel for LLMs</h3>
+<li>**Authors:** Zhibin Wang, Rui Ning, Chao Fang, Zhonghui Zhang, Xi Lin, Shaobo Ma, Mo Zhou, Xue Li (Alibaba), Zhongfeng Wang, Chengying Huan, Rong Gu, Kun Yang, Guihai Chen, Sheng Zhong, Chen Tian (Nanjing University)</li>
+<li>**Venue:** SIGMOD 2026</li>
+
+<p><strong>Key Contributions:</strong></p>
+<li>Prefix-shared decoding kernel for Large Language Models</li>
+<li>Optimized for efficient text generation decoding</li>
+<li>Database system integration for LLM serving</li>
+
+<hr>
+
+<h3>5. FLEA: Frequency-based Lossless Encoding Algorithm for Periodic Time Series</h3>
+<li>**Authors:** Tianrui Xia, Jinzhao Xiao, Shaoxu Song (Tsinghua University)</li>
+<li>**Venue:** SIGMOD 2026</li>
+
+<p><strong>Key Contributions:</strong></p>
+<li>Frequency-based lossless encoding specifically for periodic time series data</li>
+<li>Optimized compression ratio for time series workloads</li>
+<li>Integration with Apache IoTDB ecosystem</li>
+
+<hr>
+
+<h2>Compression Papers</h2>
+
+<h3>6. Kangaroo: Efficient Lossless Floating-Point Compression via Dynamic Reference Selection</h3>
+<li>**Authors:** Shuo Li, Xiaochun Yang, Bin Wang, Lingdu Kong (NEU), Chunhui Shen, Xiang Wang, Feibo Li (Alibaba), Yutong Han (Dalian Minzu)</li>
+<li>**Venue:** SIGMOD 2026</li>
+
+<p><strong>Key Contributions:</strong></p>
+<li>Dynamic reference selection for floating-point compression</li>
+<li>Lossless compression preserving full precision</li>
+<li>Efficient for scientific computing and ML workloads</li>
+
+<hr>
+
+<h3>7. Improving LZ4 for Effective Compression and Efficient Query</h3>
+<li>**Authors:** Zhiheng Liu, Shaoxu Song (Tsinghua University)</li>
+<li>**Venue:** SIGMOD 2026</li>
+
+<p><strong>Key Contributions:</strong></p>
+<li>Enhanced LZ4 compression algorithm for database queries</li>
+<li>Balances compression ratio with query processing efficiency</li>
+<li>Direct query execution on compressed data</li>
+
+<hr>
+
+<h2>Vector Search / ANNS Papers</h2>
+
+<h3>8. CMANNS: GPU-Accelerated Graph Index Construction for ANNS via Compute-Memory Disaggregation</h3>
+<li>**Authors:** Chengying Huan, Renjie Yao, Rong Gu, Lizhen Chen, Zhibin Wang, Shaonan Ma (Nanjing), Zhengyi Yang (UNSW), Mingxing Zhang (Tsinghua), Fang Xi (AISoft), Guihai Chen, Chen Tian (Nanjing)</li>
+<li>**Venue:** SIGMOD 2026</li>
+
+<p><strong>Key Contributions:</strong></p>
+<li>GPU-accelerated graph index construction for Approximate Nearest Neighbor Search</li>
+<li>Compute-memory disaggregation architecture</li>
+<li>Scalable to large-scale vector datasets</li>
+
+<hr>
+
+<h3>9. GEM: A Native Graph-based Index for Multi-Vector Retrieval</h3>
+<li>**Authors:** Yao Tian, Zhoujin Tian, Xi Zhao, Ruiyuan Zhang, Xiaofang Zhou (HKUST)</li>
+<li>**Venue:** SIGMOD 2026</li>
+
+<p><strong>Key Contributions:</strong></p>
+<li>Native graph-based index structure</li>
+<li>Multi-vector retrieval support</li>
+<li>Optimized for high-dimensional vector spaces</li>
+
+<hr>
+
+<h3>10. FGIM: a Fast Graph-based Indexes Merging Framework for Approximate Nearest Neighbor Search</h3>
+<li>**Authors:** Zekai Wu (ECNU), Jiabao Jin, Xiaoyao Zhong, Zhitao Shen (Ant), Peng Cheng, Jingkuan Song, Heng Tao Shen (Tongji), Lei Chen (HKUST), Yongxin Tong (Beihang), Xuemin Lin (SJTU)</li>
+<li>**Venue:** SIGMOD 2026</li>
+
+<p><strong>Key Contributions:</strong></p>
+<li>Fast graph-based index merging framework</li>
+<li>Optimized for dynamic vector database updates</li>
+<li>Supports approximate nearest neighbor search at scale</li>
+
+<hr>
+
+<h3>11. TaCo: Data-adaptive and Query-aware Subspace Collision for High-dimensional ANN Search</h3>
+<li>**Authors:** Jiuqi Wei, Quanqing Xu, Chuanhui Yang (Oceanbase/Ant), Zhenyu Liao (HUST), Ruoyu Han (ICT/CAS), Themis Palpanas (Paris Cité)</li>
+<li>**Venue:** SIGMOD 2026</li>
+
+<p><strong>Key Contributions:</strong></p>
+<li>Data-adaptive subspace collision technique</li>
+<li>Query-aware optimization for ANN search</li>
+<li>High-dimensional vector search acceleration</li>
+
+<hr>
+
+<h2>Notable Preprints on arXiv</h2>
+
+<h3>Additional GPU/Compression Papers from arXiv cs.DB (Apr 10-16, 2026)</h3>
+
+<p><strong>CLAD: Efficient Log Anomaly Detection Directly on Compressed Representations</strong></p>
+<li>**Authors:** Benzhao Tang, Shiyu Yang</li>
+<li>**arXiv:** 2604.13024</li>
+<li>**Note:** Anomaly detection on compressed data without decompression</li>
+
+<p><strong>OffloadFS: Leveraging Disaggregated Storage for Computation Offloading</strong></p>
+<li>**Authors:** Sungho Moon, Daegyu Han, Hera Koo, Sangeun Chae, Duck-Ho Bae, Euiseong Seo, Beomseok Nam</li>
+<li>**arXiv:** 2604.13743</li>
+<li>**Note:** Storage-compute disaggregation for database workloads</li>
+
+<hr>
+
+<h2>Research Trend Analysis</h2>
+
+<h3>Emerging Themes</h3>
+
+<p>1. <strong>GPU-Native Architectures</strong>: Strong trend toward GPU-native database systems (L3, FlashANNS, gMatch)</p>
+<p>2. <strong>Vector Search Dominance</strong>: SIGMOD 2026 has 40+ papers on vector search and ANNS</p>
+<p>3. <strong>Compression + GPU Combination</strong>: Learned compression co-designed for GPU (L3)</p>
+<p>4. <strong>Compute-Memory Disaggregation</strong>: FlashANNS and CMANNS address memory capacity limitations</p>
+<p>5. <strong>LLM Integration</strong>: Database systems increasingly integrated with LLMs (CoDec)</p>
+
+<h3>Performance Benchmarks Summary</h3>
+
+<table>
+<tr><td>System/Approach</td><td>Key Metric</td><td>Improvement</td></tr>
+<tr><td>gMatch</td><td>Subgraph matching speed</td><td>Outperforms STMatch, T-DFS, EGSM</td></tr>
+<tr><td>FlashANNS</td><td>Billion-scale search</td><td>GPU-driven async I/O</td></tr>
+<tr><td>L3</td><td>GPU compression</td><td>Native co-designed format</td></tr>
+</table>
+
+<hr>
+
+<h2>Previous Report Highlights (2026-04-14)</h2>
+
+<li>**29 papers** found with 29 new (SIGMOD 2026 full list released)</li>
+<li>**18 GPU/compression** related papers identified</li>
+<li>Key papers: FlashANNS, L3, CMANNS, VecFlow-Chamfer, Kangaroo, LICO</li>
+
+<hr>
+
+<h2>Links & Resources</h2>
+
+<li>**VLDB 2025 Proceedings:** https://vldb.org/2025/?papers-research</li>
+<li>**SIGMOD 2026 Papers:** https://2026.sigmod.org/sigmod_papers.shtml</li>
+<li>**arXiv cs.DB:** https://arxiv.org/list/cs.DB/recent</li>
+<li>**FineZip Paper:** https://arxiv.org/abs/2409.17141</li>
+
+<hr>
+
+<p><em>Report generated automatically by Database Research Paper Tracker</em>  </p>
+<p><em>Next scheduled update: 2026-04-18 09:00</em></p>
+
+        <div class="back-link">
+            <a href="index.html">← 返回首页</a>
+        </div>
+    </article>
+</body>
+</html>
