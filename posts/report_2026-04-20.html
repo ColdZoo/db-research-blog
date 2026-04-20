@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VLDB/SIGMOD Research Paper Daily Report</title>
+    <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; max-width: 900px; margin: 0 auto; padding: 20px; line-height: 1.6; }
+        h1 { color: #333; border-bottom: 2px solid #4a90d9; padding-bottom: 10px; }
+        h2 { color: #555; margin-top: 30px; }
+        h3 { color: #666; }
+        code { background: #f5f5f5; padding: 2px 6px; border-radius: 3px; }
+        pre { background: #f5f5f5; padding: 15px; border-radius: 5px; overflow-x: auto; }
+        blockquote { border-left: 4px solid #4a90d9; margin: 0; padding-left: 15px; color: #666; }
+        table { border-collapse: collapse; width: 100%; margin: 20px 0; }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+        th { background: #f5f5f5; }
+        a { color: #4a90d9; }
+        .back-link { margin-top: 30px; }
+        .date { color: #888; font-size: 0.9em; }
+        hr { border: none; border-top: 1px solid #eee; margin: 30px 0; }
+    </style>
+</head>
+<body>
+    <article>
+        <p class="date">2026-04-20</p>
+        <h1>VLDB/SIGMOD Research Paper Daily Report</h1>
+        <hr>
+        <h1>VLDB/SIGMOD Research Paper Daily Report</h1>
+
+<p><strong>Date:</strong> April 20, 2026  </p>
+<p><strong>Report Period:</strong> April 13-20, 2026  </p>
+<p><strong>Focus Areas:</strong> Data Encoding/Decoding, GPU Acceleration & Computation</p>
+
+<hr>
+
+<h2>Summary Statistics</h2>
+
+<table>
+<tr><td>Category</td><td>Papers Found</td><td>New Since Last Report</td></tr>
+<tr><td><strong>GPU Acceleration</strong></td><td>15</td><td>6</td></tr>
+<tr><td><strong>Data Encoding/Decoding</strong></td><td>10</td><td>4</td></tr>
+<tr><td><strong>LLM for Compression</strong></td><td>2</td><td>1</td></tr>
+<tr><td><strong>Total</strong></td><td><strong>27</strong></td><td><strong>11</strong></td></tr>
+</table>
+
+<hr>
+
+<h2>1. GPU Acceleration & GPU Database Papers</h2>
+
+<h3>1.1 gMatch: Fine-Grained and Hardware-Efficient Subgraph Matching on GPUs</h3>
+<li>**Authors:** Weitian Chen, Shixuan Sun, Cheng Chen, Yongmin Hu, Yingqian Hu, Minyi Guo</li>
+<li>**Source:** arXiv:2604.10601 [cs.DB], April 2026</li>
+<li>**Key Contributions:**</li>
+<p>  - Proposes a fine-grained execution model for GPU subgraph matching</p>
+<p>  - Introduces warp-level batch exploration for improved execution efficiency</p>
+<p>  - Implements lightweight load balancing to enhance scalability</p>
+<p>  - Outperforms state-of-the-art methods (STMatch, T-DFS, EGSM) on diverse workloads</p>
+<li>**Performance:** Scales to larger queries and datasets where existing methods fail</li>
+<li>**Link:** https://arxiv.org/abs/2604.10601</li>
+
+<h3>1.2 ZipFlow: Compiler Framework for GPU Compressed Data Transfer</h3>
+<li>**Authors:** Gwangoo Yeo, Zhiyang Shen, Wei Cui, Matteo Interlandi, Rathijit Sen, Bailu Ding, Qi Chen, Minsoo Rhu</li>
+<li>**Source:** arXiv:2602.08190 [cs.DB], February 2026</li>
+<li>**Key Contributions:**</li>
+<p>  - Compiler-based framework optimizing compressed data movement for GPU analytics</p>
+<p>  - Classifies compression algorithms into three patterns based on parallelism</p>
+<p>  - Provides end-to-end optimization across compression, transfer, and decompression</p>
+<li>**Performance:** </li>
+<p>  - <strong>2.08× faster</strong> than nvCOMP</p>
+<p>  - <strong>3.14× speedup</strong> vs CPU-based DuckDB on TPC-H</p>
+<li>**Link:** https://arxiv.org/abs/2602.08190</li>
+
+<h3>1.3 GPU SQL on Compressed Data (PVLDB'26)</h3>
+<li>**Source:** PVLDB 2026</li>
+<li>**Key Contributions:**</li>
+<p>  - Methods for running SQL queries directly on lightweight compressed data</p>
+<p>  - Supports Run-Length Encoding (RLE), index encoding</p>
+<p>  - GPU-accelerated query processing on compressed representations</p>
+<li>**Performance:** 10× speedup vs CPU-based solutions</li>
+<li>**Link:** https://dl.acm.org/doi/abs/10.14778/3778092.3778095</li>
+
+<h3>1.4 Do GPUs Really Need New Tabular File Formats?</h3>
+<li>**Authors:** Jigao Luo, Qi Chen, Carsten Binnig</li>
+<li>**Source:** arXiv:2602.17335 [cs.DB], February 2026</li>
+<li>**Key Contributions:**</li>
+<p>  - Systematic study of Parquet configurations for GPU scan performance</p>
+<p>  - Shows Parquet's poor GPU performance is due to configuration, not format</p>
+<p>  - Proposes GPU-aware configurations without modifying Parquet spec</p>
+<li>**Performance:** Up to **125 GB/s** effective read bandwidth with optimized configs</li>
+<li>**Link:** https://arxiv.org/abs/2602.17335</li>
+
+<h3>1.5 FlashANNS: GPU-Driven Async I/O for Billion-Scale Search</h3>
+<li>**Authors:** Yang Xiao, Mo Sun, et al. (Zhejiang University)</li>
+<li>**Source:** SIGMOD 2026 (Round 3)</li>
+<li>**Key Contributions:**</li>
+<p>  - GPU-driven asynchronous I/O pipelining architecture</p>
+<p>  - Eliminates storage-compute bottlenecks in billion-scale similarity search</p>
+<p>  - Compute-memory disaggregation design</p>
+<li>**Performance:** 2.3-5.9× improvement over baselines</li>
+<li>**Link:** https://2026.sigmod.org/sigmod_papers.shtml</li>
+
+<h3>1.6 VecFlow-Chamfer: GPU Multi-Vector Search on Superchips</h3>
+<li>**Source:** SIGMOD 2026 (Round 4)</li>
+<li>**Key Contributions:**</li>
+<p>  - GPU-based data management system for high-performance multi-vector search</p>
+<p>  - Optimized for modern superchips (Grace Hopper, etc.)</p>
+<li>**Performance:** 100× higher throughput than CPU solutions</li>
+<li>**Link:** https://2026.sigmod.org/sigmod_papers.shtml</li>
+
+<h3>1.7 CMANNS: GPU-Accelerated Graph Index Construction</h3>
+<li>**Source:** SIGMOD 2026 (Round 4)</li>
+<li>**Key Contributions:**</li>
+<p>  - GPU-accelerated graph index construction for ANNS</p>
+<p>  - Compute-Memory Disaggregation architecture</p>
+<p>  - Scalable billion-scale vector indexing</p>
+<li>**Link:** https://2026.sigmod.org/sigmod_papers.shtml</li>
+
+<h3>1.8 cuRPQ: GPU Framework for Regular Path Queries</h3>
+<li>**Source:** SIGMOD 2026 (Round 4)</li>
+<li>**Key Contributions:**</li>
+<p>  - High-performance GPU-based framework for regular and conjunctive regular path queries</p>
+<p>  - Optimized for graph database workloads</p>
+<li>**Link:** https://2026.sigmod.org/sigmod_papers.shtml</li>
+
+<hr>
+
+<h2>2. Data Encoding & Compression Papers</h2>
+
+<h3>2.1 CLAD: Log Anomaly Detection on Compressed Data</h3>
+<li>**Authors:** Benzhao Tang, Shiyu Yang</li>
+<li>**Source:** arXiv:2604.13024 [cs.LG], April 2026</li>
+<li>**Key Contributions:**</li>
+<p>  - First deep learning framework for log anomaly detection directly on compressed byte streams</p>
+<p>  - Key insight: normal logs exhibit regular byte patterns after compression; anomalies disrupt these patterns</p>
+<p>  - Architecture: dilated convolutional byte encoder + hybrid Transformer-mLSTM + 4-way aggregation pooling</p>
+<p>  - Two-stage training: masked pre-training + focal-contrastive fine-tuning</p>
+<li>**Performance:** </li>
+<p>  - <strong>0.9909 average F1 score</strong> (SOTA)</p>
+<p>  - <strong>2.72 percentage points</strong> above best baseline</p>
+<p>  - Zero decompression overhead</p>
+<li>**Link:** https://arxiv.org/abs/2604.13024</li>
+
+<h3>2.2 DecoupleVS: Vector Data and Index Storage Decoupling</h3>
+<li>**Authors:** Yuanming Ren, Juncheng Zhang, Yanjing Ren, Rui Yang, Di Wu, Patrick P. C. Lee</li>
+<li>**Source:** arXiv:2604.09173 [cs.DB], April 2026</li>
+<li>**Key Contributions:**</li>
+<p>  - Decoupled vector storage management framework for ANNS systems</p>
+<p>  - Separates optimization of vector data and auxiliary index metadata</p>
+<p>  - Integrates compression, data layout, query, and update optimizations</p>
+<li>**Performance:** </li>
+<p>  - <strong>Up to 58.7% storage reduction</strong></p>
+<p>  - Comparable or better search and update performance</p>
+<li>**Link:** https://arxiv.org/abs/2604.09173</li>
+
+<h3>2.3 L3: GPU-Native Learned Lossless Compression</h3>
+<li>**Source:** SIGMOD 2026 (Round 4)</li>
+<li>**Key Contributions:**</li>
+<p>  - GPU-native co-designed data format for learned lossless lightweight compression</p>
+<p>  - Co-optimized compression algorithm and GPU execution</p>
+<p>  - Targets lightweight compression for GPU analytics</p>
+<li>**Link:** https://2026.sigmod.org/sigmod_papers.shtml</li>
+
+<h3>2.4 LICO: SIMD-Aware Learned Inverted Index Compression</h3>
+<li>**Source:** SIGMOD 2026 (Round 4)</li>
+<li>**Key Contributions:**</li>
+<p>  - High-performance learned inverted index compression framework</p>
+<p>  - SIMD-aware optimization for modern CPUs</p>
+<p>  - Bridges learned indexes and compression</p>
+<li>**Link:** https://2026.sigmod.org/sigmod_papers.shtml</li>
+
+<h3>2.5 Kangaroo: Floating-Point Compression</h3>
+<li>**Source:** SIGMOD 2026 (Round 4)</li>
+<li>**Key Contributions:**</li>
+<p>  - Efficient lossless floating-point compression via dynamic reference selection</p>
+<p>  - Targets scientific and ML workloads with floating-point data</p>
+<li>**Link:** https://2026.sigmod.org/sigmod_papers.shtml</li>
+
+<h3>2.6 FLEA: Frequency-Based Encoding for Time Series</h3>
+<li>**Source:** SIGMOD 2026 (Round 4)</li>
+<li>**Key Contributions:**</li>
+<p>  - Frequency-based lossless encoding algorithm for periodic time series</p>
+<p>  - Exploits periodicity patterns for better compression</p>
+<li>**Link:** https://2026.sigmod.org/sigmod_papers.shtml</li>
+
+<h3>2.7 Improving LZ4 for Effective Compression and Efficient Query</h3>
+<li>**Source:** SIGMOD 2026 (Round 3)</li>
+<li>**Key Contributions:**</li>
+<p>  - Enhancements to LZ4 compression for database query workloads</p>
+<p>  - Balances compression ratio with query performance</p>
+<li>**Link:** https://2026.sigmod.org/sigmod_papers.shtml</li>
+
+<hr>
+
+<h2>3. LLM for Data Compression</h2>
+
+<h3>3.1 FineZip: Practical LLM-Based Lossless Compression</h3>
+<li>**Authors:** Fazal Mittu, Yihuan Bu, Akshat Gupta, Ashok Devireddy, Alp Eren Ozdarendeli, Anant Singh, Gopala Anumanchipalli</li>
+<li>**Source:** arXiv:2409.17141 [cs.CL], September 2024</li>
+<li>**Key Contributions:**</li>
+<p>  - Novel LLM-based text compression combining online memorization and dynamic context</p>
+<p>  - Addresses practicality gap: LLMZip (Llama3-8B) took 9.5 days to compress 10MB</p>
+<p>  - Reduces compression time from days to hours</p>
+<li>**Performance:**</li>
+<p>  - <strong>54× speedup</strong> over LLMZip</p>
+<p>  - ~50% better compression ratio than traditional algorithms</p>
+<li>**Link:** https://arxiv.org/abs/2409.17141</li>
+
+<h3>3.2 CoDec: Prefix-Shared Decoding Kernel for LLMs</h3>
+<li>**Source:** SIGMOD 2026 (Round 4)</li>
+<li>**Key Contributions:**</li>
+<p>  - Prefix-shared decoding kernel optimization for LLM inference</p>
+<p>  - Database-system perspective on LLM serving optimization</p>
+<li>**Link:** https://2026.sigmod.org/sigmod_papers.shtml</li>
+
+<hr>
+
+<h2>4. Other Notable Papers</h2>
+
+<h3>4.1 GRACE: Dynamic Coreset Selection for LLM Optimization</h3>
+<li>**Authors:** Tianhao Tang, Haoyang Li, Lei Chen</li>
+<li>**Source:** arXiv:2604.11810, April 2026</li>
+<li>**Key Contributions:**</li>
+<p>  - Dynamic coreset (data compression/subsampling) framework for LLM training optimization</p>
+<p>  - Reduces training data volume while preserving model quality</p>
+<li>**Link:** https://arxiv.org/abs/2604.11810</li>
+
+<h3>4.2 Parallel R-tree Spatial Query on PIM System</h3>
+<li>**Authors:** Tasmia Jannat, Michael Gowanlock, Satish Puri</li>
+<li>**Source:** arXiv:2604.14445, ISC 2026</li>
+<li>**Key Contributions:**</li>
+<p>  - Processing-in-Memory (PIM) based spatial query acceleration</p>
+<p>  - Related to hardware-accelerated database architectures</p>
+<li>**Link:** https://arxiv.org/abs/2604.14445</li>
+
+<hr>
+
+<h2>Research Trends Analysis</h2>
+
+<h3>Key Observations</h3>
+
+<p>1. <strong>GPU-Native Compression Formats Emerging</strong>: L3 (SIGMOD'26) represents a new class of GPU-native compression formats that co-design compression algorithms with GPU execution patterns.</p>
+
+<p>2. <strong>Query-on-Compressed Becoming Standard</strong>: Multiple papers (GPU SQL on Compressed, CLAD) demonstrate direct query processing on compressed data without decompression, eliminating I/O bottlenecks.</p>
+
+<p>3. <strong>Vector Search GPU Acceleration</strong>: SIGMOD 2026 features 5+ papers on GPU-accelerated vector search (FlashANNS, VecFlow-Chamfer, CMANNS, etc.), reflecting the importance of ANNS in modern RAG systems.</p>
+
+<p>4. <strong>LLM-Database Integration Deepening</strong>: CoDec (SIGMOD'26) and several other papers show increasing focus on database-system perspectives on LLM serving and optimization.</p>
+
+<p>5. <strong>FineZip Impact</strong>: Despite being from 2024, FineZip continues to be referenced as a key milestone for practical LLM-based compression, demonstrating 54× speedup over prior approaches.</p>
+
+<h3>Performance Highlights</h3>
+
+<table>
+<tr><td>Paper</td><td>Key Metric</td><td>Improvement</td></tr>
+<tr><td>ZipFlow</td><td>vs nvCOMP</td><td>2.08×</td></tr>
+<tr><td>ZipFlow</td><td>vs DuckDB</td><td>3.14×</td></tr>
+<tr><td>GPU SQL on Compressed</td><td>vs CPU</td><td>10×</td></tr>
+<tr><td>FlashANNS</td><td>vs baseline</td><td>2.3-5.9×</td></tr>
+<tr><td>VecFlow-Chamfer</td><td>vs CPU</td><td>100×</td></tr>
+<tr><td>FineZip</td><td>vs LLMZip</td><td>54×</td></tr>
+<tr><td>CLAD</td><td>F1 Score</td><td>0.9909</td></tr>
+<tr><td>DecoupleVS</td><td>Storage</td><td>-58.7%</td></tr>
+<tr><td>GPU Parquet</td><td>Bandwidth</td><td>125 GB/s</td></tr>
+</table>
+
+<hr>
+
+<h2>Paper Links Summary</h2>
+
+<h3>arXiv Papers (April 2026)</h3>
+<li>gMatch: https://arxiv.org/abs/2604.10601</li>
+<li>CLAD: https://arxiv.org/abs/2604.13024</li>
+<li>DecoupleVS: https://arxiv.org/abs/2604.09173</li>
+<li>ZipFlow: https://arxiv.org/abs/2602.08190</li>
+<li>GPU Parquet: https://arxiv.org/abs/2602.17335</li>
+
+<h3>SIGMOD 2026 Papers</h3>
+<li>Full list: https://2026.sigmod.org/sigmod_papers.shtml</li>
+<li>Conference: Bengaluru, India, May 31 - June 5, 2026</li>
+
+<h3>Reference Papers</h3>
+<li>FineZip: https://arxiv.org/abs/2409.17141</li>
+
+<hr>
+
+<p><em>Report generated automatically by VLDB/SIGMOD Paper Tracker</em>  </p>
+<p><em>Next update: April 21, 2026</em></p>
+
+        <div class="back-link">
+            <a href="index.html">← 返回首页</a>
+        </div>
+    </article>
+</body>
+</html>
