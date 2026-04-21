@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>数据库研究论文日报 - 2026年4月21日</title>
+    <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; max-width: 900px; margin: 0 auto; padding: 20px; line-height: 1.6; }
+        h1 { color: #333; border-bottom: 2px solid #4a90d9; padding-bottom: 10px; }
+        h2 { color: #555; margin-top: 30px; }
+        h3 { color: #666; }
+        code { background: #f5f5f5; padding: 2px 6px; border-radius: 3px; }
+        pre { background: #f5f5f5; padding: 15px; border-radius: 5px; overflow-x: auto; }
+        blockquote { border-left: 4px solid #4a90d9; margin: 0; padding-left: 15px; color: #666; }
+        table { border-collapse: collapse; width: 100%; margin: 20px 0; }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+        th { background: #f5f5f5; }
+        a { color: #4a90d9; }
+        .back-link { margin-top: 30px; }
+        .date { color: #888; font-size: 0.9em; }
+        hr { border: none; border-top: 1px solid #eee; margin: 30px 0; }
+    </style>
+</head>
+<body>
+    <article>
+        <p class="date">2026-04-21</p>
+        <h1>数据库研究论文日报 - 2026年4月21日</h1>
+        <hr>
+        <h1>数据库研究论文日报 - 2026年4月21日</h1>
+
+<h2>摘要统计</h2>
+
+<table>
+<tr><td>指标</td><td>数量</td></tr>
+<tr><td>今日发现论文总数</td><td>12篇</td></tr>
+<tr><td>arXiv cs.DB 新论文</td><td>43篇（筛选出相关12篇）</td></tr>
+<tr><td>SIGMOD 2026 GPU/压缩相关</td><td>25篇</td></tr>
+<tr><td>编码/解码相关</td><td>4篇</td></tr>
+<tr><td>GPU加速相关</td><td>5篇</td></tr>
+</table>
+
+<hr>
+
+<h2>一、GPU加速与GPU数据库 (GPU Acceleration)</h2>
+
+<h3>1. gMatch: Fine-Grained and Hardware-Efficient Subgraph Matching on GPUs</h3>
+<li>**作者**: Weitian Chen, Shixuan Sun, Cheng Chen, Yongmin Hu, Yingqian Hu, Minyi Guo</li>
+<li>**来源**: arXiv:2604.10601 [cs.DB]</li>
+<li>**日期**: 2026年4月12日</li>
+
+<p><strong>摘要</strong>: 子图匹配是图分析的核心操作。现有GPU方法采用粗粒度执行模型，存在内存开销高和线程利用率低的问题。gMatch提出细粒度执行模型，降低内存消耗并支持线程间灵活任务调度。通过Warp级批量探索和轻量级负载均衡提升执行效率和可扩展性。</p>
+
+<p><strong>核心贡献</strong>:</p>
+<li>细粒度执行模型：降低内存消耗，支持灵活任务调度</li>
+<li>Warp级批量探索：提升执行效率</li>
+<li>轻量级负载均衡：改善系统可扩展性</li>
+<li>在性能和可扩展性上超越STMatch、T-DFS、EGSM等先进方法</li>
+<li>能够处理更大规模的查询和数据集</li>
+
+<p><strong>链接</strong>: https://arxiv.org/abs/2604.10601</p>
+
+<hr>
+
+<h3>2. CMANNS: GPU-Accelerated Graph Index Construction for ANNS via Compute-Memory Disaggregation</h3>
+<li>**作者**: Chengying Huan, Renjie Yao, Rong Gu, Lizhen Chen, Zhengyi Yang, Shaonan Ma, Zhibin Wang, Mingxing Zhang, Fang Xi, Guihai Chen, Chen Tian</li>
+<li>**来源**: SIGMOD 2026 (Round 4)</li>
+
+<p><strong>核心贡献</strong>: 通过计算-内存解耦实现GPU加速的图索引构建，用于近似最近邻搜索(ANNS)。解决了大规模向量搜索中的计算和内存瓶颈问题。</p>
+
+<hr>
+
+<h3>3. L3: A GPU-Native Co-Designed Data Format for Learned Lossless Lightweight Compression</h3>
+<li>**作者**: Youyang Xia, Feng Zhang, Junda Pan, Yihao Liu, Jiawei Guan, Huanchen Zhang, Xiaoyong Du</li>
+<li>**来源**: SIGMOD 2026 (Round 4)</li>
+
+<p><strong>核心贡献</strong>: 首个GPU原生的学习型无损轻量级压缩数据格式。将GPU加速与学习型压缩结合，实现高效的数据编码和解码。</p>
+
+<hr>
+
+<h3>4. FlashANNS: GPU-Driven Asynchronous I/O Pipelining for Billion-Scale Similarity Search</h3>
+<li>**作者**: Yang Xiao, Mo Sun, Ziyu Song, Bing Tian, Jie Sun, Jie Zhang, Zeke Wang, Zonghui Wang, Wenzhi Chen, Fei Wu</li>
+<li>**来源**: SIGMOD 2026 (Round 3)</li>
+
+<p><strong>核心贡献</strong>: 通过GPU驱动的异步I/O流水线消除存储-计算瓶颈，实现十亿级相似性搜索。解决了大规模向量搜索中的I/O瓶颈问题。</p>
+
+<hr>
+
+<h3>5. VecFlow-Chamfer: A GPU-based Data Management System for High-Performance Multi-Vector Search on Superchips</h3>
+<li>**作者**: Chenghao Mo, Ben Karsin, Philip Adams, Minjia Zhang</li>
+<li>**来源**: SIGMOD 2026 (Round 3)</li>
+
+<p><strong>核心贡献</strong>: 面向超级芯片的高性能多向量搜索GPU数据管理系统。相比CPU方案实现100倍更高吞吐量。</p>
+
+<hr>
+
+<h2>二、数据编码与压缩 (Data Encoding/Compression)</h2>
+
+<h3>1. CLAD: Efficient Log Anomaly Detection Directly on Compressed Representations</h3>
+<li>**作者**: Benzhao Tang, Shiyu Yang</li>
+<li>**来源**: arXiv:2604.13024 [cs.DB]</li>
+<li>**日期**: 2026年4月14日</li>
+
+<p><strong>摘要</strong>: 系统日志的爆炸性增长使得流式压缩至关重要，但现有日志异常检测(LAD)方法需要完全解压缩和解析，产生严重预处理开销。CLAD是首个直接在压缩字节流上执行LAD的深度学习框架。利用正常日志压缩成规则字节模式而异常系统性破坏这些模式的洞察，提出集成扩张卷积字节编码器、混合Transformer-mLSTM和四路聚合池化的专用架构。</p>
+
+<p><strong>核心贡献</strong>:</p>
+<li>首个直接处理压缩流的深度学习框架，无需解压缩和解析</li>
+<li>扩张卷积字节编码器 + 混合Transformer-mLSTM + 四路聚合池化</li>
+<li>两阶段训练：掩码预训练 + 焦点对比微调</li>
+<li>平均F1分数0.9909（最先进水平），比最佳基线高2.72个百分点</li>
+<li>完全消除解压缩和解析开销</li>
+
+<p><strong>链接</strong>: https://arxiv.org/abs/2604.13024</p>
+
+<hr>
+
+<h3>2. SAGE: Selective Attention-Guided Extraction for Token-Efficient</h3>
+<li>**作者**: Xinzhi Wang, Peter Baile Chen, Gerardo Vitagliano, Matthew Russo, Jun Chen, Michael Cafarella, Samuel Madden, Chunwei Liu</li>
+<li>**来源**: arXiv:2604.15583 [cs.DB]</li>
+<li>**日期**: 2026年4月16日</li>
+
+<p><strong>摘要</strong>: 针对长文档回答多种异质性问题的场景，提出SAGE（选择性注意力引导提取）。这是一个无需训练、即插即用的上下文缩减框架，使用轻量级本地LLM执行单次预填充传递，将注意力信号转换为查询特定相关性热力图。</p>
+
+<p><strong>核心贡献</strong>:</p>
+<li>无需训练、即插即用的上下文缩减框架</li>
+<li>差分注意力策略：更有效隔离问题相关证据</li>
+<li>实现90%的token减少（仅保留10%上下文），同时保持竞争力准确率</li>
+<li>在QuALITY-hard数据集上仅使用10%上下文预算获得前4名排名</li>
+<li>显著降低成本和延迟</li>
+
+<p><strong>链接</strong>: https://arxiv.org/abs/2604.15583</p>
+
+<hr>
+
+<h3>3. Kangaroo: Efficient Lossless Floating-Point Compression via Dynamic Reference Selection</h3>
+<li>**作者**: Shuo Li, Xiaochun Yang, Chunhui Shen, Yutong Han, Xiang Wang, Lingdu Kong, Bin Wang, Feibo Li</li>
+<li>**来源**: SIGMOD 2026 (Round 4)</li>
+
+<p><strong>核心贡献</strong>: 通过动态参考选择实现高效无损浮点数压缩。解决科学计算和AI工作负载中浮点数数据的压缩问题。</p>
+
+<hr>
+
+<h3>4. LICO: An SIMD-Aware High-Performance Learned Inverted Index Compression Framework</h3>
+<li>**作者**: Xianyu Zhu, Qiyu LIU, guangyi Zhang, Zhibing Sha, Jianwei Liao, Sha Hu, Lei Chen</li>
+<li>**来源**: SIGMOD 2026 (Round 4)</li>
+
+<p><strong>核心贡献</strong>: SIMD感知的高性能学习型倒排索引压缩框架。结合SIMD指令优化和学习型压缩技术。</p>
+
+<hr>
+
+<h2>三、查询处理与优化 (Query Processing)</h2>
+
+<h3>1. RELOAD: A Robust and Efficient Learned Query Optimizer for Database Systems</h3>
+<li>**作者**: Seokwon Lee, Jaeyoung Sim, Sihyun Kim, Yuhsing Li, Yiwen Zhu, Kwanghyun Park</li>
+<li>**来源**: arXiv:2604.14725 [cs.DB] (审稿中)</li>
+<li>**日期**: 2026年4月16日</li>
+
+<p><strong>摘要</strong>: 现有基于强化学习(RL)的查询优化器在单个查询级别上常表现出不稳定性能，包括严重性能回归，并需要长时间训练才能达到专家级成本优化器的计划质量。RELOAD聚焦于(i)鲁棒性：最小化查询级性能回归，确保跨执行的一致优化行为；(ii)效率：加速收敛到专家级计划质量。</p>
+
+<p><strong>核心贡献</strong>:</p>
+<li>最小化查询级性能回归，确保一致优化行为</li>
+<li>加速收敛到专家级计划质量</li>
+<li>在Join Order Benchmark、TPC-DS和Star Schema Benchmark上验证</li>
+<li>相比最先进RL技术实现2.4倍鲁棒性提升和3.1倍效率提升</li>
+<li>针对生产环境部署优化</li>
+
+<p><strong>链接</strong>: https://arxiv.org/abs/2604.14725</p>
+
+<hr>
+
+<h3>2. DPC: Training-Free Text-to-SQL Candidate Selection via Dual-Paradigm Consistency</h3>
+<li>**作者**: Boyan Li, Ou Ocean Kun Hei, Yue Yu, Yuyu Luo</li>
+<li>**来源**: arXiv:2604.15163 [cs.DB], ACL 2026 Main Track</li>
+<li>**日期**: 2026年4月16日</li>
+
+<p><strong>摘要</strong>: LLMs在生成SQL方面表现出色，但缺乏自我评估正确性的能力，导致生成-选择鸿沟。DPC是一个多智能体框架，将SQL选择从概率猜测重新表述为确定性验证任务。通过构建最小区分数据库(MDD)和跨范式验证(SOLVER智能体交叉验证SQL与Python/Pandas解决方案)实现。</p>
+
+<p><strong>核心贡献</strong>:</p>
+<li>首个通过双范式一致性实现无需训练的Text-to-SQL候选选择</li>
+<li>构建最小区分数据库(MDD)暴露候选SQL间逻辑差异</li>
+<li>SQL与Python/Pandas跨范式验证，打破自我纠正偏差</li>
+<li>在BIRD和Spider数据集上实现最高2.2%绝对准确率提升</li>
+
+<p><strong>链接</strong>: https://arxiv.org/abs/2604.15163</p>
+
+<hr>
+
+<h2>四、数据管理与安全 (Data Management & Security)</h2>
+
+<h3>1. Compliance in Databases: A Study of Structural Policies and Query Optimization</h3>
+<li>**作者**: Ahana Pradhan, Srinivas Karthik, Imtiyazuddin Shaik, Srinivas Vivek</li>
+<li>**来源**: arXiv:2604.15861 [cs.DB], SeQureDB '26</li>
+<li>**日期**: 2026年4月17日</li>
+
+<p><strong>摘要</strong>: 日益增长的隐私法规推动数据管理系统对细粒度、上下文敏感访问控制的需求。本文引入结构性框架和表达性策略语法来建模基于内容的合规性策略，并分析其对查询计划和执行的影响。</p>
+
+<p><strong>核心贡献</strong>:</p>
+<li>用于建模基于内容合规性策略的结构性框架</li>
+<li>具有表达力的策略语法</li>
+<li>系统分析合规策略对查询计划制定和执行的影响</li>
+<li>实验证明策略结构对优化器行为和端到端性能具有决定性影响</li>
+<li>论证面向策略的数据库系统和查询优化器设计的必要性</li>
+
+<p><strong>链接</strong>: https://arxiv.org/abs/2604.15861</p>
+
+<hr>
+
+<h3>2. Efficient Community Search on Attributed Public-Private Graphs</h3>
+<li>**作者**: Yuqi Chen, Weihan Zhang, Xin Huang</li>
+<li>**来源**: arXiv:2604.14988 [cs.DB], ICDE 2026</li>
+<li>**日期**: 2026年4月16日</li>
+
+<p><strong>摘要</strong>: 公私图（公共网络对所有人可见，每个用户还有自己的小私有图）在社交网络和金融网络中广泛存在。本文研究基于属性的公私图社区搜索问题(ACS-PP)，旨在发现包含查询节点且与其共享最多关键词的连接k核社区。</p>
+
+<p><strong>核心贡献</strong>:</p>
+<li>首次研究基于属性的公私图社区搜索问题</li>
+<li>集成索引方案：公共全局图索引 + 私有个人图索引</li>
+<li>紧凑的PP-FP-tree(Public-Private Frequent Pattern tree)索引结构</li>
+<li>在真实公私图数据集上验证效率和质量</li>
+
+<p><strong>链接</strong>: https://arxiv.org/abs/2604.14988</p>
+
+<hr>
+
+<h2>五、重要参考论文 (Important Reference)</h2>
+
+<h3>FineZip: Pushing the Limits of Large Language Models for Practical Lossless Text Compression</h3>
+<li>**作者**: Fazal Mittu, Yihuan Bu, Akshat Gupta, Ashok Devireddy, Alp Eren Ozdarendeli, Anant Singh, Gopala Anumanchipalli</li>
+<li>**来源**: arXiv:2409.17141 [cs.CL]</li>
+<li>**日期**: 2024年9月25日</li>
+
+<p><strong>摘要</strong>: 现代LLM在文本压缩方面显示出巨大潜力，但实用性严重受限。LLMZip(Llama3-8B)压缩10MB文本需要9.5天。FineZip结合在线记忆和动态上下文思想，将压缩时间缩短至约4小时，实现54倍性能提升，同时保持可比的压缩性能。</p>
+
+<p><strong>核心贡献</strong>:</p>
+<li>相比LLMZip实现54倍压缩速度提升（9.5天→4小时）</li>
+<li>相比传统算法压缩比提升约50%</li>
+<li>在线记忆机制 + 动态上下文优化</li>
+<li>首次将LLM-based无损文本压缩推向实用化边界</li>
+
+<p><strong>链接</strong>: https://arxiv.org/abs/2409.17141</p>
+
+<hr>
+
+<h2>六、SIGMOD 2026 相关论文完整列表</h2>
+
+<h3>GPU加速 (15篇)</h3>
+<p>1. CMANNS: GPU-Accelerated Graph Index Construction for ANNS via Compute-Memory Disaggregation</p>
+<p>2. cuRPQ: A High-Performance GPU-Based Framework for Processing Regular Path Queries</p>
+<p>3. Bound-Tightened Densest Subgraph Discovery on GPU</p>
+<p>4. Geld: Load-balanced D-Core Decomposition for Consumer GPUs</p>
+<p>5. FastGNAS: Accelerating Graph Neural Architecture Search on Multi-GPUs</p>
+<p>6. GraphRTX: Lighting the Way to Scalable Graph Analytics</p>
+<p>7. L3: A GPU-Native Co-Designed Data Format for Learned Lossless Lightweight Compression</p>
+<p>8. FlashANNS: GPU-Driven Asynchronous I/O Pipelining for Billion-Scale Similarity Search</p>
+<p>9. VecFlow-Chamfer: GPU-based Data Management System for Multi-Vector Search</p>
+<p>10. Scalable Graph Indexing using GPUs for ANNS</p>
+<p>11. High-Throughput Billion-Scale Vector Search with a Single GPU</p>
+<p>12. Fast Optimal Group Steiner Tree Search using GPUs</p>
+<p>13. Gem: Scalable Monotonic Graph Processing Beyond Billion-Scale</p>
+<p>14. Accelerating Stream Processing Engines via Hardware Offloading</p>
+<p>15. VecFlow: High-Performance Vector Data Management for Filtered-Search on GPUs</p>
+
+<h3>数据编码与压缩 (10篇)</h3>
+<p>1. L3: A GPU-Native Co-Designed Data Format for Learned Lossless Lightweight Compression</p>
+<p>2. LICO: An SIMD-Aware High-Performance Learned Inverted Index Compression Framework</p>
+<p>3. Kangaroo: Efficient Lossless Floating-Point Compression via Dynamic Reference Selection</p>
+<p>4. FLEA: Frequency-based Lossless Encoding Algorithm for Periodic Time Series</p>
+<p>5. Dynamic Flat Filter: A Unified Framework for Fingerprint-Based Filters</p>
+<p>6. Meep Hashing: Ultrafast Minimal Perfect Hashing for Large-Scale Lookup</p>
+<p>7. SPALM: A Sparsity-Pattern-Adaptive Library for Matrices</p>
+<p>8. From Learning to Recycling: A Log-Structured Learned-Less Index</p>
+<p>9. Improving LZ4 for Effective Compression and Efficient Query</p>
+<p>10. F3: The Open-Source Data File Format for the Future</p>
+
+<hr>
+
+<h2>七、趋势观察</h2>
+
+<p>1. <strong>GPU原生架构成为主流</strong>: L3、FlashANNS、gMatch等论文显示GPU-native设计正在成为数据库系统的主流方向</p>
+<p>2. <strong>向量搜索持续火热</strong>: SIGMOD 2026有34篇向量搜索相关论文，GPU加速是重要方向</p>
+<p>3. <strong>压缩与计算融合</strong>: 学习型压缩(L3、LICO)与GPU加速结合成为新趋势</p>
+<p>4. <strong>直接在压缩数据上处理</strong>: CLAD代表的新范式——无需解压缩直接处理</p>
+<p>5. <strong>LLM与数据库深度融合</strong>: 从FineZip的压缩到Text-to-SQL的DPC框架</p>
+<p>6. <strong>十亿级规模成为标准</strong>: 向量搜索、图分析都在向十亿级规模推进</p>
+
+<hr>
+
+<p><em>报告生成时间: 2026-04-21 08:57</em></p>
+<p><em>数据来源: arXiv cs.DB, SIGMOD 2026, VLDB</em></p>
+
+        <div class="back-link">
+            <a href="index.html">← 返回首页</a>
+        </div>
+    </article>
+</body>
+</html>
