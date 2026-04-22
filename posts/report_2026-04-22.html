@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>数据库研究论文追踪报告 - 2026年4月22日</title>
+    <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; max-width: 900px; margin: 0 auto; padding: 20px; line-height: 1.6; }
+        h1 { color: #333; border-bottom: 2px solid #4a90d9; padding-bottom: 10px; }
+        h2 { color: #555; margin-top: 30px; }
+        h3 { color: #666; }
+        code { background: #f5f5f5; padding: 2px 6px; border-radius: 3px; }
+        pre { background: #f5f5f5; padding: 15px; border-radius: 5px; overflow-x: auto; }
+        blockquote { border-left: 4px solid #4a90d9; margin: 0; padding-left: 15px; color: #666; }
+        table { border-collapse: collapse; width: 100%; margin: 20px 0; }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+        th { background: #f5f5f5; }
+        a { color: #4a90d9; }
+        .back-link { margin-top: 30px; }
+        .date { color: #888; font-size: 0.9em; }
+        hr { border: none; border-top: 1px solid #eee; margin: 30px 0; }
+    </style>
+</head>
+<body>
+    <article>
+        <p class="date">2026-04-22</p>
+        <h1>数据库研究论文追踪报告 - 2026年4月22日</h1>
+        <hr>
+        <h1>数据库研究论文追踪报告 - 2026年4月22日</h1>
+
+<h2>每日摘要</h2>
+
+<p><strong>报告日期</strong>: 2026年4月22日  </p>
+<p><strong>论文总数</strong>: 12篇  </p>
+<p><strong>新增论文</strong>: 4篇  </p>
+<p><strong>重点关注</strong>: GPU加速、数据压缩与编码、向量搜索</p>
+
+<hr>
+
+<h2>统计概览</h2>
+
+<table>
+<tr><td>类别</td><td>数量</td><td>占比</td></tr>
+<tr><td>GPU加速与计算</td><td>8篇</td><td>67%</td></tr>
+<tr><td>数据编码/压缩</td><td>4篇</td><td>33%</td></tr>
+<tr><td>向量搜索 (ANNS)</td><td>6篇</td><td>50%</td></tr>
+</table>
+
+<hr>
+
+<h2>🔥 热门论文推荐</h2>
+
+<h3>1. FliX: Flipped-Indexing for Scalable GPU Queries and Updates</h3>
+<li>**来源**: arXiv:2604.16725 (2026年4月21日)</li>
+<li>**作者**: Rosina Kharal, Trevor Brown, Justus Henneberg, Felix Schuhknecht</li>
+<li>**核心贡献**: </li>
+<p>  - 提出翻转索引策略，将计算资源分配给数据层桶而非操作</p>
+<p>  - 查询延迟比GPU B树降低<strong>6.5倍</strong>，比GPU LSM树降低<strong>1.5倍</strong></p>
+<p>  - 更新密集型工作负载中插入吞吐量提升<strong>8倍以上</strong></p>
+<li>**链接**: https://arxiv.org/abs/2604.16725</li>
+
+<h3>2. GRAB-ANNS: High-Throughput Indexing and Hybrid Search via GPU-Native Bucketing</h3>
+<li>**来源**: arXiv:2604.16402 (2026年4月21日)</li>
+<li>**作者**: Xinkui Zhao, Hengxuan Lou, Yifan Zhang, et al.</li>
+<li>**核心贡献**:</li>
+<p>  - 首个原生GPU混合搜索图索引（向量+结构化过滤）</p>
+<p>  - 基于桶的内存布局，将范围谓词转换为轻量级桶选择</p>
+<p>  - 比CPU系统吞吐量提升<strong>240.1倍</strong>，索引构建速度提升<strong>12.6倍</strong></p>
+<li>**链接**: https://arxiv.org/abs/2604.16402</li>
+
+<h3>3. ZipFlow: Compiler-based Framework for GPU Compressed Data Movement</h3>
+<li>**来源**: arXiv:2602.08190 (2026年2月)</li>
+<li>**作者**: Gwangoo Yeo, Zhiyang Shen, Wei Cui, et al.</li>
+<li>**核心贡献**:</li>
+<p>  - 基于编译器的GPU压缩数据传输优化框架</p>
+<p>  - 比nvCOMP快<strong>2.08倍</strong>，比DuckDB快<strong>3.14倍</strong></p>
+<p>  - 系统性分类压缩算法为三种并行模式</p>
+<li>**链接**: https://arxiv.org/abs/2602.08190</li>
+
+<hr>
+
+<h2>📂 分类详细列表</h2>
+
+<h3>一、GPU加速与计算 (8篇)</h3>
+
+<h4>1. FliX: Flipped-Indexing for Scalable GPU Queries and Updates</h4>
+<li>**作者**: Rosina Kharal et al.</li>
+<li>**会议/期刊**: arXiv 2026</li>
+<li>**核心贡献**: 翻转索引策略消除传统索引层，实现完全动态的GPU驻留数据结构</li>
+<li>**性能**: 查询延迟降低1.5-6.5倍，更新吞吐量提升8倍以上</li>
+<li>**链接**: https://arxiv.org/abs/2604.16725</li>
+
+<h4>2. GRAB-ANNS: GPU-Native Bucketing for Hybrid Search</h4>
+<li>**作者**: Xinkui Zhao et al.</li>
+<li>**会议/期刊**: arXiv 2026</li>
+<li>**核心贡献**: 原生GPU混合搜索索引，桶化内存布局优化SIMT执行</li>
+<li>**性能**: 240.1倍吞吐量提升，12.6倍索引构建加速</li>
+<li>**链接**: https://arxiv.org/abs/2604.16402</li>
+
+<h4>3. GPU-Accelerated Algorithms for Graph Vector Search: Taxonomy and Study</h4>
+<li>**作者**: Yaowen Liu et al. (10位作者)</li>
+<li>**会议/期刊**: arXiv:2602.16719 (2026年2月)</li>
+<li>**核心贡献**: GPU图向量搜索算法的系统性综述与分类法</li>
+<li>**关键发现**: 距离计算是主要瓶颈，CPU-GPU数据传输影响大规模延迟</li>
+<li>**链接**: https://arxiv.org/abs/2602.16719</li>
+
+<h4>4. SVFusion: CPU-GPU Co-Processing for Real-Time Vector Search</h4>
+<li>**作者**: Yuchen Peng et al.</li>
+<li>**会议/期刊**: PVLDB Volume 19 (VLDB 2026)</li>
+<li>**核心贡献**: GPU-CPU-磁盘三层协同框架，支持实时向量搜索更新</li>
+<li>**性能**: 吞吐量提升20.9倍，延迟降低1.3-50.7倍</li>
+<li>**链接**: https://arxiv.org/abs/2601.08528</li>
+
+<h4>5. VecFlow: High-Performance Filtered-Search on GPUs</h4>
+<li>**作者**: Jingyi Xi, Chenghao Mo, et al.</li>
+<li>**会议/期刊**: SIGMOD 2026 (arXiv:2506.00812)</li>
+<li>**核心贡献**: 首个GPU加速过滤向量搜索系统，标签中心索引设计</li>
+<li>**性能**: 500万 QPS @ 90%召回率，比CPU方案快135倍</li>
+<li>**链接**: https://arxiv.org/abs/2506.00812</li>
+
+<h4>6. GustANN: Billion-Scale Vector Search with Single GPU</h4>
+<li>**作者**: (来自清华存储团队)</li>
+<li>**会议/期刊**: SIGMOD 2026</li>
+<li>**核心贡献**: GPU-centric架构，单GPU支持十亿级向量搜索</li>
+<li>**性能**: 高吞吐量、低成本，十亿规模图搜索</li>
+<li>**链接**: https://github.com/thustorage/GustANN</li>
+
+<h4>7. FlashANNS: GPU-Driven Async I/O for Billion-Scale ANNS</h4>
+<li>**作者**: Yang Xiao et al. (浙江大学)</li>
+<li>**会议/期刊**: SIGMOD 2026</li>
+<li>**核心贡献**: GPU驱动异步I/O流水线，消除存储-计算瓶颈</li>
+<li>**性能**: 2.3-5.9倍性能提升</li>
+<li>**链接**: https://2026.sigmod.org/sigmod_papers.shtml</li>
+
+<h4>8. GPU Acceleration of SQL Analytics on Compressed Data</h4>
+<li>**作者**: Zezhou Huang et al. (Microsoft Research)</li>
+<li>**会议/期刊**: PVLDB 2025 / arXiv:2506.10092</li>
+<li>**核心贡献**: 直接在轻量级压缩数据(RLE、字典编码)上执行SQL查询</li>
+<li>**性能**: 比CPU商业系统快一个数量级(10倍)</li>
+<li>**链接**: https://arxiv.org/abs/2506.10092</li>
+
+<hr>
+
+<h3>二、数据编码/压缩 (4篇)</h3>
+
+<h4>1. CLAD: Log Anomaly Detection on Compressed Representations</h4>
+<li>**作者**: Benzhao Tang, Shiyu Yang</li>
+<li>**会议/期刊**: arXiv:2604.13024 (2026年4月)</li>
+<li>**核心贡献**: 首个直接在压缩字节流上进行异常检测的框架，无需解压</li>
+<li>**性能**: F1-score 0.9909 (SOTA)，比基线高2.72个百分点</li>
+<li>**链接**: https://arxiv.org/abs/2604.13024</li>
+
+<h4>2. ZipFlow: Compiler Framework for GPU Compression</h4>
+<li>**作者**: Gwangoo Yeo et al.</li>
+<li>**会议/期刊**: arXiv:2602.08190</li>
+<li>**核心贡献**: 编译器级优化框架，端到端压缩数据传输优化</li>
+<li>**性能**: 比nvCOMP快2.08倍</li>
+<li>**链接**: https://arxiv.org/abs/2602.08190</li>
+
+<h4>3. FineZip: LLM-based Practical Lossless Text Compression</h4>
+<li>**作者**: Fazal Mittu et al. (UC Berkeley, NYU)</li>
+<li>**会议/期刊**: arXiv:2409.17141 (2024年9月)</li>
+<li>**核心贡献**: 结合在线记忆和动态上下文的LLM压缩系统</li>
+<li>**性能**: **54倍速度提升** (9.5天→4小时)，压缩率提升50%</li>
+<li>**链接**: https://arxiv.org/abs/2409.17141</li>
+
+<h4>4. Learned Data Compression: Challenges and Opportunities</h4>
+<li>**作者**: Qiyu Liu et al.</li>
+<li>**会议/期刊**: arXiv:2412.10770 (Vision Paper)</li>
+<li>**核心贡献**: 学习压缩器综述，使用ML模型近似有序键+残差数组</li>
+<li>**性能**: SIMD优化学习压缩器优于最先进CPU压缩器</li>
+<li>**链接**: https://arxiv.org/abs/2412.10770</li>
+
+<hr>
+
+<h2>📊 性能基准汇总</h2>
+
+<table>
+<tr><td>论文</td><td>对比基准</td><td>性能提升</td></tr>
+<tr><td>FliX</td><td>GPU B-tree</td><td>6.5x 延迟降低</td></tr>
+<tr><td>FliX</td><td>GPU LSM-tree</td><td>1.5x 延迟降低</td></tr>
+<tr><td>FliX</td><td>动态有序基线</td><td>8x 插入吞吐量</td></tr>
+<tr><td>GRAB-ANNS</td><td>CPU系统</td><td>240.1x 吞吐量</td></tr>
+<tr><td>GRAB-ANNS</td><td>原生GPU实现</td><td>10x 吞吐量</td></tr>
+<tr><td>ZipFlow</td><td>nvCOMP</td><td>2.08x 加速</td></tr>
+<tr><td>ZipFlow</td><td>DuckDB</td><td>3.14x 加速</td></tr>
+<tr><td>VecFlow</td><td>Filtered-DiskANN</td><td>135x 加速</td></tr>
+<tr><td>VecFlow</td><td>SOTA GPU</td><td>100x 吞吐量</td></tr>
+<tr><td>SVFusion</td><td>基线方法</td><td>20.9x 吞吐量</td></tr>
+<tr><td>GPU SQL on Compressed</td><td>CPU商业系统</td><td>10x 加速</td></tr>
+<tr><td>FineZip</td><td>LLMZip</td><td>54x 速度提升</td></tr>
+<tr><td>FineZip</td><td>gzip</td><td>50% 压缩率提升</td></tr>
+</table>
+
+<hr>
+
+<h2>🔍 研究趋势分析</h2>
+
+<h3>当前热点</h3>
+<p>1. <strong>GPU-native数据库架构</strong>: 从"CPU-centric移植"转向"原生GPU设计"</p>
+<p>2. <strong>十亿级向量搜索</strong>: 单GPU支持billion-scale成为标准基准</p>
+<p>3. <strong>混合搜索</strong>: 向量相似性+结构化过滤的联合优化</p>
+<p>4. <strong>压缩数据直接处理</strong>: 无需解压的查询执行成为新范式</p>
+
+<h3>技术演进</h3>
+<li>**2024-2025**: GPU加速压缩传输、LLM压缩概念验证</li>
+<li>**2026**: 原生GPU索引结构、实时更新支持、混合搜索优化</li>
+<li>**未来方向**: 计算-存储分离、学习压缩器实用化、多GPU扩展</li>
+
+<hr>
+
+<h2>📚 延伸阅读</h2>
+
+<h3>相关会议</h3>
+<li>**SIGMOD 2026**: 印度班加罗尔，5月31日-6月5日</li>
+<li>**VLDB 2026**: 美国波士顿，8月31日-9月4日</li>
+
+<h3>重要GitHub仓库</h3>
+<li>GustANN: https://github.com/thustorage/GustANN</li>
+<li>FineZip: https://github.com/fazalmittu/FineZip</li>
+
+<hr>
+
+<h2>报告生成信息</h2>
+
+<li>**生成时间**: 2026-04-22 09:20 UTC+8</li>
+<li>**数据来源**: arXiv cs.DB, SIGMOD 2026, VLDB Proceedings</li>
+<li>**搜索关键词**: GPU acceleration, data encoding, compression, ANNS, vector search, FineZip</li>
+<li>**上一期报告**: /Users/adam/WorkBuddy/Claw/db_research_reports/report_2026-04-21.md</li>
+
+<hr>
+
+<p><em>报告由自动化论文追踪系统生成</em></p>
+
+        <div class="back-link">
+            <a href="index.html">← 返回首页</a>
+        </div>
+    </article>
+</body>
+</html>
