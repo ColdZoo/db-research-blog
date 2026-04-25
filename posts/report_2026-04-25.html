@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>数据库研究论文追踪报告</title>
+    <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; max-width: 900px; margin: 0 auto; padding: 20px; line-height: 1.6; }
+        h1 { color: #333; border-bottom: 2px solid #4a90d9; padding-bottom: 10px; }
+        h2 { color: #555; margin-top: 30px; }
+        h3 { color: #666; }
+        code { background: #f5f5f5; padding: 2px 6px; border-radius: 3px; }
+        pre { background: #f5f5f5; padding: 15px; border-radius: 5px; overflow-x: auto; }
+        blockquote { border-left: 4px solid #4a90d9; margin: 0; padding-left: 15px; color: #666; }
+        table { border-collapse: collapse; width: 100%; margin: 20px 0; }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+        th { background: #f5f5f5; }
+        a { color: #4a90d9; }
+        .back-link { margin-top: 30px; }
+        .date { color: #888; font-size: 0.9em; }
+        hr { border: none; border-top: 1px solid #eee; margin: 30px 0; }
+    </style>
+</head>
+<body>
+    <article>
+        <p class="date">2026-04-25</p>
+        <h1>数据库研究论文追踪报告</h1>
+        <hr>
+        <h1>数据库研究论文追踪报告</h1>
+
+<p><strong>报告日期</strong>: 2026年4月25日  </p>
+<p><strong>追踪领域</strong>: 数据编码/解码、GPU加速与计算  </p>
+<p><strong>来源</strong>: VLDB、SIGMOD、arXiv cs.DB</p>
+
+<hr>
+
+<h2>📊 执行摘要</h2>
+
+<p>本次追踪发现 <strong>43篇</strong> arXiv cs.DB 最新论文（2026年4月20-24日），其中筛选出 <strong>15篇</strong> 高度相关论文。同时收集到 <strong>SIGMOD 2026</strong> 接收论文中 <strong>43篇</strong> 相关研究（GPU加速11篇，数据编码/解码12篇，压缩6篇，查询处理27篇）。</p>
+
+<h3>关键发现</h3>
+
+<table>
+<tr><td>指标</td><td>数值</td></tr>
+<tr><td>新发现 arXiv 论文</td><td>15 篇</td></tr>
+<tr><td>SIGMOD 2026 相关论文</td><td>43 篇</td></tr>
+<tr><td>GPU加速方向</td><td>11 篇 SIGMOD + 6 篇 arXiv</td></tr>
+<tr><td>数据编码/压缩方向</td><td>12 篇 SIGMOD + 4 篇 arXiv</td></tr>
+<tr><td>最高性能提升</td><td><strong>240倍</strong> 吞吐量提升 (GRAB-ANNS)</td></tr>
+</table>
+
+<hr>
+
+<h2>🔥 本周亮点论文</h2>
+
+<h3>1. GRAB-ANNS: GPU原生混合搜索框架</h3>
+<li>**arXiv**: 2604.16402</li>
+<li>**作者**: Xinkui Zhao 等 (浙江大学)</li>
+<li>**核心贡献**: </li>
+<p>  - 基于桶的内存布局实现合并内存访问</p>
+<p>  - 混合图拓扑（稠密桶内边 + 稀疏桶间边）</p>
+<p>  - <strong>性能提升</strong>: 比CPU系统提升 <strong>240.1倍</strong> 吞吐量，<strong>12.6倍</strong> 索引构建速度</p>
+<li>**相关领域**: GPU加速、向量搜索、混合查询</li>
+
+<h3>2. FliX: 翻转索引范式</h3>
+<li>**arXiv**: 2604.16725</li>
+<li>**作者**: Rosina Kharal 等</li>
+<li>**核心贡献**:</li>
+<p>  - 颠覆传统"操作找数据"模式，采用"数据找操作"</p>
+<p>  - 消除索引层维护开销</p>
+<p>  - <strong>性能提升</strong>: 查询延迟降低 <strong>6.5倍</strong> (vs GPU B+树)</p>
+<li>**相关领域**: GPU索引、动态数据结构</li>
+
+<h3>3. Garfield: 多属性范围过滤ANN搜索GPU框架</h3>
+<li>**arXiv**: 2604.20121</li>
+<li>**作者**: Zhonggen Li, Yunjun Gao 等 (浙江大学)</li>
+<li>**核心贡献**:</li>
+<p>  - GMG轻量级索引结构，线性存储开销</p>
+<p>  - 聚类引导查询排序策略</p>
+<p>  - <strong>性能提升</strong>: 索引大小减少 <strong>4.4倍</strong>，吞吐量提升 <strong>119.8倍</strong></p>
+<li>**相关领域**: GPU加速、向量搜索、范围过滤</li>
+
+<h3>4. SAGE: Token高效的选择性注意力提取</h3>
+<li>**arXiv**: 2604.15583</li>
+<li>**作者**: Xinzhi Wang, Samuel Madden, Chunwei Liu 等</li>
+<li>**核心贡献**:</li>
+<p>  - 无需训练的上下文缩减框架</p>
+<p>  - 差分注意力策略隔离相关证据</p>
+<p>  - <strong>性能提升</strong>: <strong>90% Token缩减</strong> 同时保持准确率</p>
+<li>**相关领域**: LLM效率、数据压缩、上下文优化</li>
+
+<hr>
+
+<h2>📚 GPU 加速方向论文</h2>
+
+<h3>arXiv 最新论文 (2026年4月)</h3>
+
+<table>
+<tr><td>论文</td><td>作者</td><td>核心创新</td><td>性能提升</td></tr>
+<tr><td><strong>Garfield</strong> - GPU加速多属性范围过滤ANN搜索</td><td>Li, Gao 等 (浙江大学)</td><td>GMG索引 + 聚类引导排序</td><td>119.8倍吞吐量，4.4倍索引缩减</td></tr>
+<tr><td><strong>SRDatalog</strong> - 最坏情况最优Datalog GPU扩展</td><td>Sun, Kumar 等</td><td>首个WCOJ-based GPU Datalog引擎</td><td>21-47倍加速</td></tr>
+<tr><td><strong>3DPipe</strong> - 多面体空间连接GPU框架</td><td>Yuan, Yan 等</td><td>流水线执行 + 多级剪枝</td><td>9.0倍加速 (vs TDBase)</td></tr>
+<tr><td><strong>FliX</strong> - 翻转索引范式</td><td>Kharal, Brown 等</td><td>计算到桶映射，无索引层</td><td>6.5倍延迟降低</td></tr>
+<tr><td><strong>GRAB-ANNS</strong> - GPU原生混合搜索</td><td>Zhao, Deng 等 (浙江大学)</td><td>桶式内存布局 + 混合图拓扑</td><td><strong>240.1倍</strong> 吞吐量提升</td></tr>
+</table>
+
+<h3>SIGMOD 2026 接收论文 (印度班加罗尔)</h3>
+
+<table>
+<tr><td>论文标题</td><td>作者</td><td>关键词</td></tr>
+<tr><td>CMANNS: GPU-Accelerated Graph Index Construction for ANNS</td><td>Chengying Huan 等</td><td>GPU图索引、ANN搜索</td></tr>
+<tr><td>Bound-Tightened Densest Subgraph Discovery on GPU</td><td>Wajid Manzoor 等</td><td>GPU图算法、子图发现</td></tr>
+<tr><td>Geld: Load-balanced D-Core Decomposition for Consumer GPUs</td><td>Cheng Huang 等</td><td>GPU负载均衡、D-Core分解</td></tr>
+<tr><td>cuRPQ: GPU-Based Framework for Regular Path Queries</td><td>Sungwoo Park 等</td><td>GPU路径查询、正则表达式</td></tr>
+<tr><td>FastGNAS: Graph Neural Architecture Search on Multi-GPUs</td><td>Zhen Song 等</td><td>GPU图神经网络、架构搜索</td></tr>
+<tr><td>GraphRTX: Scalable Graph Analytics</td><td>Alexander Baumstark 等</td><td>GPU图分析</td></tr>
+<tr><td><strong>FlashANNS</strong>: GPU-Driven Async I/O for Billion-Scale Search</td><td>Yang Xiao 等</td><td><strong>GPU异步I/O、十亿级搜索</strong></td></tr>
+<tr><td><strong>VecFlow-Chamfer</strong>: GPU Multi-Vector Search on Superchips</td><td>Chenghao Mo 等</td><td><strong>GPU向量搜索、Superchip</strong></td></tr>
+<tr><td>Scalable Graph Indexing using GPUs for ANNS</td><td>Zhonggen Li 等</td><td>GPU图索引、ANN</td></tr>
+<tr><td>Billion-Scale Vector Search with Single GPU</td><td>Haodi Jiang 等</td><td>单GPU十亿级向量搜索</td></tr>
+<tr><td>Fast Optimal Group Steiner Tree using GPUs</td><td>Jiayu Li 等</td><td>GPU Steiner树、图算法</td></tr>
+</table>
+
+<hr>
+
+<h2>📚 数据编码/解码与压缩方向论文</h2>
+
+<h3>arXiv 最新论文 (2026年4月)</h3>
+
+<table>
+<tr><td>论文</td><td>作者</td><td>核心创新</td><td>相关领域</td></tr>
+<tr><td><strong>RaBitQ/TurboQuant 再审视</strong></td><td>Gao, Wong 等</td><td>量化方法对称比较</td><td>向量量化压缩</td></tr>
+<tr><td><strong>Universal Tabular Embeddings</strong></td><td>Vogel, Srinivas 等</td><td>跨数据任务的表格嵌入基准</td><td>表格数据编码</td></tr>
+<tr><td><strong>Self-Aware Vector Embeddings</strong></td><td>Naizhong Xu</td><td>神经科学启发的RAG框架</td><td>向量嵌入优化</td></tr>
+<tr><td><strong>LIVE</strong>: 可学习单调顶点嵌入</td><td>Ye, Yu 等</td><td>高效子图匹配</td><td>图数据嵌入</td></tr>
+</table>
+
+<h3>SIGMOD 2026 接收论文</h3>
+
+<h4>数据编码/解码</h4>
+
+<table>
+<tr><td>论文标题</td><td>作者</td><td>关键词</td></tr>
+<tr><td><strong>CoDec</strong>: Prefix-Shared Decoding Kernel for LLMs</td><td>Zhibin Wang 等</td><td><strong>LLM解码优化、前缀共享</strong></td></tr>
+<tr><td>EncoderForge: SQL Generation for ML Encoders</td><td>Qingfeng Pan 等</td><td>ML编码器、SQL生成</td></tr>
+<tr><td><strong>FLEA</strong>: Frequency-based Lossless Encoding for Time Series</td><td>Tianrui Xia 等</td><td><strong>时序数据无损编码</strong></td></tr>
+<tr><td><strong>Kangaroo</strong>: Floating-Point Compression via Dynamic Reference</td><td>Shuo Li 等</td><td><strong>浮点压缩、动态参考</strong></td></tr>
+<tr><td><strong>L3</strong>: GPU-Native Learned Lossless Lightweight Compression</td><td>Youyang Xia 等</td><td><strong>GPU原生学习压缩</strong></td></tr>
+<tr><td><strong>LICO</strong>: SIMD-Aware Learned Inverted Index Compression</td><td>Xianyu Zhu 等</td><td><strong>SIMD感知学习压缩</strong></td></tr>
+<tr><td>Meep Hashing: Minimal Perfect Hashing</td><td>Shouqian Shi 等</td><td>最小完美哈希</td></tr>
+<tr><td>Aeris Filter: Adaptive Range Filter</td><td>Yuvaraj Chesetti 等</td><td>自适应范围过滤器</td></tr>
+<tr><td>Breadcrumb Filters: Fast Fully Featured Filters</td><td>Andrew Krapivin 等</td><td>快速布隆过滤器</td></tr>
+<tr><td>Hourglass: Adaptive Range Filter with Hybrid Encoding</td><td>Feifan Liu 等</td><td>混合编码范围过滤</td></tr>
+<tr><td><strong>F3</strong>: Open-Source Data File Format for the Future</td><td>Xinyu Zeng 等</td><td><strong>开源数据格式</strong></td></tr>
+<tr><td>HotPrefix: KV Cache Scheduling for LLM Inference</td><td>Yuhang Li 等</td><td>LLM推理缓存调度</td></tr>
+</table>
+
+<h4>压缩技术</h4>
+
+<table>
+<tr><td>论文标题</td><td>作者</td><td>关键词</td></tr>
+<tr><td>DimWeaver: Dimensional Weaved Trajectory Compression</td><td>Xenophon Kitsios 等</td><td>轨迹压缩</td></tr>
+<tr><td>Improving LZ4 for Compression and Query</td><td>Zhiheng Liu 等</td><td>LZ4优化</td></tr>
+<tr><td>Succinct Structure Representations for Query Optimization</td><td>Zhekai Jiang 等</td><td>简洁结构表示</td></tr>
+<tr><td>SplineSketch: Accurate Quantiles with Error Guarantees</td><td>Aleksander Lukasiewicz 等</td><td>分位数草图</td></tr>
+<tr><td><strong>SAQ</strong>: Vector Quantization via Code Adjustment</td><td>Hui Li 等</td><td><strong>向量量化优化</strong></td></tr>
+</table>
+
+<hr>
+
+<h2>📚 查询处理方向精选</h2>
+
+<h3>SIGMOD 2026 相关论文</h3>
+
+<table>
+<tr><td>论文标题</td><td>作者</td><td>关键词</td></tr>
+<tr><td>100x Cost Reduction: AI Query Approximation with Proxy Models</td><td>Yeounoh Chung 等</td><td>AI查询近似、代理模型</td></tr>
+<tr><td>Factorized and Vectorized Execution for Analytical Queries</td><td>Sunny Yasser 等</td><td>因子化执行、向量化</td></tr>
+<tr><td>NeurSO: Neural Optimizer for Subgraph Queries</td><td>Linglin Yang 等</td><td>神经查询优化、子图查询</td></tr>
+<tr><td>Reward-SQL: Text-to-SQL via Stepwise Reasoning</td><td>Yuxin Zhang 等</td><td>Text-to-SQL、推理增强</td></tr>
+<tr><td>GenRewrite: Query Rewriting via LLMs</td><td>Jie Liu 等</td><td>LLM查询重写</td></tr>
+<tr><td>Can LLMs Be Query Optimizer?</td><td>Jie Tan 等</td><td>LLM查询优化</td></tr>
+</table>
+
+<hr>
+
+<h2>🔗 重要链接</h2>
+
+<h3>会议与期刊</h3>
+<li>**VLDB 2026**: https://vldb.org/2026/ (波士顿)</li>
+<li>**SIGMOD 2026**: https://2026.sigmod.org/ (印度班加罗尔)</li>
+<li>**PVLDB Volume 19**: https://vldb.org/pvldb/vol19-volume-info</li>
+
+<h3>本周论文 arXiv 链接</h3>
+<li>Garfield (RFANNS): https://arxiv.org/abs/2604.20121</li>
+<li>SRDatalog: https://arxiv.org/abs/2604.20073</li>
+<li>3DPipe: https://arxiv.org/abs/2604.19982</li>
+<li>FliX: https://arxiv.org/abs/2604.16725</li>
+<li>GRAB-ANNS: https://arxiv.org/abs/2604.16402</li>
+<li>SAGE: https://arxiv.org/abs/2604.15583</li>
+
+<hr>
+
+<h2>📈 趋势分析</h2>
+
+<h3>GPU 加速数据库成为主流</h3>
+<li>**十亿级向量搜索** 成为标准配置（FlashANNS, VecFlow-Chamfer, Billion-Scale VSS）</li>
+<li>**GPU原生架构** 取代简单的CPU算法移植（FliX翻转索引范式、GRAB-ANNS桶式布局）</li>
+<li>**异步I/O流水线** 解决存储-计算瓶颈（FlashANNS）</li>
+
+<h3>学习压缩与硬件协同设计</h3>
+<li>**L3**: GPU原生学习无损压缩（GPU-Native Learned Compression）</li>
+<li>**LICO**: SIMD感知学习倒排索引压缩</li>
+<li>**CoDec**: LLM前缀共享解码内核</li>
+
+<h3>LLM与数据库融合</h3>
+<li>**LLM for Query Optimization**: 多篇论文探索LLM作为查询优化器</li>
+<li>**Text-to-SQL增强**: Reward-SQL、SchemaRAG等工作提升NL2SQL能力</li>
+<li>**Token效率**: SAGE实现90%上下文压缩</li>
+
+<hr>
+
+<h2>🎯 FineZip 相关论文关注</h2>
+
+<p>与 FineZip (LLM文本压缩) 方向相关的本周发现：</p>
+
+<p>1. <strong>SAGE</strong> (arXiv:2604.15583): Token高效的选择性提取，90%压缩率</p>
+<p>2. <strong>CoDec</strong> (SIGMOD 2026): LLM前缀共享解码内核</p>
+<p>3. <strong>HotPrefix</strong> (SIGMOD 2026): LLM推理中的KV缓存调度</p>
+<p>4. <strong>Stream2LLM</strong> (arXiv:2604.16386): LLM上下文流式处理</p>
+
+<hr>
+
+<p><em>报告生成时间: 2026-04-25 09:00</em>  </p>
+<p><em>下次追踪: 2026-04-26 09:00</em></p>
+
+        <div class="back-link">
+            <a href="index.html">← 返回首页</a>
+        </div>
+    </article>
+</body>
+</html>
