@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>数据库研究论文追踪报告 - 2026年4月29日</title>
+    <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; max-width: 900px; margin: 0 auto; padding: 20px; line-height: 1.6; }
+        h1 { color: #333; border-bottom: 2px solid #4a90d9; padding-bottom: 10px; }
+        h2 { color: #555; margin-top: 30px; }
+        h3 { color: #666; }
+        code { background: #f5f5f5; padding: 2px 6px; border-radius: 3px; }
+        pre { background: #f5f5f5; padding: 15px; border-radius: 5px; overflow-x: auto; }
+        blockquote { border-left: 4px solid #4a90d9; margin: 0; padding-left: 15px; color: #666; }
+        table { border-collapse: collapse; width: 100%; margin: 20px 0; }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+        th { background: #f5f5f5; }
+        a { color: #4a90d9; }
+        .back-link { margin-top: 30px; }
+        .date { color: #888; font-size: 0.9em; }
+        hr { border: none; border-top: 1px solid #eee; margin: 30px 0; }
+    </style>
+</head>
+<body>
+    <article>
+        <p class="date">2026-04-29</p>
+        <h1>数据库研究论文追踪报告 - 2026年4月29日</h1>
+        <hr>
+        <h1>数据库研究论文追踪报告 - 2026年4月29日</h1>
+
+<p><strong>报告日期</strong>: 2026年4月29日  </p>
+<p><strong>监控范围</strong>: VLDB, SIGMOD, arXiv cs.DB (2026年4月21日-28日)  </p>
+<p><strong>关键词</strong>: 数据编码/解码, GPU加速, GPU数据库, LLM压缩, 向量搜索</p>
+
+<hr>
+
+<h2>📊 每日摘要</h2>
+
+<p>今日共发现 <strong>12篇相关论文</strong>，其中：</p>
+<li>**GPU加速方向**: 6篇 (含GPU Datalog、GPU ANN搜索、GPU空间连接)</li>
+<li>**数据编码/压缩方向**: 4篇 (含向量量化、上下文压缩、索引压缩)</li>
+<li>**查询处理方向**: 2篇 (混合查询优化、文本转SQL)</li>
+
+<h3>🔥 亮点论文</h3>
+<p>1. <strong>Garfield</strong> - GPU多属性范围过滤ANN搜索，<strong>119.8倍</strong>吞吐量提升</p>
+<p>2. <strong>SRDatalog</strong> - 首个WCOJ-based GPU Datalog引擎，<strong>21-47倍</strong>加速</p>
+<p>3. <strong>SAGE</strong> - 无需训练的上下文压缩框架，<strong>90%令牌缩减</strong></p>
+<p>4. <strong>BoomHQ</strong> - 学习优化混合查询，峰值<strong>25倍</strong>加速</p>
+
+<hr>
+
+<h2>🚀 GPU加速方向</h2>
+
+<h3>1. Garfield: GPU多属性范围过滤ANN搜索框架</h3>
+<table>
+<tr><td>属性</td><td>详情</td></tr>
+<tr><td><strong>标题</strong></td><td>A GPU-Accelerated Framework for Multi-Attribute Range Filtered Approximate Nearest Neighbor Search</td></tr>
+<tr><td><strong>作者</strong></td><td>Zhonggen Li, Haoran Yu, Zixuan Xu, Yifan Zhu, Yunjun Gao</td></tr>
+<tr><td><strong>来源</strong></td><td>arXiv:2604.20121</td></tr>
+<tr><td><strong>提交日期</strong></td><td>2026年4月22日</td></tr>
+</table>
+
+<p><strong>核心贡献</strong>:</p>
+<li>提出**GMG索引**：将数据划分为单元格并构建局部图索引，通过恒定数量跨单元格边保证线性存储开销</li>
+<li>**聚类引导排序策略**：重新排序查询相关单元格，实现高效GPU逐单元格遍历</li>
+<li>**候选点重用机制**：跨单元格遍历时重用候选点作为入口点，减少重复计算</li>
+<li>**核外流水线**：单元格导向的动态调度，重叠GPU计算与CPU-GPU数据传输</li>
+
+<p><strong>性能提升</strong>:</p>
+<li>🏆 **119.8倍** 吞吐量提升（相比最先进RFANNS方法）</li>
+<li>🏆 **4.4倍** 索引压缩比</li>
+<li>线性存储和索引开销保证</li>
+
+<hr>
+
+<h3>2. SRDatalog: 最坏情况最优GPU Datalog引擎</h3>
+<table>
+<tr><td>属性</td><td>详情</td></tr>
+<tr><td><strong>标题</strong></td><td>Scaling Worst-Case Optimal Datalog to GPUs</td></tr>
+<tr><td><strong>作者</strong></td><td>Yihao Sun, Kunting Qi, Thomas Gilray, Sidharth Kumar, Kristopher Micinski</td></tr>
+<tr><td><strong>来源</strong></td><td>arXiv:2604.20073</td></tr>
+<tr><td><strong>提交日期</strong></td><td>2026年4月22日</td></tr>
+</table>
+
+<p><strong>核心贡献</strong>:</p>
+<li>**首个WCOJ-based GPU Datalog引擎**：区别于现有基于二元连接的GPU引擎</li>
+<li>**扁平列式存储 + 两阶段确定性内存分配**：避免OOM故障和索引重建开销</li>
+<li>**负载均衡优化**：</li>
+<p>  - 根级直方图引导的负载均衡</p>
+<p>  - 结构辅助关系拆分</p>
+<p>  - 流对齐规则多路复用</p>
+
+<p><strong>性能提升</strong>:</p>
+<li>🏆 **几何平均21-47倍**加速（真实世界程序分析工作负载）</li>
+<li>解决SIMT硬件上的键倾斜导致的流处理器负载不平衡问题</li>
+
+<hr>
+
+<h3>3. 3DPipe: 多面体空间连接GPU框架</h3>
+<table>
+<tr><td>属性</td><td>详情</td></tr>
+<tr><td><strong>标题</strong></td><td>3DPipe: A Pipelined GPU Framework for Scalable Generalized Spatial Join over Polyhedral Objects</td></tr>
+<tr><td><strong>作者</strong></td><td>Lyuheng Yuan, Da Yan, Akhlaque Ahmad, Fusheng Wang</td></tr>
+<tr><td><strong>来源</strong></td><td>arXiv:2604.19982</td></tr>
+<tr><td><strong>开源代码</strong></td><td>https://github.com/lyuheng/3dpipe</td></tr>
+</table>
+
+<p><strong>核心贡献</strong>:</p>
+<li>面向3D数据的**流水线式GPU空间连接框架**</li>
+<li>在过滤和精炼阶段均利用**GPU并行性**</li>
+<li>**多级剪枝策略**实现高效候选集缩减</li>
+<li>**分块流式处理**支持超出GPU内存的数据集</li>
+
+<p><strong>性能提升</strong>:</p>
+<li>🏆 **9.0倍**加速（相比最先进GPU方案TDBase）</li>
+<li>出色可扩展性</li>
+
+<hr>
+
+<h3>4. FPGA B+树批量搜索加速</h3>
+<table>
+<tr><td>属性</td><td>详情</td></tr>
+<tr><td><strong>标题</strong></td><td>Efficient Batch Search Algorithm for B+ Tree Index Structures with Level-Wise Traversal on FPGAs</td></tr>
+<tr><td><strong>作者</strong></td><td>Max Tzschoppe, Martin Wilhelm, Sven Groppe, Thilo Pionteck</td></tr>
+<tr><td><strong>来源</strong></td><td>arXiv:2604.21117 (cs.AR)</td></tr>
+<tr><td><strong>平台</strong></td><td>AMD Alveo U250数据中心加速卡</td></tr>
+</table>
+
+<p><strong>核心贡献</strong>:</p>
+<li>**层级遍历策略**：按层级处理批量搜索键，高效重用树节点</li>
+<li>**高层综合(HLS)**方法：高度灵活可配置的内核设计</li>
+<li>支持可变批量大小、自定义节点大小、任意树深度</li>
+
+<p><strong>性能提升</strong>:</p>
+<li>🏆 **4.9倍**加速（单内核FPGA vs 单线程CPU）</li>
+<li>🏆 **2.1倍**加速（4内核FPGA vs 16线程CPU）</li>
+<li>减少全局内存访问，提高节点数据重用率</li>
+
+<hr>
+
+<h2>🗜️ 数据编码/压缩方向</h2>
+
+<h3>5. SAGE: 选择性注意力引导提取框架</h3>
+<table>
+<tr><td>属性</td><td>详情</td></tr>
+<tr><td><strong>标题</strong></td><td>SAGE: Selective Attention-Guided Extraction for Token-Efficient Document Indexing</td></tr>
+<tr><td><strong>作者</strong></td><td>Xinzhi Wang, Peter Baile Chen, Gerardo Vitagliano, Matthew Russo, Jun Chen, Michael Cafarella, Samuel Madden, Chunwei Liu</td></tr>
+<tr><td><strong>来源</strong></td><td>arXiv:2604.15583</td></tr>
+<tr><td><strong>提交日期</strong></td><td>2026年4月16日 (v2: 4月24日)</td></tr>
+</table>
+
+<p><strong>核心贡献</strong>:</p>
+<li>**无需训练、即插即用**的上下文缩减框架</li>
+<li>**差分注意力策略**：将LLM注意力信号转换为查询特定相关性热力图</li>
+<li>**可配置粒度**：在用户定义的令牌预算下选择得分最高单元</li>
+
+<p><strong>性能提升</strong>:</p>
+<li>🏆 **90%令牌缩减**（上下文限制在原始大小10%）</li>
+<li>QuALITY-hard基准**前4名**成绩</li>
+<li>在多个长文档QA基准上超越传统缩减技术</li>
+
+<hr>
+
+<h3>6. MCI: 最大团索引用于过滤ANN搜索</h3>
+<table>
+<tr><td>属性</td><td>详情</td></tr>
+<tr><td><strong>标题</strong></td><td>MCI: A Maximal Clique Index for Efficient Arbitrary-Filtered Approximate Nearest Neighbor Search</td></tr>
+<tr><td><strong>作者</strong></td><td>Xiaowei Ye, Rong-Hua Li, Guoren Wang, Kaiwen Xue, Daiyin Wang, Xubin Li</td></tr>
+<tr><td><strong>来源</strong></td><td>arXiv:2604.22171</td></tr>
+<tr><td><strong>提交日期</strong></td><td>2026年4月24日</td></tr>
+</table>
+
+<p><strong>核心贡献</strong>:</p>
+<li>**最大团覆盖(MCC)**：利用高维空间几何传递性，将稠密邻域编码为最大团</li>
+<li>**局部邻域图几何稠密化**：从稀疏NNG构建近似大规模NNG索引</li>
+<li>**无锁并行构建**：保证可扩展性</li>
+<li>**多种子策略查询**：处理谓词诱导的碎片化子图</li>
+
+<p><strong>性能提升</strong>:</p>
+<li>🏆 **高达一个数量级**QPS提升（高召回率条件）</li>
+<li>显著更小的存储空间</li>
+<li>在范围过滤和关键词过滤任务上保持竞争力</li>
+
+<hr>
+
+<h3>7. RaBitQ vs TurboQuant: 向量量化方法对比</h3>
+<table>
+<tr><td>属性</td><td>详情</td></tr>
+<tr><td><strong>标题</strong></td><td>Revisiting RaBitQ and TurboQuant: A Symmetric Comparison of Methods, Theory, and Experiments</td></tr>
+<tr><td><strong>作者</strong></td><td>Jianyang Gao, Yutong Gou, Yuexuan Xu, Jifan Shi, Yongyi Yang, Shuolin Li, Raymond Chi-Wing Wong, Cheng Long</td></tr>
+<tr><td><strong>来源</strong></td><td>arXiv:2604.19528</td></tr>
+<tr><td><strong>提交日期</strong></td><td>2026年4月21日</td></tr>
+</table>
+
+<p><strong>核心贡献</strong>:</p>
+<li>**统一比较框架**：对称、透明、可复现的评估</li>
+<li>**理论澄清**：明确两种方法的共享结构与本质差异</li>
+<li>**可复现性验证**：记录TurboQuant论文实验结果的复现问题</li>
+
+<p><strong>重要发现</strong>:</p>
+<li>TurboQuant**未能在所有配置中一致优于**RaBitQ</li>
+<li>在许多场景中TurboQuant表现**劣于**RaBitQ</li>
+<li>部分报告结果**无法从开源实现复现**</li>
+
+<hr>
+
+<h2>📊 查询处理方向</h2>
+
+<h3>8. BoomHQ: 学习优化向量数据库混合查询</h3>
+<table>
+<tr><td>属性</td><td>详情</td></tr>
+<tr><td><strong>标题</strong></td><td>BoomHQ: Learning to Boost Multiple Hybrid Queries on Vector DBMSs</td></tr>
+<tr><td><strong>作者</strong></td><td>Ermu Qiu, Tianyi Chen, Jun Gao, Xing Wei, Yaofeng Tu, Yinjun Han, Yang Lin</td></tr>
+<tr><td><strong>来源</strong></td><td>arXiv:2604.24552</td></tr>
+<tr><td><strong>提交日期</strong></td><td>2026年4月27日</td></tr>
+</table>
+
+<p><strong>核心贡献</strong>:</p>
+<li>**属性关联建模**：自编码器架构建模向量-标量相关性，对数据更新友好</li>
+<li>**查询模式捕获**：利用查询向量邻域内标量谓词的选择性估计</li>
+<li>**查询重写优化**：预测执行提示，将原始查询重写为优化版本</li>
+<li>**基准扩展**：引入具有内在相关性的向量-标量数据集</li>
+
+<p><strong>性能提升</strong>:</p>
+<li>🏆 **平均2倍、峰值25倍以上**加速</li>
+<li>在三个代表性向量数据库系统上验证</li>
+<li>对数据更新展现出强鲁棒性</li>
+
+<hr>
+
+<h3>9. Self-Aware Vector Embeddings (自感知向量嵌入)</h3>
+<table>
+<tr><td>属性</td><td>详情</td></tr>
+<tr><td><strong>标题</strong></td><td>Self-Aware Vector Embeddings for Retrieval-Augmented Generation: A Neuroscience-Inspired Framework</td></tr>
+<tr><td><strong>作者</strong></td><td>Naizhong Xu</td></tr>
+<tr><td><strong>来源</strong></td><td>arXiv:2604.20598</td></tr>
+</table>
+
+<p><strong>核心贡献</strong>:</p>
+<li>受神经科学启发的RAG向量嵌入框架</li>
+<li>支持时间、置信度加权和关系知识</li>
+
+<hr>
+
+<h2>📝 其他相关论文</h2>
+
+<h3>10. SQLyzr: Text-to-SQL基准测试平台</h3>
+<table>
+<tr><td>属性</td><td>详情</td></tr>
+<tr><td><strong>标题</strong></td><td>SQLyzr: A Comprehensive Benchmark and Evaluation Platform for Text-to-SQL</td></tr>
+<tr><td><strong>作者</strong></td><td>Sepideh Abedini, M. Tamer Özsu</td></tr>
+<tr><td><strong>来源</strong></td><td>arXiv:2604.21214</td></tr>
+</table>
+
+<h3>11. DW-Bench: 数据仓库图拓扑推理基准</h3>
+<table>
+<tr><td>属性</td><td>详情</td></tr>
+<tr><td><strong>标题</strong></td><td>DW-Bench: Benchmarking LLMs on Data Warehouse Graph Topology Reasoning</td></tr>
+<tr><td><strong>作者</strong></td><td>Ahmed G.A.H Ahmed, C. Okan Sakar</td></tr>
+<tr><td><strong>来源</strong></td><td>arXiv:2604.18964</td></tr>
+</table>
+
+<h3>12. 事务隔离检查实用化</h3>
+<table>
+<tr><td>属性</td><td>详情</td></tr>
+<tr><td><strong>标题</strong></td><td>Making Transaction Isolation Checking Practical</td></tr>
+<tr><td><strong>作者</strong></td><td>Jian Zhang, Shuai Mu, Cheng Tan</td></tr>
+<tr><td><strong>来源</strong></td><td>arXiv:2604.20587</td></tr>
+</table>
+
+<hr>
+
+<h2>📈 趋势分析</h2>
+
+<h3>GPU加速趋势</h3>
+<table>
+<tr><td>趋势</td><td>说明</td></tr>
+<tr><td><strong>范围过滤ANN成为热点</strong></td><td>Garfield等3篇论文聚焦RFANNS，GPU加速解决索引膨胀问题</td></tr>
+<tr><td><strong>WCOJ算法上GPU</strong></td><td>SRDatalog首次将最坏情况最优连接引入GPU Datalog</td></tr>
+<tr><td><strong>流水线核外处理</strong></td><td>3DPipe、Garfield均采用计算-传输重叠策略</td></tr>
+<tr><td><strong>FPGA作为补充</strong></td><td>B+树FPGA加速提供另一种硬件加速路径</td></tr>
+</table>
+
+<h3>编码/压缩趋势</h3>
+<table>
+<tr><td>趋势</td><td>说明</td></tr>
+<tr><td><strong>LLM上下文压缩</strong></td><td>SAGE等框架利用注意力机制实现90%+压缩比</td></tr>
+<tr><td><strong>图索引压缩</strong></td><td>MCI通过最大团实现高压缩率+高连通性</td></tr>
+<tr><td><strong>量化方法对比</strong></td><td>RaBitQ/TurboQuant对比揭示可复现性问题</td></tr>
+</table>
+
+<hr>
+
+<h2>🔗 论文链接汇总</h2>
+
+<table>
+<tr><td>论文</td><td>arXiv ID</td><td>链接</td></tr>
+<tr><td>Garfield</td><td>2604.20121</td><td>https://arxiv.org/abs/2604.20121</td></tr>
+<tr><td>SRDatalog</td><td>2604.20073</td><td>https://arxiv.org/abs/2604.20073</td></tr>
+<tr><td>3DPipe</td><td>2604.19982</td><td>https://arxiv.org/abs/2604.19982</td></tr>
+<tr><td>SAGE</td><td>2604.15583</td><td>https://arxiv.org/abs/2604.15583</td></tr>
+<tr><td>MCI</td><td>2604.22171</td><td>https://arxiv.org/abs/2604.22171</td></tr>
+<tr><td>BoomHQ</td><td>2604.24552</td><td>https://arxiv.org/abs/2604.24552</td></tr>
+<tr><td>RaBitQ对比</td><td>2604.19528</td><td>https://arxiv.org/abs/2604.19528</td></tr>
+<tr><td>FPGA B+树</td><td>2604.21117</td><td>https://arxiv.org/abs/2604.21117</td></tr>
+</table>
+
+<hr>
+
+<p><em>报告生成时间: 2026-04-29 09:00</em>  </p>
+<p><em>自动化系统: Database Research Paper Tracker</em></p>
+
+        <div class="back-link">
+            <a href="index.html">← 返回首页</a>
+        </div>
+    </article>
+</body>
+</html>
