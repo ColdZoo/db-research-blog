@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>数据库研究论文追踪日报 - 2026年5月2日</title>
+    <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; max-width: 900px; margin: 0 auto; padding: 20px; line-height: 1.6; }
+        h1 { color: #333; border-bottom: 2px solid #4a90d9; padding-bottom: 10px; }
+        h2 { color: #555; margin-top: 30px; }
+        h3 { color: #666; }
+        code { background: #f5f5f5; padding: 2px 6px; border-radius: 3px; }
+        pre { background: #f5f5f5; padding: 15px; border-radius: 5px; overflow-x: auto; }
+        blockquote { border-left: 4px solid #4a90d9; margin: 0; padding-left: 15px; color: #666; }
+        table { border-collapse: collapse; width: 100%; margin: 20px 0; }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+        th { background: #f5f5f5; }
+        a { color: #4a90d9; }
+        .back-link { margin-top: 30px; }
+        .date { color: #888; font-size: 0.9em; }
+        hr { border: none; border-top: 1px solid #eee; margin: 30px 0; }
+    </style>
+</head>
+<body>
+    <article>
+        <p class="date">2026-05-02</p>
+        <h1>数据库研究论文追踪日报 - 2026年5月2日</h1>
+        <hr>
+        <h1>数据库研究论文追踪日报 - 2026年5月2日</h1>
+
+<h2>日报摘要</h2>
+
+<table>
+<tr><td>指标</td><td>数据</td></tr>
+<tr><td><strong>报告日期</strong></td><td>2026-05-02</td></tr>
+<tr><td><strong>新增论文总数</strong></td><td>81 篇</td></tr>
+<tr><td><strong>GPU加速相关</strong></td><td>13 篇</td></tr>
+<tr><td><strong>编码/压缩相关</strong></td><td>10 篇</td></tr>
+<tr><td><strong>向量搜索/ANN</strong></td><td>35 篇</td></tr>
+<tr><td><strong>查询处理</strong></td><td>24 篇</td></tr>
+<tr><td><strong>arXiv新提交</strong></td><td>33 篇 (4月27日-5月1日)</td></tr>
+<tr><td><strong>SIGMOD 2026</strong></td><td>75 篇相关论文</td></tr>
+</table>
+
+<hr>
+
+<h2>🔥 本周重要发现</h2>
+
+<h3>1. **Nacrith: 超越FineZip的神经无损压缩** (2026年2月)</h3>
+<li>**arXiv**: 2602.19626</li>
+<li>**作者**: Roberto Tacconelli</li>
+<li>**核心贡献**: </li>
+<p>  - 使用135M参数transformer模型，比FineZip的Llama3-8B小60倍</p>
+<p>  - 在enwik8上达到0.9389 bpb，比FineZip (1.024 bpb) 提升8%</p>
+<p>  - 多项创新：32位算术编码、token级N-gram模型、自适应偏差头</p>
+<li>**性能**: 压缩率提升8%，模型体积小60倍，无需微调</li>
+<li>**链接**: https://arxiv.org/abs/2602.19626</li>
+
+<h3>2. **ZipFlow: GPU压缩数据流编译器框架** (2026年2月)</h3>
+<li>**arXiv**: 2602.08190</li>
+<li>**作者**: Gwangoo Yeo, Zhiyang Shen, Wei Cui 等</li>
+<li>**核心贡献**:</li>
+<p>  - 编译器框架优化GPU加速数据分析中的压缩数据传输</p>
+<p>  - 将压缩算法分类为三种并行模式</p>
+<p>  - 针对每种模式采用通用调度策略</p>
+<li>**性能提升**: </li>
+<p>  - 比nvCOMP快 <strong>2.08倍</strong></p>
+<p>  - 比DuckDB快 <strong>3.14倍</strong> (TPC-H基准)</p>
+<li>**链接**: https://arxiv.org/abs/2602.08190</li>
+
+<h3>3. **GPU加速压缩数据SQL分析** (2025年6月)</h3>
+<li>**arXiv**: 2506.10092</li>
+<li>**作者**: Zezhou Huang, Krystian Sakowski, Hans Lehnert 等</li>
+<li>**核心贡献**:</li>
+<p>  - 直接在轻量级压缩数据(RLE、索引编码、字典编码)上运行查询</p>
+<p>  - 多列RLE操作，无需解压</p>
+<p>  - 利用PyTorch张量操作实现跨设备可移植性</p>
+<li>**性能提升**: </li>
+<p>  - 比商业CPU分析系统快 <strong>10倍</strong></p>
+<p>  - 可处理无法放入GPU内存的数据集</p>
+<li>**链接**: https://arxiv.org/abs/2506.10092</li>
+
+<hr>
+
+<h2>📊 SIGMOD 2026 重点论文 (班加罗尔)</h2>
+
+<h3>GPU加速方向 (12篇)</h3>
+
+<table>
+<tr><td>论文</td><td>作者</td><td>核心贡献</td><td>性能提升</td></tr>
+<tr><td><strong>FlashANNS</strong></td><td>浙江大学等</td><td>GPU异步I/O流水线，十亿级相似性搜索</td><td>消除存储-计算瓶颈</td></tr>
+<tr><td><strong>CMANNS</strong></td><td>南京大学等</td><td>计算-内存分离架构的GPU图索引构建</td><td>GPU加速图索引</td></tr>
+<tr><td><strong>VecFlow-Chamfer</strong></td><td>UIUC, Nvidia等</td><td>Superchip多向量搜索系统</td><td>GPU高性能搜索</td></tr>
+<tr><td><strong>cuRPQ</strong></td><td>KAIST</td><td>GPU正则路径查询处理框架</td><td>高性能RPQ处理</td></tr>
+<tr><td><strong>Scalable Graph Indexing</strong></td><td>浙江大学等</td><td>GPU可扩展图索引</td><td>ANN搜索加速</td></tr>
+<tr><td><strong>High-Throughput Billion-Scale Vector Search</strong></td><td>清华大学等</td><td>单GPU十亿级向量搜索</td><td>高吞吐低成本</td></tr>
+</table>
+
+<h3>数据编码/压缩方向 (8篇)</h3>
+
+<table>
+<tr><td>论文</td><td>作者</td><td>核心贡献</td></tr>
+<tr><td><strong>L3</strong></td><td>人民大学等</td><td>GPU原生学习型无损轻量压缩格式</td></tr>
+<tr><td><strong>LICO</strong></td><td>人民大学等</td><td>SIMD感知学习型倒排索引压缩框架</td></tr>
+<tr><td><strong>Kangaroo</strong></td><td>东北大学等</td><td>动态参考选择浮点压缩</td></tr>
+<tr><td><strong>FLEA</strong></td><td>清华大学</td><td>周期性时间序列频率编码</td></tr>
+<tr><td><strong>DimWeaver</strong></td><td>雅典经济大学等</td><td>维度编织轨迹压缩</td></tr>
+<tr><td><strong>Improving LZ4</strong></td><td>清华大学</td><td>有效压缩和高效查询的LZ4改进</td></tr>
+</table>
+
+<h3>向量数据库与ANN搜索 (31篇)</h3>
+
+<table>
+<tr><td>论文</td><td>作者</td><td>核心贡献</td></tr>
+<tr><td><strong>FAVOR</strong></td><td>华中科大等</td><td>基于选择性感知排除距离的高效过滤无关向量ANNS</td></tr>
+<tr><td><strong>GEM</strong></td><td>HKUST等</td><td>多向量检索的原生图索引</td></tr>
+<tr><td><strong>PathSeer</strong></td><td>清华大学等</td><td>自适应邻居处理的高效过滤ANN搜索</td></tr>
+<tr><td><strong>TaCo</strong></td><td>OceanBase等</td><td>数据自适应查询感知子空间碰撞</td></tr>
+<tr><td><strong>VecBench</strong></td><td>人民大学等</td><td>可控过滤向量搜索基准测试</td></tr>
+<tr><td><strong>GPS</strong></td><td>CUHK等</td><td>基于磁盘的高维向量搜索数据布局</td></tr>
+</table>
+
+<hr>
+
+<h2>📄 arXiv 近期提交 (4月27日-5月1日)</h2>
+
+<h3>相关论文列表</h3>
+
+<table>
+<tr><td>论文</td><td>arXiv ID</td><td>日期</td><td>核心贡献</td></tr>
+<tr><td><strong>Tailwind: 查询加速器实用框架</strong></td><td>2604.28079</td><td>5月1日</td><td>无需修改内核，最大29倍加速</td></tr>
+<tr><td><strong>Index-Assisted Stratified Sampling</strong></td><td>2605.00123</td><td>5月1日</td><td>索引辅助分层抽样，最高98,708倍加速</td></tr>
+<tr><td><strong>BoomHQ: 学习优化向量DB混合查询</strong></td><td>2604.24552</td><td>4月28日</td><td>峰值25倍加速</td></tr>
+<tr><td><strong>MCI: 最大团索引</strong></td><td>2604.22171</td><td>4月27日</td><td>QPS提升一个数量级</td></tr>
+<tr><td><strong>SynSQL: 合成数据库评估Text-to-SQL</strong></td><td>2605.00145</td><td>5月1日</td><td>鲁棒性评估框架</td></tr>
+</table>
+
+<hr>
+
+<h2>🔍 研究趋势分析</h2>
+
+<h3>1. GPU原生数据库架构成为主流</h3>
+<li>FlashANNS、GRAB-ANNS、gMatch、FliX等论文推动GPU-native架构</li>
+<li>异步I/O流水线解决存储-计算瓶颈</li>
+<li>计算-内存分离架构兴起</li>
+
+<h3>2. 十亿级向量搜索成为标准</h3>
+<li>FlashANNS、VecFlow-Chamfer、Billion-Scale VSS等聚焦超大规模</li>
+<li>单GPU处理十亿级向量成为研究热点</li>
+
+<h3>3. 学习型压缩 + GPU加速结合</h3>
+<li>L3 (GPU-native learned compression)</li>
+<li>LICO (SIMD-aware learned inverted index compression)</li>
+<li>FineZip/Nacrith推动LLM-based压缩</li>
+
+<h3>4. 直接在压缩数据上处理</h3>
+<li>ZipFlow、GPU SQL on Compressed Data等</li>
+<li>避免解压开销，端到端压缩数据处理</li>
+
+<h3>5. 翻转索引范式</h3>
+<li>FliX: 计算到桶映射颠覆传统索引设计</li>
+<li>6.5倍延迟降低</li>
+
+<hr>
+
+<h2>📚 重点论文详情</h2>
+
+<h3>压缩/编码类</h3>
+
+<h4>Nacrith: Neural Lossless Compression (arXiv 2602.19626)</h4>
+<pre><code>
+作者: Roberto Tacconelli
+核心创新:
+- CDF精度从2^16升级到2^24，消除75%量化开销
+- Token级N-gram模型用于快速本地预测
+- 自适应对数空间偏差头，通过在线梯度下降修正每文档LLM错误
+- 基于置信度的LLM跳过，加速高可预测token
+- 混合二进制格式NC06，扩展到任意二进制文件
+- llama.cpp推理后端，单token解码比PyTorch快7倍
+- 最多8个worker的并行多GPU压缩
+- 原生KV缓存滑动窗口，每slide成本降低37倍
+
+性能:
+- alice29 (Canterbury Corpus): 0.918 bpb
+- enwik8 (100 MB): 0.9389 bpb (比FineZip 1.024 bpb提升8%)
+- 仅需~500 MB GGUF权重和~1.2 GB VRAM
+</code></pre>
+
+<h4>L3: GPU-Native Learned Lossless Compression (SIGMOD 2026)</h4>
+<pre><code>
+作者: 人民大学、清华大学
+核心: 面向GPU的新型学习型无损轻量压缩格式
+目标: 将学习型压缩真正融入GPU数据分析流程
+能力: 压缩、解压、随机访问与查询处理的端到端设备端执行
+</code></pre>
+
+<h4>LICO: SIMD-Aware Learned Inverted Index Compression (SIGMOD 2026)</h4>
+<pre><code>
+作者: 人民大学、西南大学、HKUST(GZ)
+核心: SIMD感知高性能学习型倒排索引压缩框架
+特点: 利用SIMD指令加速学习型索引压缩
+</code></pre>
+
+<h3>GPU加速类</h3>
+
+<h4>FlashANNS (SIGMOD 2026)</h4>
+<pre><code>
+作者: 浙江大学、华中科技大学
+核心: GPU异步I/O流水线
+突破: 消除存储-计算瓶颈的十亿级相似性搜索
+创新: 异步流水线隐藏I/O延迟
+</code></pre>
+
+<h4>GPU-Accelerated SQL Analytics on Compressed Data (arXiv 2506.10092)</h4>
+<pre><code>
+作者: Zezhou Huang, Krystian Sakowski, Hans Lehnert等
+核心: 直接在轻量级压缩数据上运行SQL查询
+支持的编码: RLE、索引编码、位宽缩减、字典编码
+关键创新:
+- 多列RLE操作，无需解压
+- 异构编码支持（不同列不同压缩方案）
+- PyTorch张量操作实现跨设备可移植性
+性能: 比商业CPU系统快一个数量级(10x)
+</code></pre>
+
+<h4>ZipFlow (arXiv 2602.08190)</h4>
+<pre><code>
+作者: Gwangoo Yeo, Zhiyang Shen, Wei Cui等
+核心: 编译器框架优化GPU压缩数据传输
+分类: 将压缩算法分为三种并行模式
+优化: 每种模式采用通用调度策略
+性能: 
+- 比nvCOMP快2.08倍
+- 比DuckDB快3.14倍 (TPC-H)
+</code></pre>
+
+<hr>
+
+<h2>🔗 重要链接</h2>
+
+<h3>论文链接</h3>
+<li>FineZip: https://arxiv.org/abs/2409.17141</li>
+<li>Nacrith: https://arxiv.org/abs/2602.19626</li>
+<li>ZipFlow: https://arxiv.org/abs/2602.08190</li>
+<li>GPU SQL on Compressed Data: https://arxiv.org/abs/2506.10092</li>
+<li>GPU-Accelerated Graph Vector Search Survey: https://arxiv.org/abs/2602.16719</li>
+
+<h3>会议链接</h3>
+<li>SIGMOD 2026: https://2026.sigmod.org/</li>
+<li>VLDB 2026: https://vldb.org/2026/</li>
+
+<hr>
+
+<h2>📈 历史追踪</h2>
+
+<p>查看往日报告:</p>
+<li>[2026-05-01](./report_2026-05-01.md) - 6篇相关论文</li>
+<li>[2026-04-30](./report_2026-04-30.md) - 7篇相关论文</li>
+<li>[2026-04-29](./report_2026-04-29.md) - 12篇相关论文</li>
+<li>[2026-04-28](./report_2026-04-28.md) - 8篇相关论文</li>
+<li>[2026-04-27](./report_2026-04-27.md) - 30篇相关论文 (SIGMOD 2026)</li>
+
+<hr>
+
+<p><em>报告生成时间: 2026-05-02 09:00:02 GMT+8</em></p>
+<p><em>追踪关键词: data encoding, data decoding, GPU acceleration, GPU database, GPU query processing, LLM compression, FineZip</em></p>
+
+        <div class="back-link">
+            <a href="index.html">← 返回首页</a>
+        </div>
+    </article>
+</body>
+</html>
