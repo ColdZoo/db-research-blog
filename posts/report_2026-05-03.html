@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>数据库研究论文追踪日报 - 2026年5月3日</title>
+    <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; max-width: 900px; margin: 0 auto; padding: 20px; line-height: 1.6; }
+        h1 { color: #333; border-bottom: 2px solid #4a90d9; padding-bottom: 10px; }
+        h2 { color: #555; margin-top: 30px; }
+        h3 { color: #666; }
+        code { background: #f5f5f5; padding: 2px 6px; border-radius: 3px; }
+        pre { background: #f5f5f5; padding: 15px; border-radius: 5px; overflow-x: auto; }
+        blockquote { border-left: 4px solid #4a90d9; margin: 0; padding-left: 15px; color: #666; }
+        table { border-collapse: collapse; width: 100%; margin: 20px 0; }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+        th { background: #f5f5f5; }
+        a { color: #4a90d9; }
+        .back-link { margin-top: 30px; }
+        .date { color: #888; font-size: 0.9em; }
+        hr { border: none; border-top: 1px solid #eee; margin: 30px 0; }
+    </style>
+</head>
+<body>
+    <article>
+        <p class="date">2026-05-03</p>
+        <h1>数据库研究论文追踪日报 - 2026年5月3日</h1>
+        <hr>
+        <h1>数据库研究论文追踪日报 - 2026年5月3日</h1>
+
+<h2>概览统计</h2>
+
+<table>
+<tr><td>指标</td><td>数值</td></tr>
+<tr><td><strong>报告日期</strong></td><td>2026年5月3日</td></tr>
+<tr><td><strong>arXiv新提交</strong></td><td>20篇 (4月29日-5月1日)</td></tr>
+<tr><td><strong>相关论文发现</strong></td><td>8篇</td></tr>
+<tr><td>- GPU加速相关</td><td>5篇</td></tr>
+<tr><td>- 编码/压缩相关</td><td>4篇</td></tr>
+<tr><td><strong>重叠</strong> (GPU+压缩)</td><td>2篇</td></tr>
+</table>
+
+<hr>
+
+<h2>🆕 本周新发现论文 (May 1-3, 2026)</h2>
+
+<h3>GPU加速方向</h3>
+
+<h4>1. Tailwind: A Practical Framework for Query Accelerators</h4>
+<li>**arXiv ID**: [2604.28079](https://arxiv.org/abs/2604.28079)</li>
+<li>**作者**: Geoffrey X. Yu, Ryan Marcus, Tim Kraska</li>
+<li>**提交日期**: 2026年4月30日</li>
+<li>**核心贡献**:</li>
+<p>  - 提出外部查询规划器框架，无需修改RDBMS内核即可集成查询加速器</p>
+<p>  - 使用抽象逻辑计划(ALPs)和神经网络模型预测加速器收益</p>
+<p>  - 在Redshift和DuckDB上实现透明查询重写</p>
+<li>**性能提升**:</li>
+<p>  - TPC-H查询平均加速 <strong>1.38倍</strong></p>
+<p>  - 最大加速 <strong>29倍</strong></p>
+<li>**备注**: 软件级加速框架，非GPU专用，但架构可扩展</li>
+
+<h4>2. Index-Assisted Stratified Sampling for Online Aggregation</h4>
+<li>**arXiv ID**: [2604.28141](https://arxiv.org/abs/2604.28141)</li>
+<li>**作者**: Yunnan Yu, Zhuoyue Zhao</li>
+<li>**提交日期**: 2026年5月1日</li>
+<li>**核心贡献**:</li>
+<p>  - 针对实时数据分析的两阶段分层采样框架</p>
+<p>  - 证明最优分层和样本分配策略</p>
+<p>  - 设计贪婪和动态规划优化方法</p>
+<li>**性能提升**:</li>
+<p>  - 相比索引辅助均匀采样最高 <strong>3倍加速</strong></p>
+<p>  - 相比经典扫描分层采样最高 <strong>98,708倍加速</strong></p>
+<li>**备注**: 专注于近似查询处理优化，不涉及GPU</li>
+
+<hr>
+
+<h2>📚 持续关注的重点论文</h2>
+
+<h3>🔥 GPU加速 + 压缩 (交叉领域)</h3>
+
+<h4>3. GPU Acceleration of SQL Analytics on Compressed Data</h4>
+<li>**arXiv ID**: [2506.10092](https://arxiv.org/abs/2506.10092)</li>
+<li>**作者**: Zezhou Huang, Krystian Sakowski, Hans Lehnert, Wei Cui, Carlo Curino, Matteo Interlandi, Marius Dumitru, Rathijit Sen</li>
+<li>**提交日期**: 2025年6月 (v2: 2025年9月)</li>
+<li>**核心贡献**:</li>
+<p>  - 直接在轻量级压缩数据上运行SQL查询的新方法</p>
+<p>  - 支持RLE、索引编码、位宽缩减、字典编码等多种压缩方案</p>
+<p>  - 支持多RLE列联合操作而无需解压</p>
+<p>  - 利用PyTorch张量操作实现跨设备可移植性</p>
+<li>**性能提升**:</li>
+<p>  - 相比商业CPU分析系统达到 <strong>一个数量级加速</strong></p>
+<p>  - 可处理无法放入GPU内存解压后的生产数据集</p>
+<li>**意义**: 解决了GPU HBM容量限制问题，扩展GPU在大规模分析中的应用</li>
+
+<h4>4. ZipFlow: a Compiler-based Framework to Unleash Compressed Data Movement for Modern GPUs</h4>
+<li>**arXiv ID**: [2602.08190](https://arxiv.org/abs/2602.08190)</li>
+<li>**作者**: Gwangoo Yeo, Zhiyang Shen, Wei Cui, Matteo Interlandi, Rathijit Sen, Bailu Ding, Qi Chen, Minsoo Rhu</li>
+<li>**提交日期**: 2026年2月9日</li>
+<li>**核心贡献**:</li>
+<p>  - 基于编译器的GPU加速数据分析压缩数据传输优化框架</p>
+<p>  - 将压缩算法按固有并行性分类为3种模式</p>
+<p>  - 为每种模式设计通用调度策略</p>
+<p>  - 端到端优化压缩→传输→解压工作流</p>
+<li>**性能提升**:</li>
+<p>  - 相比nvCOMP平均提升 <strong>2.08倍</strong></p>
+<p>  - 相比CPU引擎(如DuckDB)加速 <strong>3.14倍</strong></p>
+<li>**测试基准**: TPC-H</li>
+
+<h4>5. L3: A GPU-Native Co-Designed Data Format for Learned Lossless Lightweight Compression</h4>
+<li>**会议**: SIGMOD 2026 (班加罗尔)</li>
+<li>**作者**: 夏有阳, 张峰(通讯), 潘俊达, 刘奕好, 官佳薇, 张焕晨, 杜小勇 (中国人民大学)</li>
+<li>**核心贡献**:</li>
+<p>  - GPU原生学习型无损轻量级压缩格式</p>
+<p>  - SLAP垂直存储布局：lane-major方式组织位打包残差流</p>
+<p>  - Warp协作学习型解压：按分区映射线程块，按warp tile协作解码</p>
+<p>  - GPU原生压缩流水线：完全在GPU上完成自适应分区、模型选择、元数据生成</p>
+<li>**性能提升**:</li>
+<p>  - 编码速度比Tile和FastLanes-GPU快 <strong>3-6倍</strong></p>
+<p>  - 解压吞吐量 <strong>1.08-1.90 TB/s</strong></p>
+<p>  - 强相关数据压缩比高达 <strong>77倍</strong></p>
+<li>**意义**: 首个端到端GPU原生学习型压缩方案</li>
+
+<hr>
+
+<h3>📦 编码/压缩方向</h3>
+
+<h4>6. Nacrith: Neural Lossless Compression via Ensemble Context Modeling and High-Precision CDF Coding</h4>
+<li>**arXiv ID**: [2602.19626](https://arxiv.org/abs/2602.19626)</li>
+<li>**作者**: Roberto Tacconelli</li>
+<li>**提交日期**: 2026年2月23日</li>
+<li>**核心贡献**:</li>
+<p>  - 结合135M参数Transformer(SmolLM2-135M)与轻量级在线预测器集成</p>
+<p>  - CDF精度从2^16升级到2^24，消除75%量化开销</p>
+<p>  - Token级N-gram模型实现快速本地预测</p>
+<p>  - 自适应log-space偏置头通过在线梯度下降纠正文档级误差</p>
+<p>  - 基于置信度的LLM跳过加速高可预测token</p>
+<p>  - 混合二进制格式(NC06)扩展到任意二进制文件</p>
+<li>**性能提升**:</li>
+<p>  - enwik8: <strong>0.9389 bpb (11.74%)</strong> - 超越FineZip 8%</p>
+<p>  - alice29: <strong>0.918 bpb</strong> - 超越CMIX v21 44%，ts_zip 20%</p>
+<p>  - 使用比FineZip <strong>小60倍</strong>的模型，无需微调</p>
+<li>**资源需求**:</li>
+<p>  - 模型权重: ~500 MB GGUF</p>
+<p>  - VRAM: ~1.2 GB/工作线程</p>
+<p>  - 支持最多8个GPU并行</p>
+<li>**意义**: 目前神经无损压缩的最先进成果</li>
+
+<hr>
+
+<h3>🚀 GPU加速方向 (其他)</h3>
+
+<h4>7. FineZip: Pushing the Limits of Large Language Models for Lossless Text Compression</h4>
+<li>**arXiv ID**: [2409.17141](https://arxiv.org/abs/2409.17141)</li>
+<li>**核心贡献**:</li>
+<p>  - 在线记忆 + 动态上下文技术</p>
+<p>  - 相比传统算法压缩比提升约50%</p>
+<p>  - 相比LLMZip速度提升 <strong>54倍</strong></p>
+<li>**状态**: 已被Nacrith超越，但仍是重要基线</li>
+
+<hr>
+
+<h2>📊 分类汇总</h2>
+
+<h3>GPU加速相关论文 (5篇)</h3>
+
+<table>
+<tr><td>论文</td><td>来源</td><td>核心性能</td><td>关键创新</td></tr>
+<tr><td>GPU SQL on Compressed Data</td><td>arXiv 2506.10092</td><td>10倍加速</td><td>直接查询压缩数据</td></tr>
+<tr><td>ZipFlow</td><td>arXiv 2602.08190</td><td>2.08倍 vs nvCOMP</td><td>编译器驱动压缩传输</td></tr>
+<tr><td>L3</td><td>SIGMOD 2026</td><td>3-6倍编码速度</td><td>GPU原生学习型压缩</td></tr>
+<tr><td>Tailwind</td><td>arXiv 2604.28079</td><td>29倍最大加速</td><td>外部查询加速器框架</td></tr>
+<tr><td>FineZip</td><td>arXiv 2409.17141</td><td>54倍速度提升</td><td>LLM文本压缩</td></tr>
+</table>
+
+<h3>编码/压缩相关论文 (4篇)</h3>
+
+<table>
+<tr><td>论文</td><td>来源</td><td>核心性能</td><td>关键创新</td></tr>
+<tr><td>Nacrith</td><td>arXiv 2602.19626</td><td>0.9389 bpb</td><td>集成上下文+高精度CDF</td></tr>
+<tr><td>L3</td><td>SIGMOD 2026</td><td>77倍压缩比</td><td>GPU原生学习型压缩</td></tr>
+<tr><td>ZipFlow</td><td>arXiv 2602.08190</td><td>2.08倍 vs nvCOMP</td><td>编译器优化压缩传输</td></tr>
+<tr><td>GPU SQL on Compressed</td><td>arXiv 2506.10092</td><td>10倍加速</td><td>多编码直接查询</td></tr>
+</table>
+
+<hr>
+
+<h2>🎯 本周亮点</h2>
+
+<h3>最值得关注的论文</h3>
+
+<p>1. <strong>Tailwind</strong> (arXiv:2604.28079)</p>
+<p>   - 实用主义框架，无需修改数据库内核</p>
+<p>   - 最大29倍加速，平均1.38倍</p>
+<p>   - 适用于Redshift和DuckDB</p>
+
+<p>2. <strong>Index-Assisted Stratified Sampling</strong> (arXiv:2604.28141)</p>
+<p>   - 在线聚合近似查询</p>
+<p>   - 极端情况下98,708倍加速</p>
+<p>   - 适用于实时数据分析场景</p>
+
+<h3>持续关注的重要论文</h3>
+
+<p>1. <strong>Nacrith</strong> - 目前神经压缩的最先进成果，超越FineZip</p>
+<p>2. <strong>L3</strong> - 首个端到端GPU原生学习型压缩 (SIGMOD 2026)</p>
+<p>3. <strong>ZipFlow</strong> - 编译器驱动的GPU压缩优化框架</p>
+<p>4. <strong>GPU SQL on Compressed Data</strong> - 直接查询压缩数据的实用方案</p>
+
+<hr>
+
+<h2>🔗 相关链接</h2>
+
+<li>arXiv cs.DB: https://arxiv.org/list/cs.DB/recent</li>
+<li>VLDB 2026: https://vldb.org/2026/</li>
+<li>SIGMOD 2026: https://2026.sigmod.org/</li>
+<li>FineZip: https://arxiv.org/abs/2409.17141</li>
+<li>Nacrith: https://arxiv.org/abs/2602.19626</li>
+
+<hr>
+
+<p><em>报告生成时间: 2026年5月3日 09:00:25 GMT+8</em></p>
+<p><em>自动化追踪系统: Database Research Paper Tracker</em></p>
+
+        <div class="back-link">
+            <a href="index.html">← 返回首页</a>
+        </div>
+    </article>
+</body>
+</html>
